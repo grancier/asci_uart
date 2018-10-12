@@ -1,0 +1,815 @@
+                        ; --------------------------------------
+                        ; zasm: assemble "UARTTEST.asm"
+                        ; opts: --z180
+                        ; date: 2018-10-12 15:04:59
+                        ; --------------------------------------
+
+
+                        
+                        
+0000:                   FALSE	EQU	0
+0001:                   TRUE	EQU	1
+                        ;========== Z180 Internal Interrupt Vectors ========
+                        
+                        ; The following vectors are offsets from the value 
+                        ; loaded in IL, the Interrupt Vector Low register.
+                        
+0000:                   VINT1	EQU	0	;External INT-1 pin
+0002:                   VINT2	EQU	2	;External INT-2 pin
+0004:                   VPRT0	EQU	4	;Timer 0
+0006:                   VPRT1	EQU	6	;Timer 1
+0008:                   VDMA0	EQU	8	;DMA Ch-0
+000A:                   VDMA1	EQU	0ah	;DMA Ch-1
+000C:                   VCSIO	EQU	0ch	;Clocked serial I/O
+000E:                   VASC0	EQU	0eh	;Asynch. comms. Ch-0
+0010:                   VASC1	EQU	10h	;Asynch. comms. Ch-1
+                        
+                        ;========== Z180 System Control Registers ==========
+                        
+                        ;NB These registers may be relocated to multiples of
+                        ; 40H, by setting the IO Control Register (ICR = 3FH)
+                        ; The addresses below are valid with ICR=0 (else they
+                        ; are offsets from the ICR base value).
+                        
+                        ;ASCI REGISTERS
+0000:                   CNTLA0  EQU     00H     ;ASCI CONTROL REG A CH0
+0001:                   CNTLA1  EQU     01H     ;ASCI CONTROL REG A CH1
+0002:                   CNTLB0  EQU     02H     ;ASCI CONTROL REG B CH0
+0003:                   CNTLB1  EQU     03H     ;ASCI CONTROL REG B CH1
+0004:                   STAT0   EQU     04H     ;ASCI STATUS REG CH0
+0005:                   STAT1   EQU     05H     ;ASCI STATUS REG CH1
+0006:                   TDR0    EQU     06H     ;ASCI TX DATA REG CH0
+0007:                   TDR1    EQU     07H     ;ASCI TX DATA REG CH1
+0008:                   RDR0    EQU     08H     ;ASCI RX DATA REG CH0
+0009:                   RDR1    EQU     09H     ;ASCI RX DATA REG CH1
+0012:                   BRK0    EQU     12H     ;BREAK CONTROL REG CH0
+0013:                   BRK1    EQU     13H     ;BREAK CONTROL REG CH1
+                        
+0000:                   CNTLA0  EQU     00H
+0001:                   CNTLA1  EQU     01H
+0002:                   CNTLB0  EQU     02H
+0003:                   CNTLB1  EQU     03H
+0004:                   STAT0   EQU     04H
+0005:                   STAT1   EQU     05H
+0006:                   TDR0    EQU     06H
+0007:                   TDR1    EQU     07H
+0008:                   RDR0    EQU     08H
+0009:                   RDR1    EQU     09H
+0012:                   ASEXT0  EQU  12H
+0013:                   ASEXT1  EQU  13H
+001A:                   ASTC0L  EQU  1AH
+001B:                   ASTC0H  EQU  1BH
+001C:                   ASTC1L  EQU  1CH
+001D:                   ASTC1H  EQU  1DH
+000A:                   CNTR  EQU  0AH
+000B:                   TRDR  EQU  0BH
+000C:                   TMDR0L  EQU  0CH
+000D:                   TMDR0H  EQU  0DH
+000E:                   RLDR0L  EQU  0EH
+000F:                   RLDR0H  EQU  0FH
+0010:                   TCR     EQU  10H
+0014:                   TMDR1L  EQU  14H
+0015:                   TMDR1H  EQU  15H
+0016:                   RLDR1L  EQU  16H
+0017:                   RLDR1H  EQU  17H
+0018:                   FRC  EQU  18H
+001E:                   CMR  EQU  1EH
+001F:                   CCR  EQU  1FH
+0020:                   SAR0L  EQU  20H
+0021:                   SAR0H  EQU  21H
+0022:                   SAR0B  EQU  22H
+0023:                   DAR0L  EQU  23H
+0024:                   DAR0H  EQU  24H
+0025:                   DAR0B  EQU  25H
+0026:                   BCR0L  EQU  26H
+0027:                   BCR0H  EQU  27H
+0028:                   MAR1L  EQU  28H
+0029:                   MAR1H  EQU  29H
+002A:                   MAR1B  EQU  2aH
+002B:                   IAR1L  EQU  2bH
+002C:                   IAR1H  EQU  2cH
+002D:                   IAR1B  EQU  2dH
+002E:                   BCR1L  EQU  2eH
+002F:                   BCR1H  EQU  2fH
+0030:                   DSTAT  EQU  30H
+0031:                   DMODE  EQU  31H
+0032:                   DCNTL  EQU  32H
+0033:                   IL     EQU  33H
+0034:                   ITC  EQU  34H
+0036:                   RCR  EQU  36H
+0038:                   CBR  EQU  38H
+0039:                   BBR  EQU  39H
+003A:                   CBAR    EQU  3AH
+003E:                   OMCR    EQU  3EH
+003F:                   ICR     EQU  3FH
+0080:                   CNTLA0_MPE  EQU  80H
+0040:                   CNTLA0_RE  EQU  40H
+0020:                   CNTLA0_TE  EQU  20H
+0010:                   CNTLA0_RTS0  EQU  10H
+0008:                   CNTLA0_MPBR  EQU  08H
+0008:                   CNTLA0_EFR  EQU  08H
+0007:                   CNTLA0_MODE_MASK  EQU  07H
+0007:                   CNTLA0_MODE_8P2  EQU  07H
+0006:                   CNTLA0_MODE_8P1  EQU  06H
+0005:                   CNTLA0_MODE_8N2  EQU  05H
+0004:                   CNTLA0_MODE_8N1  EQU  04H
+0003:                   CNTLA0_MODE_7P2  EQU  03H
+0002:                   CNTLA0_MODE_7P1  EQU  02H
+0001:                   CNTLA0_MODE_7N2  EQU  01H
+0000:                   CNTLA0_MODE_7N1  EQU  00H
+0080:                   CNTLA1_MPE  EQU  80H
+0040:                   CNTLA1_RE  EQU  40H
+0020:                   CNTLA1_TE  EQU  20H
+0010:                   CNTLA1_CKA1D  EQU  10H
+0008:                   CNTLA1_MPBR  EQU  08H
+0008:                   CNTLA1_EFR  EQU  08H
+0007:                   CNTLA1_MODE_MASK  EQU  07H
+0007:                   CNTLA1_MODE_8P2  EQU  07H
+0006:                   CNTLA1_MODE_8P1  EQU  06H
+0005:                   CNTLA1_MODE_8N2  EQU  05H
+0004:                   CNTLA1_MODE_8N1  EQU  04H
+0003:                   CNTLA1_MODE_7P2  EQU  03H
+0002:                   CNTLA1_MODE_7P1  EQU  02H
+0001:                   CNTLA1_MODE_7N2  EQU  01H
+0000:                   CNTLA1_MODE_7N1  EQU  00H
+0080:                   CNTLB0_MPBT     EQU  80H
+0040:                   CNTLB0_MP       EQU  40H
+0020:                   CNTLB0_CTS      EQU  20H
+0020:                   CNTLB0_PS       EQU  20H
+0010:                   CNTLB0_PEO      EQU  10H
+0008:                   CNTLB0_DR       EQU  08H
+0007:                   CNTLB0_SS_MASK  EQU  07H
+0007:                   CNTLB0_SS_EXT   EQU  07H
+0006:                   CNTLB0_SS_DIV_64  EQU  06H
+0005:                   CNTLB0_SS_DIV_32  EQU  05H
+0004:                   CNTLB0_SS_DIV_16  EQU  04H
+0003:                   CNTLB0_SS_DIV_8  EQU  03H
+0002:                   CNTLB0_SS_DIV_4  EQU  02H
+0001:                   CNTLB0_SS_DIV_2  EQU  01H
+0000:                   CNTLB0_SS_DIV_1  EQU  00H
+0080:                   CNTLB1_MPBT     EQU  80H
+0040:                   CNTLB1_MP       EQU  40H
+0020:                   CNTLB1_CTS      EQU  20H
+0020:                   CNTLB1_PS       EQU  20H
+0010:                   CNTLB1_PEO      EQU  10H
+0008:                   CNTLB1_DR       EQU  08H
+0007:                   CNTLB1_SS_MASK  EQU  07H
+0007:                   CNTLB1_SS_EXT   EQU  07H
+0006:                   CNTLB1_SS_DIV_64  EQU  06H
+0005:                   CNTLB1_SS_DIV_32  EQU  05H
+0004:                   CNTLB1_SS_DIV_16  EQU  04H
+0003:                   CNTLB1_SS_DIV_8  EQU  03H
+0002:                   CNTLB1_SS_DIV_4  EQU  02H
+0001:                   CNTLB1_SS_DIV_2  EQU  01H
+0000:                   CNTLB1_SS_DIV_1  EQU  00H
+0080:                   STAT0_RDRF      EQU  80H
+0040:                   STAT0_OVRN      EQU  40H
+0020:                   STAT0_PE        EQU  20H
+0010:                   STAT0_FE        EQU  10H
+0008:                   STAT0_RIE       EQU  08H
+0004:                   STAT0_DCD0      EQU  04H
+0002:                   STAT0_TDRE      EQU  02H
+0001:                   STAT0_TIE       EQU  01H
+0080:                   STAT1_RDRF      EQU  80H
+0040:                   STAT1_OVRN      EQU  40H
+0020:                   STAT1_PE        EQU  20H
+0010:                   STAT1_FE        EQU  10H
+0008:                   STAT1_RIE       EQU  08H
+0004:                   STAT1_CTS1E     EQU  04H
+0002:                   STAT1_TDRE      EQU  02H
+0001:                   STAT1_TIE       EQU  01H
+0080:                   CNTR_EF         EQU  80H
+0040:                   CNTR_EIE        EQU  40H
+0020:                   CNTR_RE         EQU  20H
+0010:                   CNTR_TE         EQU  10H
+0007:                   CNTR_SS_MASK    EQU  07H
+0007:                   CNTR_SS_EXT     EQU  07H
+0006:                   CNTR_SS_DIV_1280    EQU  06H
+0005:                   CNTR_SS_DIV_640     EQU  05H
+0004:                   CNTR_SS_DIV_320     EQU  04H
+0003:                   CNTR_SS_DIV_160     EQU  03H
+0002:                   CNTR_SS_DIV_80      EQU  02H
+0001:                   CNTR_SS_DIV_40      EQU  01H
+0000:                   CNTR_SS_DIV_20      EQU  00H
+0080:                   TCR_TIF1            EQU  80H
+0040:                   TCR_TIF0  EQU  40H
+0020:                   TCR_TIE1  EQU  20H
+0010:                   TCR_TIE0  EQU  10H
+0008:                   TCR_TOC1  EQU  08H
+0004:                   TCR_TOC0  EQU  04H
+0002:                   TCR_TDE1  EQU  02H
+0001:                   TCR_TDE0  EQU  01H
+0080:                   DSTAT_DE1  EQU  80H
+0040:                   DSTAT_DE0  EQU  40H
+0020:                   DSTAT_DWE1  EQU  20H
+0010:                   DSTAT_DWE0  EQU  10H
+0008:                   DSTAT_DIE1  EQU  08H
+0004:                   DSTAT_DIE0  EQU  04H
+0001:                   DSTAT_DME  EQU  01H
+0020:                   DMODE_DM1  EQU  20H
+0010:                   DMODE_DM0  EQU  10H
+0008:                   DMODE_SM1  EQU  08H
+0004:                   DMODE_SM0  EQU  04H
+0002:                   DMODE_MMOD  EQU  02H
+0080:                   DCNTL_MWI1  EQU  80H
+0040:                   DCNTL_MWI0  EQU  40H
+0020:                   DCNTL_IWI1  EQU  20H
+0010:                   DCNTL_IWI0  EQU  10H
+0008:                   DCNTL_DMS1  EQU  08H
+0004:                   DCNTL_DMS0  EQU  04H
+0002:                   DCNTL_DIM1  EQU  02H
+0001:                   DCNTL_DIM0  EQU  01H
+0080:                   ITC_TRAP    EQU  80H
+0040:                   ITC_UFO     EQU  40H
+0004:                   ITC_ITE2  EQU  04H
+0002:                   ITC_ITE1  EQU  02H
+0001:                   ITC_ITE0  EQU  01H
+0080:                   RCR_REFE  EQU  80H
+0040:                   RCR_REFW  EQU  40H
+0002:                   RCR_CYC1  EQU  02H
+0001:                   RCR_CYC0  EQU  01H
+0080:                   OMCR_M1E  EQU  80H
+0040:                   OMCR_M1TE   EQU  40H
+0020:                   OMCR_IOC    EQU  20H
+0080:                   CMR_X2      EQU  80H
+0040:                   CMR_LN_XTAL  EQU  40H
+0080:                   CCR_XTAL_X2  EQU  80H
+0040:                   CCR_STANDBY  EQU  40H
+0020:                   CCR_BREXT   EQU  20H
+0010:                   CCR_LNPHI   EQU  10H
+0008:                   CCR_IDLE    EQU  08H
+0004:                   CCR_LNIO    EQU  04H
+0002:                   CCR_LNCPUCTL    EQU  02H
+0001:                   CCR_LNAD        EQU  01H
+                        
+                        ;CSI/O Registers
+000A:                   cntr    EQU     0ah     ;CSI/O Control Reg
+000B:                   trdr    EQU     0bh     ;CSI/O TX/RX Data Reg
+                        
+001F:                   ccr     EQU     1fh     ;CPU control reg.
+00DF:                   intype  EQU     0dfh    ;Interrupt edge/pin mux reg.
+00D8:                   wsgcs   EQU     0d8h    ;Wait-State Generator CS
+00D9:                   enh182  EQU     0d9h    ;Z80182 Enhancements Reg
+00DF:                   pinmux  EQU     0dfh    ;Interrupt Edge/Pin Mux Reg
+00E6:                   ramubr  EQU     0e6h    ;RAM End Boundary
+00E7:                   ramlbr  EQU     0e7h    ;RAM Start Boundary
+00E8:                   rombr   EQU     0e8h    ;ROM Boundary
+                        
+00E8:                   romend	EQU		0e8h
+00E7:                   ramstart	EQU	0e7h
+00E6:                   ramend		EQU	0e6h
+                        
+00E9:                   FIFOCTL EQU     0E9H    ;FIFO CONTROL REG
+00EA:                   RTOTC   EQU     0EAH    ;RX TIME-OUT TIME CONST
+00EB:                   TTOTC   EQU     0EBH    ;TX TIME-OUT TIME CONST
+00EC:                   FCR     EQU     0ECH    ;FIFO REGISTER
+00EF:                   SCR     EQU     0EFH    ;SYSTEM PIN CONTROL
+00F0:                   RBR     EQU     0F0H    ;MIMIC RX BUFFER REG
+00F0:                   THR     EQU     0F0H    ;MIMIC TX HOLDING REG
+00F1:                   IER     EQU     0F1H    ;INTERRUPT ENABLE REG
+00F3:                   LCR     EQU     0F3H    ;LINE CONTROL REG
+00F4:                   MCR     EQU     0F4H    ;MODEM CONTROL REG
+00F5:                   LSR     EQU     0F5H    ;LINE STATUS REG
+00F6:                   MSR     EQU     0F6H    ;MODEM STATUS REG
+00F7:                   MSCR    EQU     0F7H    ;MIMIC SCRATCH REG
+00F8:                   DLATL   EQU     0F8H    ;DIVISOR LATCH LS
+00F9:                   DLATM   EQU     0F9H    ;DIVISOR LATCH MS
+00FA:                   TTCR    EQU     0FAH    ;TX TIME CONSTANT
+00FB:                   RTCR    EQU     0FBH    ;RX TIME CONSTANT
+00FC:                   IVEC    EQU     0FCH    ;MIMIC INTERRUPT VECTOR
+00FD:                   MIMIE   EQU     0FDH    ;MIMIC INTERRUPT ENABLE REG
+00FE:                   IUSIP   EQU     0FEH    ;MIMIC INTERRUPT UNDER-SERVICE REG
+00FF:                   MMCR    EQU     0FFH    ;MIMIC MASTER CONTROL REG
+                        
+                        ;DMA REGISTERS
+0020:                   SAR0L   EQU     20H     ;DMA SOURCE ADDR REG CH0-LOW
+0021:                   SAR0H   EQU     21H     ;DMA SOURCE ADDR REG CH0-HIGH
+0022:                   SAR0B   EQU     22H     ;DMA SOURCE ADDR REG CH0-B
+0023:                   DAR0L   EQU     23H     ;DMA DESTN  ADDR REG CH0-LOW
+0024:                   DAR0H   EQU     24H     ;DMA DESTN  ADDR REG CH0-HIGH
+0025:                   DAR0B   EQU     25H     ;DMA DESTN  ADDR REG CH0-B
+0026:                   BCR0L   EQU     26H     ;DMA BYTE COUNT REG CH0-LOW
+0027:                   BCR0H   EQU     27H     ;DMA BYTE COUNT REG CH0-HIGH
+0028:                   MAR1L   EQU     28H     ;DMA MEMORY ADDR REG CH1-LOW
+0029:                   MAR1H   EQU     29H     ;DMA MEMORY ADDR REG CH1-HIGH
+002A:                   MAR1B   EQU     2AH     ;DMA MEMORY ADDR REG CH1-B
+002B:                   IAR1L   EQU     2BH     ;DMA I/O ADDR REG CH1-LOW
+002C:                   IAR1H   EQU     2CH     ;DMA I/O ADDR REG CH1-HIGH
+002E:                   BCR1L   EQU     2EH     ;DMA BYTE COUNT REG CH1-LOW
+002F:                   BCR1H   EQU     2FH     ;DMA BYTE COUNT REG CH1-HIGH
+0030:                   DSTAT   EQU     30H     ;DMA STATUS REG
+0031:                   DMODE   EQU     31H     ;DMA MODE REG
+0032:                   DCNTL   EQU     32H     ;DMA/WAIT CONTROL REG
+                        
+                        
+                        ;SYSTEM CONTROL REGISTERS
+0033:                   IL      EQU     33H     ;INT VECTOR LOW REG
+0034:                   ITC     EQU     34H     ;INT/TRAP CONTROL REG
+0036:                   RCR     EQU     36H     ;REFRESH CONTROL REG
+0038:                   CBR     EQU     38H     ;MMU COMMON BASE REG
+0039:                   BBR     EQU     39H     ;MMU BANK BASE REG
+003A:                   CBAR    EQU     3AH     ;MMU COMMON/BANK AREA REG
+003E:                   OMCR    EQU     3EH     ;OPERATION MODE CONTROL REG
+003F:                   ICR     EQU     3FH     ;I/O CONTROL REG
+                        
+                        ;--- CHARACTER DEVICE SECTION ---
+                        
+                        
+                                ; THE FOLLOWING TWO DEVICES RESULT IN NON-STANDARD DATA RATES
+                                ; WITH THE STANDARD 16.00 MHZ CRYSTAL IN THE P112.  IF A MORE
+                                ; "STANDARD" CRYSTAL IS USED (12.288, 18.432, 24.576 MHZ ETC)
+                                ; IS USED, THE PORTS BECOME USABLE.
+                                ;   DRIVER CODE FOR ASCI0 AND ASCI1 INCLUDES AN OPTION FOR
+                                ; ASSEMBLING POLLED OR INTERRUPT-DRIVEN BUFFERED INPUT.
+                                ; SELECT THE DESIRED OPTION FOR ASCI0 WITH THE BUFFA0 FLAG,
+                                ; AND BUFFA1 FOR ASCI1.
+0000:                   ASCI_0  EQU FALSE       ; INCLUDE ASCI0 DRIVER?
+0000:                   BUFFA0  EQU FALSE       ;   USE BUFFERED ASCI0 INPUT DRIVER?
+0000:                   ASCI_1  EQU FALSE       ; INCLUDE ASCI1 DRIVER?
+0000:                   BUFFA1  EQU FALSE       ;   USE BUFFERED ASCI1 INPUT DRIVER?
+                        
+0020:                   QSIZE   EQU 32      ; SIZE OF INTERRUPT TYPEAHEAD BUFFERS (IF USED)
+                                        ; ..MUST BE 2^N WITH N<8
+0000:                   RTSCTS  EQU FALSE       ; INCLUDE RTS/CTS CODE ON SERIAL OUTPUTS?
+0000:                   XONOFF  EQU FALSE ; INCLUDE XON/XOFF HANDSHAKING IN SERIAL LINES?
+                        
+                        
+                        ;***********************************
+                        ;*  UART TEST PROGRAM              *
+                        ;*                                 *
+                        ;***********************************
+                        
+0000:                   .ORG 00000H
+                          
+                        ;------------------------------------------------------------------------------
+                        ; START OF COMMON AREA 1 DRIVER - ASCI0 FUNCTIONS
+                        ;------------------------------------------------------------------------------
+                        
+0000: FFFFFFFF          ASCI0RXBUFFER:   DEFS 256   ; SPACE FOR THE RX BUFFER
+0004: FF...             
+0100: FFFFFFFF          ASCI0TXBUFFER:   DEFS 256   ; SPACE FOR THE TX BUFFER
+0104: FF...             
+                        
+0200: 00                ASCI0TXCOUNT:    DEFB 0                 ; SPACE FOR TX BUFFER MANAGEMENT
+0201: 0001              ASCI0TXIN:       DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
+0203: 0001              ASCI0TXOUT:      DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
+0205: FE                ASCI0TXLOCK:     DEFB $FE               ; LOCK FLAG FOR TX EXCLUSION
+                        
+0206: 00                ASCI0RXCOUNT:    DEFB 0                 ; SPACE FOR RX BUFFER MANAGEMENT
+0207: 0000              ASCI0RXIN:       DEFW ASCI0RXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
+0209: 0000              ASCI0RXOUT:      DEFW ASCI0RXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
+020B: FE                ASCI0RXLOCK:     DEFB $FE               ; LOCK FLAG FOR RX EXCLUSION
+                        
+                        
+0080:                   STAT0_RDRF EQU 80H
+                        
+                        
+                        
+020C:                   ASM_ASCI0_INTERRUPT:
+020C: F5       [11]        PUSH AF
+020D: E5       [22]        PUSH HL
+                                                       ; START DOING THE RX STUFF
+020E: ED3804   [30]        IN0 A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
+0211: ED6480   [42]        TST STAT0_RDRF              ; TEST WHETHER WE HAVE RECEIVED ON ASCI0
+0214: 282D     [49|54]     JR Z,ASCI0_TX_CHECK         ; IF NOT, GO CHECK FOR BYTES TO TRANSMIT
+                        
+0216:                   ASCI0_RX_GET:
+0216: ED2808   [ 8]        IN0 L,(RDR0)                ; MOVE RX BYTE FROM THE ASCI0 RDR TO L
+                        
+0219: E670     [15]        AND STAT0_OVRN|STAT0_PE|STAT0_FE    ; TEST WHETHER WE HAVE ERROR ON ASCI0
+021B: 2016     [22|27]     JR NZ,ASCI0_RX_ERROR        ; DROP THIS BYTE, CLEAR ERROR, AND GET THE NEXT BYTE
+                        
+021D: 3A0602   [35]        LD A,(ASCI0RXCOUNT)         ; GET THE NUMBER OF BYTES IN THE RX BUFFER
+0220: FEFF     [42]        CP 256-1        ; CHECK WHETHER THERE IS SPACE IN THE BUFFER
+0222: 3017     [49|54]     JR NC,ASCI0_RX_CHECK        ; BUFFER FULL, CHECK WHETHER WE NEED TO DRAIN H/W FIFO
+                        
+0224: 7D       [53]        LD A,L                      ; GET RX BYTE FROM L
+0225: 2A0702   [69]        LD HL,(ASCI0RXIN)           ; GET THE POINTER TO WHERE WE POKE
+0228: 77       [76]        LD (HL),A                   ; WRITE THE RX BYTE TO THE ASCI0RXIN TARGET
+                        
+0229: 2C       [80]        INC L                       ; MOVE THE RX POINTER LOW BYTE ALONG, FF ROLLOVER
+022A: 220702   [96]        LD (ASCI0RXIN),HL           ; WRITE WHERE THE NEXT BYTE SHOULD BE POKED
+                        
+022D: 210602   [106]       LD HL,ASCI0RXCOUNT
+0230: 34       [117]       INC (HL)                    ; ATOMICALLY INCREMENT RX BUFFER COUNT
+0231: 1808     [129]       JR ASCI0_RX_CHECK           ; CHECK FOR ADDITIONAL BYTES
+                        
+0233:                   ASCI0_RX_ERROR:
+0233: ED3800   [ 8]        IN0 A,(CNTLA0)              ; GET THE CNTRLA0 REGISTER
+0236: E6F7     [15]        AND ~CNTLA0_EFR             ; TO CLEAR THE ERROR FLAG, EFR, TO 0
+0238: ED3900   [23]        OUT0 (CNTLA0),A             ; AND WRITE IT BACK
+                        
+023B:                   ASCI0_RX_CHECK:                 ; Z8S180 HAS 4 BYTE RX H/W FIFO
+023B: ED3804   [ 8]        IN0 A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
+023E: ED6480   [20]        TST STAT0_RDRF              ; TEST WHETHER WE HAVE RECEIVED ON ASCI0
+0241: 20D3     [27|32]     JR NZ,ASCI0_RX_GET          ; IF STILL MORE BYTES IN H/W FIFO, GET THEM
+                        
+0243:                   ASCI0_TX_CHECK:                 ; NOW START DOING THE TX STUFF
+0243: E602     [ 7]        AND STAT0_TDRE              ; TEST WHETHER WE CAN TRANSMIT ON ASCI0
+0245: 2820     [14|19]     JR Z,ASCI0_TX_END           ; IF NOT, THEN END
+                        
+0247: 3A0002   [27]        LD A,(ASCI0TXCOUNT)         ; GET THE NUMBER OF BYTES IN THE TX BUFFER
+024A: B7       [31]        OR A                        ; CHECK WHETHER IT IS ZERO
+024B: 2812     [38|43]     JR Z,ASCI0_TX_TIE0_CLEAR    ; IF THE COUNT IS ZERO, THEN DISABLE THE TX INTERRUPT
+                        
+024D: 2A0302   [54]        LD HL,(ASCI0TXOUT)          ; GET THE POINTER TO PLACE WHERE WE POP THE TX BYTE
+0250: 7E       [61]        LD A,(HL)                   ; GET THE TX BYTE
+0251: ED3906   [69]        OUT0 (TDR0),A               ; OUTPUT THE TX BYTE TO THE ASCI0
+                        
+0254: 2C       [73]        INC L                       ; MOVE THE TX POINTER LOW BYTE ALONG, FF ROLLOVER
+0255: 2C       [77]        INC L
+0256: 220302   [93]        LD (ASCI0TXOUT),HL          ; WRITE WHERE THE NEXT BYTE SHOULD BE POPPED
+                        
+0259: 210002   [103]       LD HL,ASCI0TXCOUNT
+025C: 35       [114]       DEC (HL)                    ; ATOMICALLY DECREMENT CURRENT TX COUNT
+025D: 2008     [121|126]   JR NZ,ASCI0_TX_END          ; IF WE'VE MORE TX BYTES TO SEND, WE'RE DONE FOR NOW
+                        
+025F:                   ASCI0_TX_TIE0_CLEAR:
+025F: ED3804   [ 8]        IN0 A,(STAT0)               ; GET THE ASCI0 STATUS REGISTER
+0262: E6FE     [15]        AND ~STAT0_TIE              ; MASK OUT (DISABLE) THE TX INTERRUPT
+0264: ED3904   [23]        OUT0 (STAT0),A              ; SET THE ASCI0 STATUS REGISTER
+                        
+0267:                   ASCI0_TX_END:
+0267: E1       [10]        POP HL
+0268: F1       [20]        POP AF
+0269: FB       [24]        EI
+026A: C9       [34]        RET
+                        
+                        
+                        
+0004:                   CNTLA0_MODE_8N1 EQU 04H
+                        
+                        ;******************************************************************
+                        ;INIT_UART
+                        ;Function: Initialize the UART to BAUD Rate 9600 (1.8432 MHz clock input)
+                        ;DLAB A2 A1 A0 Register
+                        ;0    0  0  0  Receiver Buffer (read),
+                        ;              Transmitter Holding
+                        ;              Register (write)
+                        ;0    0  0  1  Interrupt Enable
+                        ;X    0  1  0  Interrupt Identification (read)
+                        ;X    0  1  0  FIFO Control (write)
+                        ;X    0  1  1  Line Control
+                        ;X    1  0  0  MODEM Control
+                        ;X    1  0  1  Line Status
+                        ;X    1  1  0  MODEM Status
+                        ;X    1  1  1  Scratch
+                        ;1    0  0  0  Divisor Latch
+                        ;              (least significant byte)
+                        ;1    0  0  1  Divisor Latch
+                        ;              (most significant byte)
+                        ;******************************************************************
+                        
+                        
+026B:                   INIT_UART:
+                           ; INITIALISE THE ASCI0
+                                                       ; LOAD THE DEFAULT ASCI CRT CONFIGURATION
+                                                       ; BAUD = 115200 8N1
+                                                       ; RECEIVE ENABLED
+                                                       ; TRANSMIT ENABLED
+                                                       ; RECEIVE INTERRUPT ENABLED
+                                                       ; TRANSMIT INTERRUPT DISABLED
+                        
+026B: 3E64     [ 7]        LD A,CNTLA0_RE|CNTLA0_TE|CNTLA0_MODE_8N1
+026D: ED3900   [15]        OUT0 (CNTLA0),A             ; OUTPUT TO THE ASCI0 CONTROL A REG
+                        
+                                                       ; PHI / PS / SS / DR = BAUD RATE
+                                                       ; PHI = 36.864MHZ
+                                                       ; BAUD = 115200 = 36864000 / 10 / 2 / 16
+                                                       ; PS 0, SS_DIV_2, DR 0
+0270: 3E01     [22]        LD A,CNTLB0_SS_DIV_2
+0272: ED3902   [30]        OUT0    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
+                        
+0275: 3E08     [37]        LD A,STAT0_RIE              ; RECEIVE INTERRUPT ENABLED
+0277: ED3904   [45]        OUT0 (STAT0),A              ; OUTPUT TO THE ASCI0 STATUS REG
+                        
+027A: 210502   [55]        LD HL,ASCI0TXLOCK           ; LOAD THE MUTEX LOCK ADDRESS
+027D: 36FE     [65]        LD (HL),$FE                 ; GIVE MUTEX LOCK
+027F: 210B02   [75]        LD HL,ASCI0RXLOCK           ; LOAD THE MUTEX LOCK ADDRESS
+0282: 36FE     [85]        LD (HL),$FE                 ; GIVE MUTEX LOCK
+                        
+                          
+                        
+0284: 31FFFF   [10]     SETUP:  LD SP, 0FFFFFH
+0287: 3E0F     [17]            LD A,00FH
+0289: D303     [28]            OUT (003H),A
+                        
+028B: 3EFF     [ 7]     LOOP:   LD A,0FFH
+028D: D302     [18]            OUT (002H),A
+028F: CD9C02   [35]            CALL WAIT
+0292: 3E00     [42]            LD A,000H
+0294: D302     [53]            OUT (002H),A
+0296: CD9C02   [70]            CALL WAIT
+0299: C38B02   [80]            JP LOOP
+                        
+029C: 011000   [10]     WAIT:   LD BC, 00000010H
+029F: 110001   [10]     OUTER:  LD DE, 10000100H
+02A2: 1B       [ 6]     INNER:  DEC DE
+02A3: 7A       [10]            LD A, D
+02A4: B3       [14]            OR E
+02A5: C2A202   [24|24]         JP NZ, INNER
+02A8: 0B       [30]            DEC BC
+02A9: 78       [34]            LD A, B
+02AA: B1       [38]            OR C
+02AB: C29F02   [48|48]         JP NZ, OUTER
+02AE: C9       [58]            RET
+                        
+                        
+02AF:                   MAIN_LOOP:   
+02AF: DB00     [11]     			IN      A,(CNTLA0)        ; Get the line status register's contents
+02B1: CB6F     [19]     			BIT     5,A            ; Test BIT, it will be set if the UART is ready
+02B3: CAAF02   [29|29]  			JP      Z,MAIN_LOOP    
+02B6: 3E41     [36]     			LD      A,41H          ; Load acumulator with "A" Character
+02B8: D306     [47]     			OUT     (TDR0),A        ; Send "A" Character through the UART
+02BA: C3AF02   [57]     			JP      MAIN_LOOP
+                        
+                        .END
+
+
+; +++ segments +++
+
+#CODE          = $0000 =     0,  size = $02BD =   701
+
+; +++ global symbols +++
+
+ASCI0RXBUFFER       = $0000 =     0          UARTTEST.asm:341
+ASCI0RXCOUNT        = $0206 =   518          UARTTEST.asm:349
+ASCI0RXIN           = $0207 =   519          UARTTEST.asm:350
+ASCI0RXLOCK         = $020B =   523          UARTTEST.asm:352
+ASCI0RXOUT          = $0209 =   521          UARTTEST.asm:351 (unused)
+ASCI0TXBUFFER       = $0100 =   256          UARTTEST.asm:342
+ASCI0TXCOUNT        = $0200 =   512          UARTTEST.asm:344
+ASCI0TXIN           = $0201 =   513          UARTTEST.asm:345 (unused)
+ASCI0TXLOCK         = $0205 =   517          UARTTEST.asm:347
+ASCI0TXOUT          = $0203 =   515          UARTTEST.asm:346
+ASCI0_RX_CHECK      = $023B =   571          UARTTEST.asm:393
+ASCI0_RX_ERROR      = $0233 =   563          UARTTEST.asm:388
+ASCI0_RX_GET        = $0216 =   534          UARTTEST.asm:367
+ASCI0_TX_CHECK      = $0243 =   579          UARTTEST.asm:398
+ASCI0_TX_END        = $0267 =   615          UARTTEST.asm:423
+ASCI0_TX_TIE0_CLEAR = $025F =   607          UARTTEST.asm:418
+ASCI_0              = $0000 =     0          UARTTEST.asm:319 (unused)
+ASCI_1              = $0000 =     0          UARTTEST.asm:321 (unused)
+ASEXT0              = $0012 =    18          UARTTEST.asm:51 (unused)
+ASEXT1              = $0013 =    19          UARTTEST.asm:52 (unused)
+ASM_ASCI0_INTERRUPT = $020C =   524          UARTTEST.asm:359 (unused)
+ASTC0H              = $001B =    27          UARTTEST.asm:54 (unused)
+ASTC0L              = $001A =    26          UARTTEST.asm:53 (unused)
+ASTC1H              = $001D =    29          UARTTEST.asm:56 (unused)
+ASTC1L              = $001C =    28          UARTTEST.asm:55 (unused)
+BBR                 = $0039 =    57          UARTTEST.asm:303 (unused)
+BCR0H               = $0027 =    39          UARTTEST.asm:285 (unused)
+BCR0L               = $0026 =    38          UARTTEST.asm:284 (unused)
+BCR1H               = $002F =    47          UARTTEST.asm:292 (unused)
+BCR1L               = $002E =    46          UARTTEST.asm:291 (unused)
+BRK0                = $0012 =    18          UARTTEST.asm:38 (unused)
+BRK1                = $0013 =    19          UARTTEST.asm:39 (unused)
+BUFFA0              = $0000 =     0          UARTTEST.asm:320 (unused)
+BUFFA1              = $0000 =     0          UARTTEST.asm:322 (unused)
+CBAR                = $003A =    58          UARTTEST.asm:304 (unused)
+CBR                 = $0038 =    56          UARTTEST.asm:302 (unused)
+CCR                 = $001F =    31          UARTTEST.asm:70 (unused)
+CCR_BREXT           = $0020 =    32          UARTTEST.asm:231 (unused)
+CCR_IDLE            = $0008 =     8          UARTTEST.asm:233 (unused)
+CCR_LNAD            = $0001 =     1          UARTTEST.asm:236 (unused)
+CCR_LNCPUCTL        = $0002 =     2          UARTTEST.asm:235 (unused)
+CCR_LNIO            = $0004 =     4          UARTTEST.asm:234 (unused)
+CCR_LNPHI           = $0010 =    16          UARTTEST.asm:232 (unused)
+CCR_STANDBY         = $0040 =    64          UARTTEST.asm:230 (unused)
+CCR_XTAL_X2         = $0080 =   128          UARTTEST.asm:229 (unused)
+CMR                 = $001E =    30          UARTTEST.asm:69 (unused)
+CMR_LN_XTAL         = $0040 =    64          UARTTEST.asm:228 (unused)
+CMR_X2              = $0080 =   128          UARTTEST.asm:227 (unused)
+CNTLA0              = $0000 =     0          UARTTEST.asm:41
+CNTLA0_EFR          = $0008 =     8          UARTTEST.asm:103
+CNTLA0_MODE_7N1     = $0000 =     0          UARTTEST.asm:112 (unused)
+CNTLA0_MODE_7N2     = $0001 =     1          UARTTEST.asm:111 (unused)
+CNTLA0_MODE_7P1     = $0002 =     2          UARTTEST.asm:110 (unused)
+CNTLA0_MODE_7P2     = $0003 =     3          UARTTEST.asm:109 (unused)
+CNTLA0_MODE_8N1     = $0004 =     4          UARTTEST.asm:431
+CNTLA0_MODE_8N2     = $0005 =     5          UARTTEST.asm:107 (unused)
+CNTLA0_MODE_8P1     = $0006 =     6          UARTTEST.asm:106 (unused)
+CNTLA0_MODE_8P2     = $0007 =     7          UARTTEST.asm:105 (unused)
+CNTLA0_MODE_MASK    = $0007 =     7          UARTTEST.asm:104 (unused)
+CNTLA0_MPBR         = $0008 =     8          UARTTEST.asm:102 (unused)
+CNTLA0_MPE          = $0080 =   128          UARTTEST.asm:98 (unused)
+CNTLA0_RE           = $0040 =    64          UARTTEST.asm:99
+CNTLA0_RTS0         = $0010 =    16          UARTTEST.asm:101 (unused)
+CNTLA0_TE           = $0020 =    32          UARTTEST.asm:100
+CNTLA1              = $0001 =     1          UARTTEST.asm:42 (unused)
+CNTLA1_CKA1D        = $0010 =    16          UARTTEST.asm:116 (unused)
+CNTLA1_EFR          = $0008 =     8          UARTTEST.asm:118 (unused)
+CNTLA1_MODE_7N1     = $0000 =     0          UARTTEST.asm:127 (unused)
+CNTLA1_MODE_7N2     = $0001 =     1          UARTTEST.asm:126 (unused)
+CNTLA1_MODE_7P1     = $0002 =     2          UARTTEST.asm:125 (unused)
+CNTLA1_MODE_7P2     = $0003 =     3          UARTTEST.asm:124 (unused)
+CNTLA1_MODE_8N1     = $0004 =     4          UARTTEST.asm:123 (unused)
+CNTLA1_MODE_8N2     = $0005 =     5          UARTTEST.asm:122 (unused)
+CNTLA1_MODE_8P1     = $0006 =     6          UARTTEST.asm:121 (unused)
+CNTLA1_MODE_8P2     = $0007 =     7          UARTTEST.asm:120 (unused)
+CNTLA1_MODE_MASK    = $0007 =     7          UARTTEST.asm:119 (unused)
+CNTLA1_MPBR         = $0008 =     8          UARTTEST.asm:117 (unused)
+CNTLA1_MPE          = $0080 =   128          UARTTEST.asm:113 (unused)
+CNTLA1_RE           = $0040 =    64          UARTTEST.asm:114 (unused)
+CNTLA1_TE           = $0020 =    32          UARTTEST.asm:115 (unused)
+CNTLB0              = $0002 =     2          UARTTEST.asm:43
+CNTLB0_CTS          = $0020 =    32          UARTTEST.asm:130 (unused)
+CNTLB0_DR           = $0008 =     8          UARTTEST.asm:133 (unused)
+CNTLB0_MP           = $0040 =    64          UARTTEST.asm:129 (unused)
+CNTLB0_MPBT         = $0080 =   128          UARTTEST.asm:128 (unused)
+CNTLB0_PEO          = $0010 =    16          UARTTEST.asm:132 (unused)
+CNTLB0_PS           = $0020 =    32          UARTTEST.asm:131 (unused)
+CNTLB0_SS_DIV_1     = $0000 =     0          UARTTEST.asm:142 (unused)
+CNTLB0_SS_DIV_16    = $0004 =     4          UARTTEST.asm:138 (unused)
+CNTLB0_SS_DIV_2     = $0001 =     1          UARTTEST.asm:141
+CNTLB0_SS_DIV_32    = $0005 =     5          UARTTEST.asm:137 (unused)
+CNTLB0_SS_DIV_4     = $0002 =     2          UARTTEST.asm:140 (unused)
+CNTLB0_SS_DIV_64    = $0006 =     6          UARTTEST.asm:136 (unused)
+CNTLB0_SS_DIV_8     = $0003 =     3          UARTTEST.asm:139 (unused)
+CNTLB0_SS_EXT       = $0007 =     7          UARTTEST.asm:135 (unused)
+CNTLB0_SS_MASK      = $0007 =     7          UARTTEST.asm:134 (unused)
+CNTLB1              = $0003 =     3          UARTTEST.asm:44 (unused)
+CNTLB1_CTS          = $0020 =    32          UARTTEST.asm:145 (unused)
+CNTLB1_DR           = $0008 =     8          UARTTEST.asm:148 (unused)
+CNTLB1_MP           = $0040 =    64          UARTTEST.asm:144 (unused)
+CNTLB1_MPBT         = $0080 =   128          UARTTEST.asm:143 (unused)
+CNTLB1_PEO          = $0010 =    16          UARTTEST.asm:147 (unused)
+CNTLB1_PS           = $0020 =    32          UARTTEST.asm:146 (unused)
+CNTLB1_SS_DIV_1     = $0000 =     0          UARTTEST.asm:157 (unused)
+CNTLB1_SS_DIV_16    = $0004 =     4          UARTTEST.asm:153 (unused)
+CNTLB1_SS_DIV_2     = $0001 =     1          UARTTEST.asm:156 (unused)
+CNTLB1_SS_DIV_32    = $0005 =     5          UARTTEST.asm:152 (unused)
+CNTLB1_SS_DIV_4     = $0002 =     2          UARTTEST.asm:155 (unused)
+CNTLB1_SS_DIV_64    = $0006 =     6          UARTTEST.asm:151 (unused)
+CNTLB1_SS_DIV_8     = $0003 =     3          UARTTEST.asm:154 (unused)
+CNTLB1_SS_EXT       = $0007 =     7          UARTTEST.asm:150 (unused)
+CNTLB1_SS_MASK      = $0007 =     7          UARTTEST.asm:149 (unused)
+CNTR                = $000A =    10          UARTTEST.asm:57 (unused)
+CNTR_EF             = $0080 =   128          UARTTEST.asm:174 (unused)
+CNTR_EIE            = $0040 =    64          UARTTEST.asm:175 (unused)
+CNTR_RE             = $0020 =    32          UARTTEST.asm:176 (unused)
+CNTR_SS_DIV_1280    = $0006 =     6          UARTTEST.asm:180 (unused)
+CNTR_SS_DIV_160     = $0003 =     3          UARTTEST.asm:183 (unused)
+CNTR_SS_DIV_20      = $0000 =     0          UARTTEST.asm:186 (unused)
+CNTR_SS_DIV_320     = $0004 =     4          UARTTEST.asm:182 (unused)
+CNTR_SS_DIV_40      = $0001 =     1          UARTTEST.asm:185 (unused)
+CNTR_SS_DIV_640     = $0005 =     5          UARTTEST.asm:181 (unused)
+CNTR_SS_DIV_80      = $0002 =     2          UARTTEST.asm:184 (unused)
+CNTR_SS_EXT         = $0007 =     7          UARTTEST.asm:179 (unused)
+CNTR_SS_MASK        = $0007 =     7          UARTTEST.asm:178 (unused)
+CNTR_TE             = $0010 =    16          UARTTEST.asm:177 (unused)
+DAR0B               = $0025 =    37          UARTTEST.asm:283 (unused)
+DAR0H               = $0024 =    36          UARTTEST.asm:282 (unused)
+DAR0L               = $0023 =    35          UARTTEST.asm:281 (unused)
+DCNTL               = $0032 =    50          UARTTEST.asm:295 (unused)
+DCNTL_DIM0          = $0001 =     1          UARTTEST.asm:214 (unused)
+DCNTL_DIM1          = $0002 =     2          UARTTEST.asm:213 (unused)
+DCNTL_DMS0          = $0004 =     4          UARTTEST.asm:212 (unused)
+DCNTL_DMS1          = $0008 =     8          UARTTEST.asm:211 (unused)
+DCNTL_IWI0          = $0010 =    16          UARTTEST.asm:210 (unused)
+DCNTL_IWI1          = $0020 =    32          UARTTEST.asm:209 (unused)
+DCNTL_MWI0          = $0040 =    64          UARTTEST.asm:208 (unused)
+DCNTL_MWI1          = $0080 =   128          UARTTEST.asm:207 (unused)
+DLATL               = $00F8 =   248          UARTTEST.asm:268 (unused)
+DLATM               = $00F9 =   249          UARTTEST.asm:269 (unused)
+DMODE               = $0031 =    49          UARTTEST.asm:294 (unused)
+DMODE_DM0           = $0010 =    16          UARTTEST.asm:203 (unused)
+DMODE_DM1           = $0020 =    32          UARTTEST.asm:202 (unused)
+DMODE_MMOD          = $0002 =     2          UARTTEST.asm:206 (unused)
+DMODE_SM0           = $0004 =     4          UARTTEST.asm:205 (unused)
+DMODE_SM1           = $0008 =     8          UARTTEST.asm:204 (unused)
+DSTAT               = $0030 =    48          UARTTEST.asm:293 (unused)
+DSTAT_DE0           = $0040 =    64          UARTTEST.asm:196 (unused)
+DSTAT_DE1           = $0080 =   128          UARTTEST.asm:195 (unused)
+DSTAT_DIE0          = $0004 =     4          UARTTEST.asm:200 (unused)
+DSTAT_DIE1          = $0008 =     8          UARTTEST.asm:199 (unused)
+DSTAT_DME           = $0001 =     1          UARTTEST.asm:201 (unused)
+DSTAT_DWE0          = $0010 =    16          UARTTEST.asm:198 (unused)
+DSTAT_DWE1          = $0020 =    32          UARTTEST.asm:197 (unused)
+FALSE               = $0000 =     0          UARTTEST.asm:3
+FCR                 = $00EC =   236          UARTTEST.asm:258 (unused)
+FIFOCTL             = $00E9 =   233          UARTTEST.asm:255 (unused)
+FRC                 = $0018 =    24          UARTTEST.asm:68 (unused)
+IAR1B               = $002D =    45          UARTTEST.asm:84 (unused)
+IAR1H               = $002C =    44          UARTTEST.asm:290 (unused)
+IAR1L               = $002B =    43          UARTTEST.asm:289 (unused)
+ICR                 = $003F =    63          UARTTEST.asm:306 (unused)
+IER                 = $00F1 =   241          UARTTEST.asm:262 (unused)
+IL                  = $0033 =    51          UARTTEST.asm:299 (unused)
+INIT_UART           = $026B =   619          UARTTEST.asm:455 (unused)
+INNER               = $02A2 =   674          UARTTEST.asm:498
+ITC                 = $0034 =    52          UARTTEST.asm:300 (unused)
+ITC_ITE0            = $0001 =     1          UARTTEST.asm:219 (unused)
+ITC_ITE1            = $0002 =     2          UARTTEST.asm:218 (unused)
+ITC_ITE2            = $0004 =     4          UARTTEST.asm:217 (unused)
+ITC_TRAP            = $0080 =   128          UARTTEST.asm:215 (unused)
+ITC_UFO             = $0040 =    64          UARTTEST.asm:216 (unused)
+IUSIP               = $00FE =   254          UARTTEST.asm:274 (unused)
+IVEC                = $00FC =   252          UARTTEST.asm:272 (unused)
+LCR                 = $00F3 =   243          UARTTEST.asm:263 (unused)
+LOOP                = $028B =   651          UARTTEST.asm:488
+LSR                 = $00F5 =   245          UARTTEST.asm:265 (unused)
+MAIN_LOOP           = $02AF =   687          UARTTEST.asm:509
+MAR1B               = $002A =    42          UARTTEST.asm:288 (unused)
+MAR1H               = $0029 =    41          UARTTEST.asm:287 (unused)
+MAR1L               = $0028 =    40          UARTTEST.asm:286 (unused)
+MCR                 = $00F4 =   244          UARTTEST.asm:264 (unused)
+MIMIE               = $00FD =   253          UARTTEST.asm:273 (unused)
+MMCR                = $00FF =   255          UARTTEST.asm:275 (unused)
+MSCR                = $00F7 =   247          UARTTEST.asm:267 (unused)
+MSR                 = $00F6 =   246          UARTTEST.asm:266 (unused)
+OMCR                = $003E =    62          UARTTEST.asm:305 (unused)
+OMCR_IOC            = $0020 =    32          UARTTEST.asm:226 (unused)
+OMCR_M1E            = $0080 =   128          UARTTEST.asm:224 (unused)
+OMCR_M1TE           = $0040 =    64          UARTTEST.asm:225 (unused)
+OUTER               = $029F =   671          UARTTEST.asm:497
+QSIZE               = $0020 =    32          UARTTEST.asm:324 (unused)
+RBR                 = $00F0 =   240          UARTTEST.asm:260 (unused)
+RCR                 = $0036 =    54          UARTTEST.asm:301 (unused)
+RCR_CYC0            = $0001 =     1          UARTTEST.asm:223 (unused)
+RCR_CYC1            = $0002 =     2          UARTTEST.asm:222 (unused)
+RCR_REFE            = $0080 =   128          UARTTEST.asm:220 (unused)
+RCR_REFW            = $0040 =    64          UARTTEST.asm:221 (unused)
+RDR0                = $0008 =     8          UARTTEST.asm:49
+RDR1                = $0009 =     9          UARTTEST.asm:50 (unused)
+RLDR0H              = $000F =    15          UARTTEST.asm:62 (unused)
+RLDR0L              = $000E =    14          UARTTEST.asm:61 (unused)
+RLDR1H              = $0017 =    23          UARTTEST.asm:67 (unused)
+RLDR1L              = $0016 =    22          UARTTEST.asm:66 (unused)
+RTCR                = $00FB =   251          UARTTEST.asm:271 (unused)
+RTOTC               = $00EA =   234          UARTTEST.asm:256 (unused)
+RTSCTS              = $0000 =     0          UARTTEST.asm:326 (unused)
+SAR0B               = $0022 =    34          UARTTEST.asm:280 (unused)
+SAR0H               = $0021 =    33          UARTTEST.asm:279 (unused)
+SAR0L               = $0020 =    32          UARTTEST.asm:278 (unused)
+SCR                 = $00EF =   239          UARTTEST.asm:259 (unused)
+SETUP               = $0284 =   644          UARTTEST.asm:484 (unused)
+STAT0               = $0004 =     4          UARTTEST.asm:45
+STAT0_DCD0          = $0004 =     4          UARTTEST.asm:163 (unused)
+STAT0_FE            = $0010 =    16          UARTTEST.asm:161
+STAT0_OVRN          = $0040 =    64          UARTTEST.asm:159
+STAT0_PE            = $0020 =    32          UARTTEST.asm:160
+STAT0_RDRF          = $0080 =   128          UARTTEST.asm:355
+STAT0_RIE           = $0008 =     8          UARTTEST.asm:162
+STAT0_TDRE          = $0002 =     2          UARTTEST.asm:164
+STAT0_TIE           = $0001 =     1          UARTTEST.asm:165
+STAT1               = $0005 =     5          UARTTEST.asm:46 (unused)
+STAT1_CTS1E         = $0004 =     4          UARTTEST.asm:171 (unused)
+STAT1_FE            = $0010 =    16          UARTTEST.asm:169 (unused)
+STAT1_OVRN          = $0040 =    64          UARTTEST.asm:167 (unused)
+STAT1_PE            = $0020 =    32          UARTTEST.asm:168 (unused)
+STAT1_RDRF          = $0080 =   128          UARTTEST.asm:166 (unused)
+STAT1_RIE           = $0008 =     8          UARTTEST.asm:170 (unused)
+STAT1_TDRE          = $0002 =     2          UARTTEST.asm:172 (unused)
+STAT1_TIE           = $0001 =     1          UARTTEST.asm:173 (unused)
+TCR                 = $0010 =    16          UARTTEST.asm:63 (unused)
+TCR_TDE0            = $0001 =     1          UARTTEST.asm:194 (unused)
+TCR_TDE1            = $0002 =     2          UARTTEST.asm:193 (unused)
+TCR_TIE0            = $0010 =    16          UARTTEST.asm:190 (unused)
+TCR_TIE1            = $0020 =    32          UARTTEST.asm:189 (unused)
+TCR_TIF0            = $0040 =    64          UARTTEST.asm:188 (unused)
+TCR_TIF1            = $0080 =   128          UARTTEST.asm:187 (unused)
+TCR_TOC0            = $0004 =     4          UARTTEST.asm:192 (unused)
+TCR_TOC1            = $0008 =     8          UARTTEST.asm:191 (unused)
+TDR0                = $0006 =     6          UARTTEST.asm:47
+TDR1                = $0007 =     7          UARTTEST.asm:48 (unused)
+THR                 = $00F0 =   240          UARTTEST.asm:261 (unused)
+TMDR0H              = $000D =    13          UARTTEST.asm:60 (unused)
+TMDR0L              = $000C =    12          UARTTEST.asm:59 (unused)
+TMDR1H              = $0015 =    21          UARTTEST.asm:65 (unused)
+TMDR1L              = $0014 =    20          UARTTEST.asm:64 (unused)
+TRDR                = $000B =    11          UARTTEST.asm:58 (unused)
+TRUE                = $0001 =     1          UARTTEST.asm:4 (unused)
+TTCR                = $00FA =   250          UARTTEST.asm:270 (unused)
+TTOTC               = $00EB =   235          UARTTEST.asm:257 (unused)
+VASC0               = $000E =    14          UARTTEST.asm:17 (unused)
+VASC1               = $0010 =    16          UARTTEST.asm:18 (unused)
+VCSIO               = $000C =    12          UARTTEST.asm:16 (unused)
+VDMA0               = $0008 =     8          UARTTEST.asm:14 (unused)
+VDMA1               = $000A =    10          UARTTEST.asm:15 (unused)
+VINT1               = $0000 =     0          UARTTEST.asm:10 (unused)
+VINT2               = $0002 =     2          UARTTEST.asm:11 (unused)
+VPRT0               = $0004 =     4          UARTTEST.asm:12 (unused)
+VPRT1               = $0006 =     6          UARTTEST.asm:13 (unused)
+WAIT                = $029C =   668          UARTTEST.asm:496
+XONOFF              = $0000 =     0          UARTTEST.asm:327 (unused)
+_end                = $02BD =   701          UARTTEST.asm:334 (unused)
+_size               = $02BD =   701          UARTTEST.asm:334 (unused)
+_z180_              = $0001 =     1          :1 (unused)
+ccr                 = $001F =    31          UARTTEST.asm:242 (unused)
+cntr                = $000A =    10          UARTTEST.asm:239 (unused)
+enh182              = $00D9 =   217          UARTTEST.asm:245 (unused)
+intype              = $00DF =   223          UARTTEST.asm:243 (unused)
+pinmux              = $00DF =   223          UARTTEST.asm:246 (unused)
+ramend              = $00E6 =   230          UARTTEST.asm:253 (unused)
+ramlbr              = $00E7 =   231          UARTTEST.asm:248 (unused)
+ramstart            = $00E7 =   231          UARTTEST.asm:252 (unused)
+ramubr              = $00E6 =   230          UARTTEST.asm:247 (unused)
+rombr               = $00E8 =   232          UARTTEST.asm:249 (unused)
+romend              = $00E8 =   232          UARTTEST.asm:251 (unused)
+trdr                = $000B =    11          UARTTEST.asm:240 (unused)
+wsgcs               = $00D8 =   216          UARTTEST.asm:244 (unused)
+
+
+total time: 0.0058 sec.
+no errors
