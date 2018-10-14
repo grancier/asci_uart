@@ -12,7 +12,6 @@
 ; https://github.com/feilipu/
 ; https://feilipu.me/
 ;
-.ORG 0000H
 
 ;==============================================================================
 ;
@@ -20,7 +19,6 @@
 ;
 
 INCLUDE    "yaz180.h"
-                     ^ ***ERROR*** instruction expected
 
 ;==============================================================================
 ;
@@ -29,7 +27,6 @@ INCLUDE    "yaz180.h"
 
 ;------------------------------------------------------------------------------
 SECTION z180_interrupts
-                       ^ ***ERROR*** unknown instruction
 ASCI0_INTERRUPT:
         push af
         push hl
@@ -127,7 +124,6 @@ PRT0_INTERRUPT:
 
 ;------------------------------------------------------------------------------
 SECTION z180_asci0
-       ^ ***ERROR*** label redefined (use 'defl' or '=')
 RX0_CHK:
         LD      A,(ASCI0RxBufUsed)
         CP      $0
@@ -204,7 +200,6 @@ TX0_BUFFER_OUT:
 
 ;------------------------------------------------------------------------------
 SECTION z180_asci0_print
-       ^ ***ERROR*** label redefined (use 'defl' or '=')
 TX0_PRINT:
         LD      A,(HL)              ; Get a byte
         OR      A                   ; Is it $00 ?
@@ -215,7 +210,6 @@ TX0_PRINT:
 
 ;------------------------------------------------------------------------------
 SECTION     z180_hexloadr
-       ^ ***ERROR*** label redefined (use 'defl' or '=')
 HEX_START:
             ld hl, initString
             call TX0_PRINT
@@ -324,10 +318,8 @@ HEX_READ_END:
 
 ;------------------------------------------------------------------------------
 SECTION     z180_init
-       ^ ***ERROR*** label redefined (use 'defl' or '=')
 
 PUBLIC      Z180_INIT
-                     ^ ***ERROR*** unknown instruction
 
 Z180_INIT:
             XOR     A               ; Zero Accumulator
@@ -451,7 +443,6 @@ WARMSTART:
 ;
 
 SECTION         z180_init_strings
-       ^ ***ERROR*** label redefined (use 'defl' or '=')
 
 SIGNON1:        DEFM    CR,LF
                 DEFM    "YAZ180 - feilipu",CR,LF
@@ -474,35 +465,21 @@ LoadOKStr:      DEFM    CR,LF,"Done",CR,LF,0
 ;
 
 EXTERN  REINIT
-              ^ ***ERROR*** unknown instruction
 EXTERN  NULL_RET, NULL_INT, NULL_NMI
-                ^ ***ERROR*** unknown instruction
 
 PUBLIC  Z180_TRAP
-      ^ ***ERROR*** label redefined (use 'defl' or '=')
 PUBLIC  RST_08, RST_10, RST_18, RST_20, RST_28, RST_30
-      ^ ***ERROR*** label redefined (use 'defl' or '=')
 PUBLIC  INT_INT0, INT_NMI
-      ^ ***ERROR*** label redefined (use 'defl' or '=')
 
 DEFC    Z180_TRAP   =   REINIT          ; Initialise again, for the moment
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    RST_08      =   TX0             ; TX a byte over ASCI0
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    RST_10      =   RX0             ; RX a byte over ASCI0, loop byte available
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    RST_18      =   RX0_CHK         ; Check ASCI0 status, return # bytes available
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    RST_20      =   NULL_RET        ; RET
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    RST_28      =   NULL_RET        ; RET
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    RST_30      =   NULL_RET        ; RET
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_INT0    =   NULL_INT        ; EI RETI
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_NMI     =   NULL_NMI        ; RETN
-                     ^ ***ERROR*** label not recognized (why?)
 
 ;==============================================================================
 ;
@@ -510,23 +487,15 @@ DEFC    INT_NMI     =   NULL_NMI        ; RETN
 ;
 
 EXTERN  NULL_RET
-                ^ ***ERROR*** unknown instruction
 
 PUBLIC  INT_INT1, INT_INT2, INT_PRT0, INT_PRT1
-      ^ ***ERROR*** label redefined (use 'defl' or '=')
 PUBLIC  INT_DMA0, INT_DMA1, INT_CSIO, INT_ASCI0, INT_ASCI1
-      ^ ***ERROR*** label redefined (use 'defl' or '=')
 
 DEFC    INT_INT1    =   NULL_RET        ; external /INT1
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_INT2    =   NULL_RET        ; external /INT2
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_PRT0    =   PRT0_INTERRUPT  ; PRT channel 0
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_PRT1    =   NULL_RET        ; PRT channel 1
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_DMA0    =   NULL_RET        ; DMA channel 0
-                     ^ ***ERROR*** label not recognized (why?)
 DEFC    INT_DMA1    =   NULL_RET        ; DMA Channel 1
 DEFC    INT_CSIO    =   NULL_RET        ; Clocked serial I/O
 DEFC    INT_ASCI0   =   ASCI0_INTERRUPT ; Async channel 0
@@ -534,7 +503,3 @@ DEFC    INT_ASCI1   =   NULL_RET        ; Async channel 1
 
 ;==============================================================================
 
-
-
-total time: 0.0043 sec.
-30 errors

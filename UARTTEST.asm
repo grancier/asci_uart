@@ -1,455 +1,506 @@
+;==============================================================================
+; Contents of this file are copyright Phillip Stevens
+;
+; You have permission to use this for NON COMMERCIAL USE ONLY
+; If you wish to use it elsewhere, please include an acknowledgement to myself.
+;
+; Initialisation routines to suit Z8S180 CPU, with internal USART.
+;
+; Internal USART interrupt driven serial I/O
+; Full input and output buffering.
+;
+; https://github.com/feilipu/
+; https://feilipu.me/
+;
+.ORG 0000H
 
+;==============================================================================
+;
+; INCLUDES SECTION
+;
 
-FALSE	EQU	0
-TRUE	EQU	1
-;========== Z180 Internal Interrupt Vectors ========
+INCLUDE    "yaz180.h"
 
-; The following vectors are offsets from the value 
-; loaded in IL, the Interrupt Vector Low register.
+;==============================================================================
+;
+; CODE SECTION
+;
 
-VINT1	EQU	0	;External INT-1 pin
-VINT2	EQU	2	;External INT-2 pin
-VPRT0	EQU	4	;Timer 0
-VPRT1	EQU	6	;Timer 1
-VDMA0	EQU	8	;DMA Ch-0
-VDMA1	EQU	0ah	;DMA Ch-1
-VCSIO	EQU	0ch	;Clocked serial I/O
-VASC0	EQU	0eh	;Asynch. comms. Ch-0
-VASC1	EQU	10h	;Asynch. comms. Ch-1
-
-;========== Z180 System Control Registers ==========
-
-;NB These registers may be relocated to multiples of
-; 40H, by setting the IO Control Register (ICR = 3FH)
-; The addresses below are valid with ICR=0 (else they
-; are offsets from the ICR base value).
-
-;ASCI REGISTERS
-CNTLA0  EQU     00H     ;ASCI CONTROL REG A CH0
-CNTLA1  EQU     01H     ;ASCI CONTROL REG A CH1
-CNTLB0  EQU     02H     ;ASCI CONTROL REG B CH0
-CNTLB1  EQU     03H     ;ASCI CONTROL REG B CH1
-STAT0   EQU     04H     ;ASCI STATUS REG CH0
-STAT1   EQU     05H     ;ASCI STATUS REG CH1
-TDR0    EQU     06H     ;ASCI TX DATA REG CH0
-TDR1    EQU     07H     ;ASCI TX DATA REG CH1
-RDR0    EQU     08H     ;ASCI RX DATA REG CH0
-RDR1    EQU     09H     ;ASCI RX DATA REG CH1
-BRK0    EQU     12H     ;BREAK CONTROL REG CH0
-BRK1    EQU     13H     ;BREAK CONTROL REG CH1
-
-CNTLA0  EQU     00H
-CNTLA1  EQU     01H
-CNTLB0  EQU     02H
-CNTLB1  EQU     03H
-STAT0   EQU     04H
-STAT1   EQU     05H
-TDR0    EQU     06H
-TDR1    EQU     07H
-RDR0    EQU     08H
-RDR1    EQU     09H
-ASEXT0  EQU  12H
-ASEXT1  EQU  13H
-ASTC0L  EQU  1AH
-ASTC0H  EQU  1BH
-ASTC1L  EQU  1CH
-ASTC1H  EQU  1DH
-CNTR  EQU  0AH
-TRDR  EQU  0BH
-TMDR0L  EQU  0CH
-TMDR0H  EQU  0DH
-RLDR0L  EQU  0EH
-RLDR0H  EQU  0FH
-TCR     EQU  10H
-TMDR1L  EQU  14H
-TMDR1H  EQU  15H
-RLDR1L  EQU  16H
-RLDR1H  EQU  17H
-FRC  EQU  18H
-CMR  EQU  1EH
-CCR  EQU  1FH
-SAR0L  EQU  20H
-SAR0H  EQU  21H
-SAR0B  EQU  22H
-DAR0L  EQU  23H
-DAR0H  EQU  24H
-DAR0B  EQU  25H
-BCR0L  EQU  26H
-BCR0H  EQU  27H
-MAR1L  EQU  28H
-MAR1H  EQU  29H
-MAR1B  EQU  2aH
-IAR1L  EQU  2bH
-IAR1H  EQU  2cH
-IAR1B  EQU  2dH
-BCR1L  EQU  2eH
-BCR1H  EQU  2fH
-DSTAT  EQU  30H
-DMODE  EQU  31H
-DCNTL  EQU  32H
-IL     EQU  33H
-ITC  EQU  34H
-RCR  EQU  36H
-CBR  EQU  38H
-BBR  EQU  39H
-CBAR    EQU  3AH
-OMCR    EQU  3EH
-ICR     EQU  3FH
-CNTLA0_MPE  EQU  80H
-CNTLA0_RE  EQU  40H
-CNTLA0_TE  EQU  20H
-CNTLA0_RTS0  EQU  10H
-CNTLA0_MPBR  EQU  08H
-CNTLA0_EFR  EQU  08H
-CNTLA0_MODE_MASK  EQU  07H
-CNTLA0_MODE_8P2  EQU  07H
-CNTLA0_MODE_8P1  EQU  06H
-CNTLA0_MODE_8N2  EQU  05H
-CNTLA0_MODE_8N1  EQU  04H
-CNTLA0_MODE_7P2  EQU  03H
-CNTLA0_MODE_7P1  EQU  02H
-CNTLA0_MODE_7N2  EQU  01H
-CNTLA0_MODE_7N1  EQU  00H
-CNTLA1_MPE  EQU  80H
-CNTLA1_RE  EQU  40H
-CNTLA1_TE  EQU  20H
-CNTLA1_CKA1D  EQU  10H
-CNTLA1_MPBR  EQU  08H
-CNTLA1_EFR  EQU  08H
-CNTLA1_MODE_MASK  EQU  07H
-CNTLA1_MODE_8P2  EQU  07H
-CNTLA1_MODE_8P1  EQU  06H
-CNTLA1_MODE_8N2  EQU  05H
-CNTLA1_MODE_8N1  EQU  04H
-CNTLA1_MODE_7P2  EQU  03H
-CNTLA1_MODE_7P1  EQU  02H
-CNTLA1_MODE_7N2  EQU  01H
-CNTLA1_MODE_7N1  EQU  00H
-CNTLB0_MPBT     EQU  80H
-CNTLB0_MP       EQU  40H
-CNTLB0_CTS      EQU  20H
-CNTLB0_PS       EQU  20H
-CNTLB0_PEO      EQU  10H
-CNTLB0_DR       EQU  08H
-CNTLB0_SS_MASK  EQU  07H
-CNTLB0_SS_EXT   EQU  07H
-CNTLB0_SS_DIV_64  EQU  06H
-CNTLB0_SS_DIV_32  EQU  05H
-CNTLB0_SS_DIV_16  EQU  04H
-CNTLB0_SS_DIV_8  EQU  03H
-CNTLB0_SS_DIV_4  EQU  02H
-CNTLB0_SS_DIV_2  EQU  01H
-CNTLB0_SS_DIV_1  EQU  00H
-CNTLB1_MPBT     EQU  80H
-CNTLB1_MP       EQU  40H
-CNTLB1_CTS      EQU  20H
-CNTLB1_PS       EQU  20H
-CNTLB1_PEO      EQU  10H
-CNTLB1_DR       EQU  08H
-CNTLB1_SS_MASK  EQU  07H
-CNTLB1_SS_EXT   EQU  07H
-CNTLB1_SS_DIV_64  EQU  06H
-CNTLB1_SS_DIV_32  EQU  05H
-CNTLB1_SS_DIV_16  EQU  04H
-CNTLB1_SS_DIV_8  EQU  03H
-CNTLB1_SS_DIV_4  EQU  02H
-CNTLB1_SS_DIV_2  EQU  01H
-CNTLB1_SS_DIV_1  EQU  00H
-STAT0_RDRF      EQU  80H
-STAT0_OVRN      EQU  40H
-STAT0_PE        EQU  20H
-STAT0_FE        EQU  10H
-STAT0_RIE       EQU  08H
-STAT0_DCD0      EQU  04H
-STAT0_TDRE      EQU  02H
-STAT0_TIE       EQU  01H
-STAT1_RDRF      EQU  80H
-STAT1_OVRN      EQU  40H
-STAT1_PE        EQU  20H
-STAT1_FE        EQU  10H
-STAT1_RIE       EQU  08H
-STAT1_CTS1E     EQU  04H
-STAT1_TDRE      EQU  02H
-STAT1_TIE       EQU  01H
-CNTR_EF         EQU  80H
-CNTR_EIE        EQU  40H
-CNTR_RE         EQU  20H
-CNTR_TE         EQU  10H
-CNTR_SS_MASK    EQU  07H
-CNTR_SS_EXT     EQU  07H
-CNTR_SS_DIV_1280    EQU  06H
-CNTR_SS_DIV_640     EQU  05H
-CNTR_SS_DIV_320     EQU  04H
-CNTR_SS_DIV_160     EQU  03H
-CNTR_SS_DIV_80      EQU  02H
-CNTR_SS_DIV_40      EQU  01H
-CNTR_SS_DIV_20      EQU  00H
-TCR_TIF1            EQU  80H
-TCR_TIF0  EQU  40H
-TCR_TIE1  EQU  20H
-TCR_TIE0  EQU  10H
-TCR_TOC1  EQU  08H
-TCR_TOC0  EQU  04H
-TCR_TDE1  EQU  02H
-TCR_TDE0  EQU  01H
-DSTAT_DE1  EQU  80H
-DSTAT_DE0  EQU  40H
-DSTAT_DWE1  EQU  20H
-DSTAT_DWE0  EQU  10H
-DSTAT_DIE1  EQU  08H
-DSTAT_DIE0  EQU  04H
-DSTAT_DME  EQU  01H
-DMODE_DM1  EQU  20H
-DMODE_DM0  EQU  10H
-DMODE_SM1  EQU  08H
-DMODE_SM0  EQU  04H
-DMODE_MMOD  EQU  02H
-DCNTL_MWI1  EQU  80H
-DCNTL_MWI0  EQU  40H
-DCNTL_IWI1  EQU  20H
-DCNTL_IWI0  EQU  10H
-DCNTL_DMS1  EQU  08H
-DCNTL_DMS0  EQU  04H
-DCNTL_DIM1  EQU  02H
-DCNTL_DIM0  EQU  01H
-ITC_TRAP    EQU  80H
-ITC_UFO     EQU  40H
-ITC_ITE2  EQU  04H
-ITC_ITE1  EQU  02H
-ITC_ITE0  EQU  01H
-RCR_REFE  EQU  80H
-RCR_REFW  EQU  40H
-RCR_CYC1  EQU  02H
-RCR_CYC0  EQU  01H
-OMCR_M1E  EQU  80H
-OMCR_M1TE   EQU  40H
-OMCR_IOC    EQU  20H
-CMR_X2      EQU  80H
-CMR_LN_XTAL  EQU  40H
-CCR_XTAL_X2  EQU  80H
-CCR_STANDBY  EQU  40H
-CCR_BREXT   EQU  20H
-CCR_LNPHI   EQU  10H
-CCR_IDLE    EQU  08H
-CCR_LNIO    EQU  04H
-CCR_LNCPUCTL    EQU  02H
-CCR_LNAD        EQU  01H
-
-;CSI/O Registers
-cntr    EQU     0ah     ;CSI/O Control Reg
-trdr    EQU     0bh     ;CSI/O TX/RX Data Reg
-
-ccr     EQU     1fh     ;CPU control reg.
-intype  EQU     0dfh    ;Interrupt edge/pin mux reg.
-wsgcs   EQU     0d8h    ;Wait-State Generator CS
-enh182  EQU     0d9h    ;Z80182 Enhancements Reg
-pinmux  EQU     0dfh    ;Interrupt Edge/Pin Mux Reg
-ramubr  EQU     0e6h    ;RAM End Boundary
-ramlbr  EQU     0e7h    ;RAM Start Boundary
-rombr   EQU     0e8h    ;ROM Boundary
-
-romend	EQU		0e8h
-ramstart	EQU	0e7h
-ramend		EQU	0e6h
-
-FIFOCTL EQU     0E9H    ;FIFO CONTROL REG
-RTOTC   EQU     0EAH    ;RX TIME-OUT TIME CONST
-TTOTC   EQU     0EBH    ;TX TIME-OUT TIME CONST
-FCR     EQU     0ECH    ;FIFO REGISTER
-SCR     EQU     0EFH    ;SYSTEM PIN CONTROL
-RBR     EQU     0F0H    ;MIMIC RX BUFFER REG
-THR     EQU     0F0H    ;MIMIC TX HOLDING REG
-IER     EQU     0F1H    ;INTERRUPT ENABLE REG
-LCR     EQU     0F3H    ;LINE CONTROL REG
-MCR     EQU     0F4H    ;MODEM CONTROL REG
-LSR     EQU     0F5H    ;LINE STATUS REG
-MSR     EQU     0F6H    ;MODEM STATUS REG
-MSCR    EQU     0F7H    ;MIMIC SCRATCH REG
-DLATL   EQU     0F8H    ;DIVISOR LATCH LS
-DLATM   EQU     0F9H    ;DIVISOR LATCH MS
-TTCR    EQU     0FAH    ;TX TIME CONSTANT
-RTCR    EQU     0FBH    ;RX TIME CONSTANT
-IVEC    EQU     0FCH    ;MIMIC INTERRUPT VECTOR
-MIMIE   EQU     0FDH    ;MIMIC INTERRUPT ENABLE REG
-IUSIP   EQU     0FEH    ;MIMIC INTERRUPT UNDER-SERVICE REG
-MMCR    EQU     0FFH    ;MIMIC MASTER CONTROL REG
-
-;DMA REGISTERS
-SAR0L   EQU     20H     ;DMA SOURCE ADDR REG CH0-LOW
-SAR0H   EQU     21H     ;DMA SOURCE ADDR REG CH0-HIGH
-SAR0B   EQU     22H     ;DMA SOURCE ADDR REG CH0-B
-DAR0L   EQU     23H     ;DMA DESTN  ADDR REG CH0-LOW
-DAR0H   EQU     24H     ;DMA DESTN  ADDR REG CH0-HIGH
-DAR0B   EQU     25H     ;DMA DESTN  ADDR REG CH0-B
-BCR0L   EQU     26H     ;DMA BYTE COUNT REG CH0-LOW
-BCR0H   EQU     27H     ;DMA BYTE COUNT REG CH0-HIGH
-MAR1L   EQU     28H     ;DMA MEMORY ADDR REG CH1-LOW
-MAR1H   EQU     29H     ;DMA MEMORY ADDR REG CH1-HIGH
-MAR1B   EQU     2AH     ;DMA MEMORY ADDR REG CH1-B
-IAR1L   EQU     2BH     ;DMA I/O ADDR REG CH1-LOW
-IAR1H   EQU     2CH     ;DMA I/O ADDR REG CH1-HIGH
-BCR1L   EQU     2EH     ;DMA BYTE COUNT REG CH1-LOW
-BCR1H   EQU     2FH     ;DMA BYTE COUNT REG CH1-HIGH
-DSTAT   EQU     30H     ;DMA STATUS REG
-DMODE   EQU     31H     ;DMA MODE REG
-DCNTL   EQU     32H     ;DMA/WAIT CONTROL REG
-
-
-;SYSTEM CONTROL REGISTERS
-IL      EQU     33H     ;INT VECTOR LOW REG
-ITC     EQU     34H     ;INT/TRAP CONTROL REG
-RCR     EQU     36H     ;REFRESH CONTROL REG
-CBR     EQU     38H     ;MMU COMMON BASE REG
-BBR     EQU     39H     ;MMU BANK BASE REG
-CBAR    EQU     3AH     ;MMU COMMON/BANK AREA REG
-OMCR    EQU     3EH     ;OPERATION MODE CONTROL REG
-ICR     EQU     3FH     ;I/O CONTROL REG
-
-;--- CHARACTER DEVICE SECTION ---
-
-
-        ; THE FOLLOWING TWO DEVICES RESULT IN NON-STANDARD DATA RATES
-        ; WITH THE STANDARD 16.00 MHZ CRYSTAL IN THE P112.  IF A MORE
-        ; "STANDARD" CRYSTAL IS USED (12.288, 18.432, 24.576 MHZ ETC)
-        ; IS USED, THE PORTS BECOME USABLE.
-        ;   DRIVER CODE FOR ASCI0 AND ASCI1 INCLUDES AN OPTION FOR
-        ; ASSEMBLING POLLED OR INTERRUPT-DRIVEN BUFFERED INPUT.
-        ; SELECT THE DESIRED OPTION FOR ASCI0 WITH THE BUFFA0 FLAG,
-        ; AND BUFFA1 FOR ASCI1.
-ASCI_0  EQU FALSE       ; INCLUDE ASCI0 DRIVER?
-BUFFA0  EQU FALSE       ;   USE BUFFERED ASCI0 INPUT DRIVER?
-ASCI_1  EQU FALSE       ; INCLUDE ASCI1 DRIVER?
-BUFFA1  EQU FALSE       ;   USE BUFFERED ASCI1 INPUT DRIVER?
-
-QSIZE   EQU 32      ; SIZE OF INTERRUPT TYPEAHEAD BUFFERS (IF USED)
-                ; ..MUST BE 2^N WITH N<8
-RTSCTS  EQU FALSE       ; INCLUDE RTS/CTS CODE ON SERIAL OUTPUTS?
-XONOFF  EQU FALSE ; INCLUDE XON/XOFF HANDSHAKING IN SERIAL LINES?
-
-
-;***********************************
-;*  UART TEST PROGRAM              *
-;*                                 *
-;***********************************
-
-.ORG 00000H
-  
 ;------------------------------------------------------------------------------
-; START OF COMMON AREA 1 DRIVER - ASCI0 FUNCTIONS
+SECTION z180_interrupts
+ASCI0_INTERRUPT:
+        push af
+        push hl
+                                    ; start doing the Rx stuff
+        in0 a, (STAT0)              ; load the ASCI0 status register
+        tst ASCI_RDRF               ; test whether we have received on ASCI0
+        jr z, ASCI0_TX_CHECK        ; if not, go check for bytes to transmit
+
+ASCI0_RX_GET:
+        in0 l, (RDR0)               ; move Rx byte from the ASCI0 RDR to l
+        
+        and ASCI_OVRN|ASCI_PE|ASCI_FE   ; test whether we have error on ASCI0
+        jr nz, ASCI0_RX_ERROR       ; drop this byte, clear error, and get the next byte
+
+        ld a, (ASCI0RxBufUsed)      ; get the number of bytes in the Rx buffer      
+        cp ASCI0_RX_BUFSIZE-1       ; check whether there is space in the buffer
+        jr nc, ASCI0_RX_CHECK       ; buffer full, check whether we need to drain H/W FIFO
+
+        ld a, l                     ; get Rx byte from l
+        ld hl, (ASCI0RxInPtr)       ; get the pointer to where we poke
+        ld (hl), a                  ; write the Rx byte to the ASCI0RxInPtr target
+
+        inc l                       ; move the Rx pointer low byte along, 0xFF rollover
+        ld (ASCI0RxInPtr), hl       ; write where the next byte should be poked
+
+        ld hl, ASCI0RxBufUsed
+        inc (hl)                    ; atomically increment Rx buffer count
+        jr ASCI0_RX_CHECK           ; check for additional bytes
+
+ASCI0_RX_ERROR:
+        in0 a, (CNTLA0)             ; get the CNTRLA0 register
+        and ~ASCI_EFR               ; to clear the error flag, EFR, to 0 
+        out0 (CNTLA0), a            ; and write it back
+
+ASCI0_RX_CHECK:                     ; Z8S180 has 4 byte Rx H/W FIFO
+        in0 a, (STAT0)              ; load the ASCI0 status register
+        tst ASCI_RDRF               ; test whether we have received on ASCI0
+        jr nz, ASCI0_RX_GET         ; if still more bytes in H/W FIFO, get them
+
+ASCI0_TX_CHECK:                     ; now start doing the Tx stuff
+        and ASCI_TDRE               ; test whether we can transmit on ASCI0
+        jr z, INTERRUPT_EXIT        ; if not, then end
+
+        ld a, (ASCI0TxBufUsed)      ; get the number of bytes in the Tx buffer
+        or a                        ; check whether it is zero
+        jr z, ASCI0_TX_TIE0_CLEAR   ; if the count is zero, then disable the Tx Interrupt
+
+        ld hl, (ASCI0TxOutPtr)      ; get the pointer to place where we pop the Tx byte
+        ld a, (hl)                  ; get the Tx byte
+        out0 (TDR0), a              ; output the Tx byte to the ASCI0
+
+        inc l                       ; move the Tx pointer low byte along, 0xFF rollover
+        ld (ASCI0TxOutPtr), hl      ; write where the next byte should be popped
+
+        ld hl, ASCI0TxBufUsed
+        dec (hl)                    ; atomically decrement current Tx count
+
+        jr nz, INTERRUPT_EXIT       ; if we've more Tx bytes to send, we're done for now
+
+ASCI0_TX_TIE0_CLEAR:
+        in0 a, (STAT0)              ; get the ASCI0 status register
+        and ~ASCI_TIE               ; mask out (disable) the Tx Interrupt
+        out0 (STAT0), a             ; set the ASCI0 status register
+
+INTERRUPT_EXIT:
+        pop hl
+        pop af
+        ei
+        ret
+
+PRT0_INTERRUPT:
+        push af
+        push hl
+
+        in0 a, (TCR)                ; to clear the PRT0 interrupt, read the TCR
+        in0 a, (TMDR0H)             ; followed by the TMDR0
+
+        ld hl, sysTimeFraction
+        inc (hl)
+        jr NZ, INTERRUPT_EXIT       ; at 0 we're at 1 second count, interrupted 256 times
+
+;       ld hl, sysTime              ; inc hl works, provided the storage is contiguous
+        inc hl
+        inc (hl)
+        jr NZ, INTERRUPT_EXIT
+        inc hl
+        inc (hl)
+        jr NZ, INTERRUPT_EXIT
+        inc hl
+        inc (hl)
+        jr NZ, INTERRUPT_EXIT
+        inc hl
+        inc (hl)
+        jr INTERRUPT_EXIT
+
 ;------------------------------------------------------------------------------
+SECTION z180_asci0
+RX0_CHK:
+        LD      A,(ASCI0RxBufUsed)
+        CP      $0
+        RET
 
-ASCI0RXBUFFER:   DEFS 256   ; SPACE FOR THE RX BUFFER
-ASCI0TXBUFFER:   DEFS 256   ; SPACE FOR THE TX BUFFER
+;------------------------------------------------------------------------------
+RX0:
+        ld a, (ASCI0RxBufUsed)      ; get the number of bytes in the Rx buffer
+        or a                        ; see if there are zero bytes available
+        jr z, RX0                   ; wait, if there are no bytes available
 
-ASCI0TXCOUNT:    DEFB 0                 ; SPACE FOR TX BUFFER MANAGEMENT
-ASCI0TXIN:       DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-ASCI0TXOUT:      DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-ASCI0TXLOCK:     DEFB $FE               ; LOCK FLAG FOR TX EXCLUSION
+        push hl                     ; Store HL so we don't clobber it
 
-ASCI0RXCOUNT:    DEFB 0                 ; SPACE FOR RX BUFFER MANAGEMENT
-ASCI0RXIN:       DEFW ASCI0RXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-ASCI0RXOUT:      DEFW ASCI0RXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-ASCI0RXLOCK:     DEFB $FE               ; LOCK FLAG FOR RX EXCLUSION
+        ld hl, (ASCI0RxOutPtr)      ; get the pointer to place where we pop the Rx byte
+        ld a, (hl)                  ; get the Rx byte
+
+        inc l                       ; move the Rx pointer low byte along, 0xFF rollover
+        ld (ASCI0RxOutPtr), hl      ; write where the next byte should be popped
+
+        ld hl, ASCI0RxBufUsed
+        dec (hl)                    ; atomically decrement Rx count
+
+        pop hl                      ; recover HL
+        ret                         ; char ready in A
+
+;------------------------------------------------------------------------------
+TX0:
+        push hl                     ; store HL so we don't clobber it        
+        ld l, a                     ; store Tx character 
+
+        ld a, (ASCI0TxBufUsed)      ; get the number of bytes in the Tx buffer
+        or a                        ; check whether the buffer is empty
+        jr nz, TX0_BUFFER_OUT       ; buffer not empty, so abandon immediate Tx
+
+        in0 a, (STAT0)              ; get the ASCI0 status register
+        and ASCI_TDRE                ; test whether we can transmit on ASCI0
+        jr z, TX0_BUFFER_OUT        ; if not, so abandon immediate Tx
+
+        ld a, l                     ; Retrieve Tx character for immediate Tx
+        out0 (TDR0), a              ; output the Tx byte to the ASCI0
+
+        pop hl                      ; recover HL
+        ret                         ; and just complete
+
+TX0_BUFFER_OUT:
+        ld a, (ASCI0TxBufUsed)      ; Get the number of bytes in the Tx buffer
+        cp ASCI0_TX_BUFSIZE-1       ; check whether there is space in the buffer
+        jr nc, TX0_BUFFER_OUT       ; buffer full, so wait for free buffer for Tx
+
+        ld a, l                     ; retrieve Tx character
+
+        ld hl, ASCI0TxBufUsed
+        di
+        inc (hl)                    ; atomic increment of Tx count
+        ld hl, (ASCI0TxInPtr)       ; get the pointer to where we poke
+        ei
+        ld (hl), a                  ; write the Tx byte to the ASCI0TxInPtr   
+
+        inc l                       ; move the Tx pointer low byte along, 0xFF rollover
+        ld (ASCI0TxInPtr), hl       ; write where the next byte should be poked
+
+        pop hl                      ; recover HL
+
+        in0 a, (STAT0)              ; load the ASCI0 status register
+        and ASCI_TIE                ; test whether ASCI0 interrupt is set
+        ret nz                      ; if so then just return
+
+        di                          ; critical section begin
+        in0 a, (STAT0)              ; get the ASCI status register again
+        or ASCI_TIE                 ; mask in (enable) the Tx Interrupt
+        out0 (STAT0), a             ; set the ASCI status register
+        ei                          ; critical section end
+        ret
+
+;------------------------------------------------------------------------------
+SECTION z180_asci0_print
+TX0_PRINT:
+        LD      A,(HL)              ; Get a byte
+        OR      A                   ; Is it $00 ?
+        RET     Z                   ; Then RETurn on terminator
+        CALL    TX0                 ; Print it
+        INC     HL                  ; Next byte
+        JR      TX0_PRINT           ; Continue until $00
+
+;------------------------------------------------------------------------------
+SECTION     z180_hexloadr
+HEX_START:
+            ld hl, initString
+            call TX0_PRINT
+
+            ld c,0                  ; non zero c is our ESA flag
+
+HEX_WAIT_COLON:
+            call RX0                ; Rx byte
+            cp ':'                  ; wait for ':'
+            jr nz, HEX_WAIT_COLON
+            ld hl, 0                ; reset hl to compute checksum
+            call HEX_READ_BYTE      ; read byte count
+            ld b, a                 ; store it in b
+            call HEX_READ_BYTE      ; read upper byte of address
+            ld d, a                 ; store in d
+            call HEX_READ_BYTE      ; read lower byte of address
+            ld e, a                 ; store in e
+            call HEX_READ_BYTE      ; read record type
+            cp 02                   ; check if record type is 02 (ESA)
+            jr z, HEX_ESA_DATA
+            cp 01                   ; check if record type is 01 (end of file)
+            jr z, HEX_END_LOAD
+            cp 00                   ; check if record type is 00 (data)
+            jr nz, HEX_INVAL_TYPE   ; if not, error
+HEX_READ_DATA:
+;            ld a, '*'               ; "*" per byte loaded  # DEBUG
+;            call TX0                ; Print it             # DEBUG
+            call HEX_READ_BYTE
+            ld (de), a              ; write the byte at the RAM address
+            inc de
+            djnz HEX_READ_DATA      ; if b non zero, loop to get more data
+HEX_READ_CHKSUM:
+            call HEX_READ_BYTE      ; read checksum, but we don't need to keep it
+            ld a, l                 ; lower byte of hl checksum should be 0
+            or a
+            jr nz, HEX_BAD_CHK      ; non zero, we have an issue
+            ld a, '#'               ; "#" per line loaded
+            call TX0                ; Print it
+;            ld a, CR                ; CR                   # DEBUG
+;            call TX0                ; Print it             # DEBUG
+;            ld a, LF                ; LF                   # DEBUG
+;            call TX0                ; Print it             # DEBUG
+            jr HEX_WAIT_COLON
+
+HEX_ESA_DATA:
+            in0 a, (BBR)            ; grab the current Bank Base Value
+            ld c, a                 ; store BBR for later recovery
+            call HEX_READ_BYTE      ; get high byte of ESA
+            out0 (BBR), a           ; write it to the BBR  
+            call HEX_READ_BYTE      ; get low byte of ESA, abandon it, but calc checksum
+            jr HEX_READ_CHKSUM      ; calculate checksum
+
+HEX_END_LOAD:
+            call HEX_READ_BYTE      ; read checksum, but we don't need to keep it
+            ld a, l                 ; lower byte of hl checksum should be 0
+            or a
+            jr nz, HEX_BAD_CHK      ; non zero, we have an issue
+            call HEX_BBR_RESTORE    ; clean up the BBR
+            ld hl, LoadOKStr
+            call TX0_PRINT
+            jp WARMSTART            ; ready to run our loaded program from Basic
+            
+HEX_INVAL_TYPE:
+            call HEX_BBR_RESTORE    ; clean up the BBR
+            ld hl, invalidTypeStr
+            call TX0_PRINT
+            jp START                ; go back to start
+
+HEX_BAD_CHK:
+            call HEX_BBR_RESTORE    ; clean up the BBR
+            ld hl, badCheckSumStr
+            call TX0_PRINT
+            jp START                ; go back to start
+
+HEX_BBR_RESTORE:
+            ld a, c                 ; get our BBR back
+            ret z                   ; if it is zero, chances are we don't need it
+            out0 (BBR), a           ; write it to the BBR
+            ret
+
+HEX_READ_BYTE:                      ; Returns byte in a, checksum in hl
+            push bc
+            call RX0                ; Rx byte
+            sub '0'
+            cp 10
+            jr c, HEX_READ_NBL2     ; if a<10 read the second nibble
+            sub 7                   ; else subtract 'A'-'0' (17) and add 10
+HEX_READ_NBL2:
+            rlca                    ; shift accumulator left by 4 bits
+            rlca
+            rlca
+            rlca
+            ld c, a                 ; temporarily store the first nibble in c
+            call RX0                ; Rx byte
+            sub '0'
+            cp 10
+            jr c, HEX_READ_END      ; if a<10 finalize
+            sub 7                   ; else subtract 'A' (17) and add 10
+HEX_READ_END:
+            or c                    ; assemble two nibbles into one byte in a
+            ld b, 0                 ; add the byte read to hl (for checksum)
+            ld c, a
+            add hl, bc
+            pop bc
+            ret                     ; return the byte read in a
+
+;------------------------------------------------------------------------------
+SECTION     z180_init
+
+PUBLIC      Z180_INIT
+
+Z180_INIT:
+            XOR     A               ; Zero Accumulator
+
+                                    ; Clear Refresh Control Reg (RCR)
+            OUT0    (RCR),A         ; DRAM Refresh Enable (0 Disabled)
+
+                                    ; Clear INT/TRAP Control Register (ITC)             
+            OUT0    (ITC),A         ; Disable all external interrupts.             
+
+                                    ; Set Operation Mode Control Reg (OMCR)
+            LD      A,OMCR_M1E      ; Enable M1 for single step, disable 64180 I/O _RD Mode
+            OUT0    (OMCR),A        ; X80 Mode (M1 Disabled, IOC Disabled)
+
+                                    ; Set internal clock = crystal x 2 = 36.864MHz
+                                    ; if using ZS8180 or Z80182 at High-Speed
+            LD      A,CMR_X2        ; Set Hi-Speed flag
+            OUT0    (CMR),A         ; CPU Clock Multiplier Reg (CMR)
+
+                                    ; DMA/Wait Control Reg Set I/O Wait States
+            LD      A,DCNTL_IWI0
+            OUT0    (DCNTL),A       ; 0 Memory Wait & 2 I/O Wait
+
+                                    ; Set Logical RAM Addresses
+                                    ; $2000-$FFFF RAM   CA1 -> $2n
+                                    ; $0000-$1FFF Flash BANK -> $n0
+
+            LD      A,$20           ; Set New Common 1 / Bank Areas for RAM
+            OUT0    (CBAR),A
+
+            LD      A,$10           ; Set Common 1 Base Physical $12000 -> $10
+            OUT0    (CBR),A
+
+            LD      A,$00           ; Set Bank Base Physical $00000 -> $00
+            OUT0    (BBR),A
+
+                                    ; load the default ASCI configuration
+                                    ; BAUD = 115200 8n1
+                                    ; receive enabled
+                                    ; transmit enabled
+                                    ; receive interrupt enabled
+                                    ; transmit interrupt disabled
+
+            LD      A,ASCI_RE|ASCI_TE|ASCI_8N1
+            OUT0    (CNTLA0),A      ; output to the ASCI0 control A reg
+
+                                    ; PHI / PS / SS / DR = BAUD Rate
+                                    ; PHI = 18.432MHz
+                                    ; BAUD = 115200 = 18432000 / 10 / 1 / 16 
+                                    ; PS 0, SS_DIV_1 0, DR 0           
+            XOR     A               ; BAUD = 115200
+            OUT0    (CNTLB0),A      ; output to the ASCI0 control B reg
+
+            LD      A,ASCI_RIE      ; receive interrupt enabled
+            OUT0    (STAT0),A       ; output to the ASCI0 status reg
+
+                                    ; we do 256 ticks per second
+            ld      hl, CPU_CLOCK/CPU_TIMER_SCALE/256-1
+            out0    (RLDR0L), l
+            out0    (RLDR0H), h
+                                    ; enable down counting and interrupts for PRT0
+            ld      a, TCR_TIE0|TCR_TDE0
+            out0    (TCR), a
+
+            LD      SP,TEMPSTACK    ; Set up a temporary stack
+
+            LD      HL,ASCI0RxBuf   ; Initialise 0Rx Buffer
+            LD      (ASCI0RxInPtr),HL
+            LD      (ASCI0RxOutPtr),HL
+
+            LD      HL,ASCI0TxBuf   ; Initialise 0Tx Buffer
+            LD      (ASCI0TxInPtr),HL
+            LD      (ASCI0TxOutPtr),HL              
+
+            XOR     A               ; 0 the ASCI0 Tx & Rx Buffer Counts
+            LD      (ASCI0RxBufUsed),A
+            LD      (ASCI0TxBufUsed),A
+
+            EI                      ; enable interrupts
+
+START:                                     
+            LD      HL,SIGNON1      ; Sign-on message
+            CALL    TX0_PRINT       ; Output string
+            LD      A,(basicStarted); Check the BASIC STARTED flag
+            CP      'Y'             ; to see if this is power-up
+            JR      NZ,COLDSTART    ; If not BASIC started then always do cold start
+            LD      HL,SIGNON2      ; Cold/warm message
+            CALL    TX0_PRINT       ; Output string
+CORW:
+            RST     10H             ; get a byte from ASCI0
+            AND     11011111B       ; lower to uppercase
+            CP      'H'             ; are we trying to load an Intel HEX program?
+            JP      Z, HEX_START    ; then jump to HexLoadr
+            CP      'C'
+            JR      NZ, CHECKWARM
+            RST     08H
+            LD      A, CR
+            RST     08H
+            LD      A, LF
+            RST     08H
+COLDSTART:
+            LD      A,'Y'           ; Set the BASIC STARTED flag
+            LD      (basicStarted),A
+            JP      $0399           ; <<<< Start Basic COLD:
+
+CHECKWARM:
+            CP      'W'
+            JR      NZ, CORW
+            RST     08H
+            LD      A, CR
+            RST     08H
+            LD      A, LF
+            RST     08H
+WARMSTART:
+            JP      $039C           ; <<<< Start Basic WARM:
 
 
-STAT0_RDRF EQU 80H
+;==============================================================================
+;
+; STRINGS
+;
 
-INIT_UART:
-   ; INITIALISE THE ASCI0
-                               ; LOAD THE DEFAULT ASCI CRT CONFIGURATION
-                               ; BAUD = 115200 8N1
-                               ; RECEIVE ENABLED
-                               ; TRANSMIT ENABLED
-                               ; RECEIVE INTERRUPT ENABLED
-                               ; TRANSMIT INTERRUPT DISABLED
+SECTION         z180_init_strings
 
-   LD A,CNTLA0_RE|CNTLA0_TE|CNTLA0_MODE_8N1
-   OUT0 (CNTLA0),A             ; OUTPUT TO THE ASCI0 CONTROL A REG
+SIGNON1:        DEFM    CR,LF
+                DEFM    "YAZ180 - feilipu",CR,LF
+                DEFM    "z88dk",CR,LF,0
 
-                               ; PHI / PS / SS / DR = BAUD RATE
-                               ; PHI = 36.864MHZ
-                               ; BAUD = 115200 = 36864000 / 10 / 2 / 16
-                               ; PS 0, SS_DIV_2, DR 0
-   LD A,CNTLB0_SS_DIV_2
-   OUT0    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
+SIGNON2:        DEFM    CR,LF
+                DEFM    "Cold or Warm start, "
+                DEFM    "or HexLoadr (C|W|H) ? ",0
 
-   LD A,STAT0_RIE              ; RECEIVE INTERRUPT ENABLED
-   OUT0 (STAT0),A              ; OUTPUT TO THE ASCI0 STATUS REG
-  
+initString:     DEFM    CR,LF,"HexLoadr: "
+                DEFM    CR,LF,0
 
+invalidTypeStr: DEFM    CR,LF,"Invalid Type",CR,LF,0
+badCheckSumStr: DEFM    CR,LF,"Checksum Error",CR,LF,0
+LoadOKStr:      DEFM    CR,LF,"Done",CR,LF,0
 
-ASM_ASCI0_INTERRUPT:
-   PUSH AF
-   PUSH HL
-                               ; START DOING THE RX STUFF
-   IN A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
-   TST STAT0_RDRF              ; TEST WHETHER WE HAVE RECEIVED ON ASCI0
-   JR Z,ASCI0_TX_CHECK         ; IF NOT, GO CHECK FOR BYTES TO TRANSMIT
+;==============================================================================
+;
+; Z80 INTERRUPT VECTOR SERVICE ROUTINES
+;
 
+EXTERN  REINIT
+EXTERN  NULL_RET, NULL_INT, NULL_NMI
 
+PUBLIC  Z180_TRAP
+PUBLIC  RST_08, RST_10, RST_18, RST_20, RST_28, RST_30
+PUBLIC  INT_INT0, INT_NMI
 
-ASCI0_TX_END:
-   POP HL
-   POP AF
-   EI
-   RET
+DEFC    Z180_TRAP   =   REINIT          ; Initialise again, for the moment
+DEFC    RST_08      =   TX0             ; TX a byte over ASCI0
+DEFC    RST_10      =   RX0             ; RX a byte over ASCI0, loop byte available
+DEFC    RST_18      =   RX0_CHK         ; Check ASCI0 status, return # bytes available
+DEFC    RST_20      =   NULL_RET        ; RET
+DEFC    RST_28      =   NULL_RET        ; RET
+DEFC    RST_30      =   NULL_RET        ; RET
+DEFC    INT_INT0    =   NULL_INT        ; EI RETI
+DEFC    INT_NMI     =   NULL_NMI        ; RETN
 
-CNTLA0_MODE_8N1 EQU 04H
+;==============================================================================
+;
+; Z180 INTERRUPT VECTOR SERVICE ROUTINES
+;
 
-;******************************************************************
-;INIT_UART
-;Function: Initialize the UART to BAUD Rate 9600 (1.8432 MHz clock input)
-;DLAB A2 A1 A0 Register
-;0    0  0  0  Receiver Buffer (read),
-;              Transmitter Holding
-;              Register (write)
-;0    0  0  1  Interrupt Enable
-;X    0  1  0  Interrupt Identification (read)
-;X    0  1  0  FIFO Control (write)
-;X    0  1  1  Line Control
-;X    1  0  0  MODEM Control
-;X    1  0  1  Line Status
-;X    1  1  0  MODEM Status
-;X    1  1  1  Scratch
-;1    0  0  0  Divisor Latch
-;              (least significant byte)
-;1    0  0  1  Divisor Latch
-;              (most significant byte)
-;******************************************************************
+EXTERN  NULL_RET
 
+PUBLIC  INT_INT1, INT_INT2, INT_PRT0, INT_PRT1
+PUBLIC  INT_DMA0, INT_DMA1, INT_CSIO, INT_ASCI0, INT_ASCI1
 
+DEFC    INT_INT1    =   NULL_RET        ; external /INT1
+DEFC    INT_INT2    =   NULL_RET        ; external /INT2
+DEFC    INT_PRT0    =   PRT0_INTERRUPT  ; PRT channel 0
+DEFC    INT_PRT1    =   NULL_RET        ; PRT channel 1
+DEFC    INT_DMA0    =   NULL_RET        ; DMA channel 0
+DEFC    INT_DMA1    =   NULL_RET        ; DMA Channel 1
+DEFC    INT_CSIO    =   NULL_RET        ; Clocked serial I/O
+DEFC    INT_ASCI0   =   ASCI0_INTERRUPT ; Async channel 0
+DEFC    INT_ASCI1   =   NULL_RET        ; Async channel 1
 
-SETUP:  LD SP, 0FFFFFH
-       LD A,00FH
-       OUT (003H),A
+;==============================================================================
 
-LOOP:   LD A,0FFH
-       OUT (002H),A
-       CALL WAIT
-       LD A,000H
-       OUT (002H),A
-       CALL WAIT
-       JP LOOP
-
-WAIT:   LD BC, 00000010H
-OUTER:  LD DE, 10000100H
-INNER:  DEC DE
-       LD A, D
-       OR E
-       JP NZ, INNER
-       DEC BC
-       LD A, B
-       OR C
-       JP NZ, OUTER
-       RET
-
-
-MAIN_LOOP:   
-			IN      A,(CNTLA0)        ; Get the line status register's contents
-			BIT     5,A            ; Test BIT, it will be set if the UART is ready
-			JP      Z,MAIN_LOOP    
-			LD      A,41H          ; Load acumulator with "A" Character
-			OUT     (TDR0),A        ; Send "A" Character through the UART
-			JP      MAIN_LOOP
-
-.END

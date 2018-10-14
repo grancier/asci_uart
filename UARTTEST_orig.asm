@@ -38,8 +38,8 @@ STAT0_RIE       EQU  08H
 STAT0   EQU     04H     ;ASCI STATUS REG CH0
 
 ASCI0TXCOUNT:    DEFB 0                 ; SPACE FOR TX BUFFER MANAGEMENT
-ASCI0TXIN:       DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-ASCI0TXOUT:      DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
+ASCI0TXIN:       DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN0 BSS SINCE IT'S INITIALIZED ANYWAY
+ASCI0TXOUT:      DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN0 BSS SINCE IT'S INITIALIZED ANYWAY
 ASCI0TXLOCK:     DEFB $FE               ; LOCK FLAG FOR TX EXCLUSION
 
 ASCI0RXBUFFER:   DEFS 256   ; SPACE FOR THE RX BUFFER
@@ -63,11 +63,11 @@ INIT_UART:
 
 
  			LD A,CNTLA0_RE|CNTLA0_TE|CNTLA0_MODE_8N1
-   			OUT (CNTLA0),A             ; OUTPUT TO THE ASCI0 CONTROL A REG
+   			OUT0 (CNTLA0),A             ; OUTPUT TO THE ASCI0 CONTROL A REG
 			LD A,CNTLB0_SS_DIV_2
-   			OUT    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
+   			OUT0    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
 			LD A,STAT0_RIE              ; RECEIVE INTERRUPT ENABLED
-   			OUT (STAT0),A              ; OUTPUT TO THE ASCI0 STATUS REG
+   			OUT0 (STAT0),A              ; OUTPUT TO THE ASCI0 STATUS REG
 
 			POP AF                      ; AF = EI_DI_STATUS
 			
@@ -86,15 +86,15 @@ CLEAN_UP_TX:
 
        DI                          ; CRITICAL SECTION BEGIN
        IN0 A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
-       OR STAT0_TIE                ; MASK IN (ENABLE) THE TX INTERRUPT
+       OR STAT0_TIE                ; MASK IN0 (ENABLE) THE TX INTERRUPT
        OUT0 (STAT0),A              ; SET THE ASCI STATUS REGISTER
        EI                          ; CRITICAL SECTION END
        RET
 
 PUT_BUFFER_TX:
        EI
-       LD A,(ASCI0TXCOUNT)         ; GET THE NUMBER OF BYTES IN THE TX BUFFER
-       CP 256 - 1      ; CHECK WHETHER THERE IS SPACE IN THE BUFFER
+       LD A,(ASCI0TXCOUNT)         ; GET THE NUMBER OF BYTES IN0 THE TX BUFFER
+       CP 256 - 1      ; CHECK WHETHER THERE IS SPACE IN0 THE BUFFER
        LD A,L                      ; TX BYTE
 
        LD L,1
@@ -120,8 +120,8 @@ MAIN_LOOP:
        ; MODIFIES : AF, HL
        
        DI
-       IN A,(STAT0)               ; GET THE ASCI0 STATUS REGISTER
-       OUT (TDR0),A              ; OUTPUT THE TX BYTE TO THE ASCI0
+       IN0 A,(STAT0)               ; GET THE ASCI0 STATUS REGISTER
+       OUT0 (TDR0),A              ; OUTPUT THE TX BYTE TO THE ASCI0
 
        LD A,41H                     ; TX BYTE
 
@@ -137,39 +137,43 @@ MAIN_LOOP:
 
        LD (ASCI0TXIN),HL           ; WRITE WHERE THE NEXT BYTE SHOULD BE POKED
 
-       IN A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
+       IN0 A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
        AND STAT0_TIE               ; TEST WHETHER ASCI0 INTERRUPT IS SET
        RET NZ                      ; IF SO THEN JUST RETURN
 
        DI                          ; CRITICAL SECTION BEGIN
-       IN A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
-       OR STAT0_TIE                ; MASK IN (ENABLE) THE TX INTERRUPT
+       IN0 A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
+       OR STAT0_TIE                ; MASK IN0 (ENABLE) THE TX INTERRUPT
        OUT0 (STAT0),A              ; SET THE ASCI STATUS REGISTER
        EI                          ; CRITICAL SECTION END
 
-setup:  ld sp, 0ffffh
-        ld a,00fh
-        out (003h),a
+SETUP:  
+       LD SP, 0FFFFH
+       LD A,00FH
+       OUT0 (003H),A
 
-loop:   ld a,0ffh
-        out (002h),a
-        call wait
-        ld a,000h
-        out (002h),a
-        call wait
-        jp loop
+LOOP:   
+       LD A,0FFH
+       OUT0 (002H),A
+       CALL WAIT
+       LD A,000H
+       OUT0 (002H),A
+       CALL WAIT
+       JP LOOP
 
-wait:   ld bc, 00010h
-outer:  ld de, 00100h
-inner:  dec de
-        ld a, d
-        or e
-        jp nz, inner
-        dec bc
-        ld a, b
-        or c
-        jp nz, outer
-        ret
+WAIT:   LD BC, 00010H
+OUTER:  LD DE, 00100H
+INNER:  DEC DE
+       LD A, D
+       OR E
+       JP NZ, INNER
+       DEC BC
+       LD A, B
+       OR C
+       JP NZ, OUTER
+       RET
+
+
 
        JP MAIN_LOOP
 

@@ -1,228 +1,185 @@
-                        ; --------------------------------------
-                        ; zasm: assemble "UARTTEST_orig.asm"
-                        ; opts: --z180
-                        ; date: 2018-10-12 18:44:43
-                        ; --------------------------------------
+;***********************************
+;*  UART Test Program              *
+;*                                 *
+;***********************************
+
+.ORG 0000H
+
+;******************************************************************
+;INIT_UART
+;Function: Initialize the UART to BAUD Rate 9600 (1.8432 MHz clock input)
+;DLAB A2 A1 A0 Register
+;0    0  0  0  Receiver Buffer (read),
+;              Transmitter Holding
+;              Register (write)
+;0    0  0  1  Interrupt Enable
+;X    0  1  0  Interrupt Identification (read)
+;X    0  1  0  FIFO Control (write)
+;X    0  1  1  Line Control
+;X    1  0  0  MODEM Control
+;X    1  0  1  Line Status
+;X    1  1  0  MODEM Status
+;X    1  1  1  Scratch
+;1    0  0  0  Divisor Latch
+;              (least significant byte)
+;1    0  0  1  Divisor Latch
+;              (most significant byte)
+;******************************************************************
+
+TDR0    EQU     06H     ;ASCI TX DATA REG CH0
+CNTLA0_RE  EQU  40H
+CNTLA0_TE  EQU  20H
+CNTLA0_MODE_8N1  EQU  04H
+CNTLA0  EQU     00H
+CNTLB0_SS_DIV_2  EQU  01H
+CNTLB0  EQU     02H
+CNTLB1  EQU     03H
+STAT0_RIE       EQU  08H
+STAT0   EQU     04H     ;ASCI STATUS REG CH0
+
+ASCI0TXCOUNT:    DEFB 0                 ; SPACE FOR TX BUFFER MANAGEMENT
+ASCI0TXIN:       DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN0 BSS SINCE IT'S INITIALIZED ANYWAY
+ASCI0TXOUT:      DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN0 BSS SINCE IT'S INITIALIZED ANYWAY
+ASCI0TXLOCK:     DEFB $FE               ; LOCK FLAG FOR TX EXCLUSION
+
+ASCI0RXBUFFER:   DEFS 256   ; SPACE FOR THE RX BUFFER
+ASCI0TXBUFFER:   DEFS 256   ; SPACE FOR THE TX BUFFER
+
+INIT_UART:
+			EX (SP),HL
+			PUSH HL
+
+			LD A,I
+ 
+			DI
+ 
+			PUSH AF
+			POP HL                      ; HL = EI_DI STATUS
+ 
+			POP AF                      ; AF = RET
+			EX (SP),HL                  ; RESTORE HL, PUSH EI_DI_STATUS
+ 
+			PUSH AF
 
 
-                        ;***********************************
-                        ;*  UART Test Program              *
-                        ;*                                 *
-                        ;***********************************
-                        
-0000:                   .ORG 0000H
-                        
-                        ;******************************************************************
-                        ;INIT_UART
-                        ;Function: Initialize the UART to BAUD Rate 9600 (1.8432 MHz clock input)
-                        ;DLAB A2 A1 A0 Register
-                        ;0    0  0  0  Receiver Buffer (read),
-                        ;              Transmitter Holding
-                        ;              Register (write)
-                        ;0    0  0  1  Interrupt Enable
-                        ;X    0  1  0  Interrupt Identification (read)
-                        ;X    0  1  0  FIFO Control (write)
-                        ;X    0  1  1  Line Control
-                        ;X    1  0  0  MODEM Control
-                        ;X    1  0  1  Line Status
-                        ;X    1  1  0  MODEM Status
-                        ;X    1  1  1  Scratch
-                        ;1    0  0  0  Divisor Latch
-                        ;              (least significant byte)
-                        ;1    0  0  1  Divisor Latch
-                        ;              (most significant byte)
-                        ;******************************************************************
-                        
-0006:                   TDR0    EQU     06H     ;ASCI TX DATA REG CH0
-0040:                   CNTLA0_RE  EQU  40H
-0020:                   CNTLA0_TE  EQU  20H
-0004:                   CNTLA0_MODE_8N1  EQU  04H
-0000:                   CNTLA0  EQU     00H
-0001:                   CNTLB0_SS_DIV_2  EQU  01H
-0002:                   CNTLB0  EQU     02H
-0003:                   CNTLB1  EQU     03H
-0008:                   STAT0_RIE       EQU  08H
-0004:                   STAT0   EQU     04H     ;ASCI STATUS REG CH0
-                        
-0000: 00                ASCI0TXCOUNT:    DEFB 0                 ; SPACE FOR TX BUFFER MANAGEMENT
-0001: 0601              ASCI0TXIN:       DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-0003: 0601              ASCI0TXOUT:      DEFW ASCI0TXBUFFER     ; NON-ZERO ITEM IN BSS SINCE IT'S INITIALIZED ANYWAY
-0005: FE                ASCI0TXLOCK:     DEFB $FE               ; LOCK FLAG FOR TX EXCLUSION
-                        
-0006: FFFFFFFF          ASCI0RXBUFFER:   DEFS 256   ; SPACE FOR THE RX BUFFER
-000A: FF...             
-0106: FFFFFFFF          ASCI0TXBUFFER:   DEFS 256   ; SPACE FOR THE TX BUFFER
-010A: FF...             
-                        
-0206:                   INIT_UART:
-0206: E3       [19]     			EX (SP),HL
-0207: E5       [30]     			PUSH HL
-                        
-0208: ED57     [39]     			LD A,I
-                         
-020A: F3       [43]     			DI
-                         
-020B: F5       [54]     			PUSH AF
-020C: E1       [64]     			POP HL                      ; HL = EI_DI STATUS
-                         
-020D: F1       [74]     			POP AF                      ; AF = RET
-020E: E3       [93]     			EX (SP),HL                  ; RESTORE HL, PUSH EI_DI_STATUS
-                         
-020F: F5       [104]    			PUSH AF
-                        
-                        
-0210: 3E64     [111]     			LD A,CNTLA0_RE|CNTLA0_TE|CNTLA0_MODE_8N1
-0212: D300     [122]       			OUT (CNTLA0),A             ; OUTPUT TO THE ASCI0 CONTROL A REG
-0214: 3E01     [129]    			LD A,CNTLB0_SS_DIV_2
-0216: D302     [140]       			OUT    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
-0218: 3E08     [147]    			LD A,STAT0_RIE              ; RECEIVE INTERRUPT ENABLED
-021A: D304     [158]       			OUT (STAT0),A              ; OUTPUT TO THE ASCI0 STATUS REG
-                        
-021C: F1       [168]    			POP AF                      ; AF = EI_DI_STATUS
-                        			
-                        ;******************************************************************
-                        ;Main Program
-                        ;Function: Display A->Z then a new line and loop
-                        ;******************************************************************
-                        
-0001:                   STAT0_TIE	EQU	01H
-0002:                   STAT0_TDRE	EQU	02H
-                        
-021D:                   CLEAN_UP_TX:
-021D: ED3804   [ 8]            IN0 A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
-0220: E601     [15]            AND STAT0_TIE               ; TEST WHETHER ASCI0 INTERRUPT IS SET
-0222: C0       [20|26]         RET NZ                      ; IF SO THEN JUST RETURN
-                        
-0223: F3       [24]            DI                          ; CRITICAL SECTION BEGIN
-0224: ED3804   [32]            IN0 A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
-0227: F601     [39]            OR STAT0_TIE                ; MASK IN (ENABLE) THE TX INTERRUPT
-0229: ED3904   [47]            OUT0 (STAT0),A              ; SET THE ASCI STATUS REGISTER
-022C: FB       [51]            EI                          ; CRITICAL SECTION END
-022D: C9       [61]            RET
-                        
-022E:                   PUT_BUFFER_TX:
-022E: FB       [ 4]            EI
-022F: 3A0000   [17]            LD A,(ASCI0TXCOUNT)         ; GET THE NUMBER OF BYTES IN THE TX BUFFER
-0232: FEFF     [24]            CP 256 - 1      ; CHECK WHETHER THERE IS SPACE IN THE BUFFER
-0234: 7D       [28]            LD A,L                      ; TX BYTE
-                        
-0235: 2E01     [35]            LD L,1
-0237: 30E4     [42|47]         JR NC,CLEAN_UP_TX           ; BUFFER FULL, SO DROP THE TX BYTE AND CLEAN UP
-                        
-0239: 210000   [52]            LD HL,ASCI0TXCOUNT
-023C: F3       [56]            DI
-023D: 34       [67]            INC (HL)                    ; ATOMIC INCREMENT OF TX COUNT
-023E: 2A0100   [83]            LD HL,(ASCI0TXIN)           ; GET THE POINTER TO WHERE WE POKE
-0241: FB       [87]            EI
-0242: 77       [94]            LD (HL),A                   ; WRITE THE TX BYTE TO THE ASCI0TXIN
-                        
-0243: 2C       [98]            INC L                       ; MOVE THE TX POINTER LOW BYTE ALONG
-0244: 220100   [114]           LD (ASCI0TXIN),HL           ; WRITE WHERE THE NEXT BYTE SHOULD BE POKED
-                        
-0247: 2E00     [121]           LD L,0                      ; INDICATE TX BUFFER WAS NOT FULL
-                        
-                        
-0249:                   MAIN_LOOP:   
-                               ; ENTER    : L = CHAR TO OUTPUT
-                               ; EXIT     : L = 1 IF TX BUFFER IS FULL
-                               ;            CARRY RESET
-                               ; MODIFIES : AF, HL
-                               
-0249: F3       [ 4]            DI
-024A: DB04     [15]            IN A,(STAT0)               ; GET THE ASCI0 STATUS REGISTER
-024C: D306     [26]            OUT (TDR0),A              ; OUTPUT THE TX BYTE TO THE ASCI0
-                        
-024E: 3E41     [33]            LD A,41H                     ; TX BYTE
-                        
-                            
-0250: 30CB     [40|45]         JR NC,CLEAN_UP_TX           ; BUFFER FULL, SO DROP THE TX BYTE AND CLEAN UP
-                        
-0252: 210000   [50]            LD HL,ASCI0TXCOUNT
-0255: F3       [54]            DI
-0256: 34       [65]            INC (HL)                    ; ATOMIC INCREMENT OF TX COUNT
-0257: 2A0100   [81]            LD HL,(ASCI0TXIN)           ; GET THE POINTER TO WHERE WE POKE
-025A: FB       [85]            EI
-025B: 77       [92]            LD (HL),A                   ; WRITE THE TX BYTE TO THE ASCI0TXIN
-                        
-025C: 220100   [108]           LD (ASCI0TXIN),HL           ; WRITE WHERE THE NEXT BYTE SHOULD BE POKED
-                        
-025F: DB04     [119]           IN A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
-0261: E601     [126]           AND STAT0_TIE               ; TEST WHETHER ASCI0 INTERRUPT IS SET
-0263: C0       [131|137]       RET NZ                      ; IF SO THEN JUST RETURN
-                        
-0264: F3       [135]           DI                          ; CRITICAL SECTION BEGIN
-0265: DB04     [146]           IN A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
-0267: F601     [153]           OR STAT0_TIE                ; MASK IN (ENABLE) THE TX INTERRUPT
-0269: ED3904   [161]           OUT0 (STAT0),A              ; SET THE ASCI STATUS REGISTER
-026C: FB       [165]           EI                          ; CRITICAL SECTION END
-                        
-026D: 31FFFF   [10]     setup:  ld sp, 0ffffh
-0270: 3E0F     [17]             ld a,00fh
-0272: D303     [28]             out (003h),a
-                        
-0274: 3EFF     [ 7]     loop:   ld a,0ffh
-0276: D302     [18]             out (002h),a
-0278: CD8502   [35]             call wait
-027B: 3E00     [42]             ld a,000h
-027D: D302     [53]             out (002h),a
-027F: CD8502   [70]             call wait
-0282: C37402   [80]             jp loop
-                        
-0285: 011000   [10]     wait:   ld bc, 00010h
-0288: 110001   [10]     outer:  ld de, 00100h
-028B: 1B       [ 6]     inner:  dec de
-028C: 7A       [10]             ld a, d
-028D: B3       [14]             or e
-028E: C28B02   [24|24]          jp nz, inner
-0291: 0B       [30]             dec bc
-0292: 78       [34]             ld a, b
-0293: B1       [38]             or c
-0294: C28802   [48|48]          jp nz, outer
-0297: C9       [58]             ret
-                        
-0298: C34902   [68]            JP MAIN_LOOP
-                        
-                        
-                        .END
+ 			LD A,CNTLA0_RE|CNTLA0_TE|CNTLA0_MODE_8N1
+   			OUT0 (CNTLA0),A             ; OUTPUT TO THE ASCI0 CONTROL A REG
+			LD A,CNTLB0_SS_DIV_2
+   			OUT0    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
+			LD A,STAT0_RIE              ; RECEIVE INTERRUPT ENABLED
+   			OUT0 (STAT0),A              ; OUTPUT TO THE ASCI0 STATUS REG
+
+			POP AF                      ; AF = EI_DI_STATUS
+			
+;******************************************************************
+;Main Program
+;Function: Display A->Z then a new line and loop
+;******************************************************************
+
+STAT0_TIE	EQU	01H
+STAT0_TDRE	EQU	02H
+
+CLEAN_UP_TX:
+       IN0 A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
+       AND STAT0_TIE               ; TEST WHETHER ASCI0 INTERRUPT IS SET
+       RET NZ                      ; IF SO THEN JUST RETURN
+
+       DI                          ; CRITICAL SECTION BEGIN
+       IN0 A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
+       OR STAT0_TIE                ; MASK IN0 (ENABLE) THE TX INTERRUPT
+       OUT0 (STAT0),A              ; SET THE ASCI STATUS REGISTER
+       EI                          ; CRITICAL SECTION END
+       RET
+
+PUT_BUFFER_TX:
+       EI
+       LD A,(ASCI0TXCOUNT)         ; GET THE NUMBER OF BYTES IN0 THE TX BUFFER
+       CP 256 - 1      ; CHECK WHETHER THERE IS SPACE IN0 THE BUFFER
+       LD A,L                      ; TX BYTE
+
+       LD L,1
+       JR NC,CLEAN_UP_TX           ; BUFFER FULL, SO DROP THE TX BYTE AND CLEAN UP
+
+       LD HL,ASCI0TXCOUNT
+       DI
+       INC (HL)                    ; ATOMIC INCREMENT OF TX COUNT
+       LD HL,(ASCI0TXIN)           ; GET THE POINTER TO WHERE WE POKE
+       EI
+       LD (HL),A                   ; WRITE THE TX BYTE TO THE ASCI0TXIN
+
+       INC L                       ; MOVE THE TX POINTER LOW BYTE ALONG
+       LD (ASCI0TXIN),HL           ; WRITE WHERE THE NEXT BYTE SHOULD BE POKED
+
+       LD L,0                      ; INDICATE TX BUFFER WAS NOT FULL
 
 
-; +++ segments +++
+MAIN_LOOP:   
+       ; ENTER    : L = CHAR TO OUTPUT
+       ; EXIT     : L = 1 IF TX BUFFER IS FULL
+       ;            CARRY RESET
+       ; MODIFIES : AF, HL
+       
+       DI
+       IN0 A,(STAT0)               ; GET THE ASCI0 STATUS REGISTER
+       OUT0 (TDR0),A              ; OUTPUT THE TX BYTE TO THE ASCI0
 
-#CODE          = $0000 =     0,  size = $029B =   667
+       LD A,41H                     ; TX BYTE
 
-; +++ global symbols +++
+    
+       JR NC,CLEAN_UP_TX           ; BUFFER FULL, SO DROP THE TX BYTE AND CLEAN UP
 
-ASCI0RXBUFFER   = $0006 =     6          UARTTEST_orig.asm:45 (unused)
-ASCI0TXBUFFER   = $0106 =   262          UARTTEST_orig.asm:46
-ASCI0TXCOUNT    = $0000 =     0          UARTTEST_orig.asm:40
-ASCI0TXIN       = $0001 =     1          UARTTEST_orig.asm:41
-ASCI0TXLOCK     = $0005 =     5          UARTTEST_orig.asm:43 (unused)
-ASCI0TXOUT      = $0003 =     3          UARTTEST_orig.asm:42 (unused)
-CLEAN_UP_TX     = $021D =   541          UARTTEST_orig.asm:82
-CNTLA0          = $0000 =     0          UARTTEST_orig.asm:33
-CNTLA0_MODE_8N1 = $0004 =     4          UARTTEST_orig.asm:32
-CNTLA0_RE       = $0040 =    64          UARTTEST_orig.asm:30
-CNTLA0_TE       = $0020 =    32          UARTTEST_orig.asm:31
-CNTLB0          = $0002 =     2          UARTTEST_orig.asm:35
-CNTLB0_SS_DIV_2 = $0001 =     1          UARTTEST_orig.asm:34
-CNTLB1          = $0003 =     3          UARTTEST_orig.asm:36 (unused)
-INIT_UART       = $0206 =   518          UARTTEST_orig.asm:48 (unused)
-MAIN_LOOP       = $0249 =   585          UARTTEST_orig.asm:116
-PUT_BUFFER_TX   = $022E =   558          UARTTEST_orig.asm:94 (unused)
-STAT0           = $0004 =     4          UARTTEST_orig.asm:38
-STAT0_RIE       = $0008 =     8          UARTTEST_orig.asm:37
-STAT0_TDRE      = $0002 =     2          UARTTEST_orig.asm:80 (unused)
-STAT0_TIE       = $0001 =     1          UARTTEST_orig.asm:79
-TDR0            = $0006 =     6          UARTTEST_orig.asm:29
-_end            = $029B =   667          UARTTEST_orig.asm:5 (unused)
-_size           = $029B =   667          UARTTEST_orig.asm:5 (unused)
-_z180_          = $0001 =     1          :1 (unused)
-inner           = $028B =   651          UARTTEST_orig.asm:164
-loop            = $0274 =   628          UARTTEST_orig.asm:154
-outer           = $0288 =   648          UARTTEST_orig.asm:163
-setup           = $026D =   621          UARTTEST_orig.asm:150 (unused)
-wait            = $0285 =   645          UARTTEST_orig.asm:162
+       LD HL,ASCI0TXCOUNT
+       DI
+       INC (HL)                    ; ATOMIC INCREMENT OF TX COUNT
+       LD HL,(ASCI0TXIN)           ; GET THE POINTER TO WHERE WE POKE
+       EI
+       LD (HL),A                   ; WRITE THE TX BYTE TO THE ASCI0TXIN
+
+       LD (ASCI0TXIN),HL           ; WRITE WHERE THE NEXT BYTE SHOULD BE POKED
+
+       IN0 A,(STAT0)               ; LOAD THE ASCI0 STATUS REGISTER
+       AND STAT0_TIE               ; TEST WHETHER ASCI0 INTERRUPT IS SET
+       RET NZ                      ; IF SO THEN JUST RETURN
+
+       DI                          ; CRITICAL SECTION BEGIN
+       IN0 A,(STAT0)               ; GET THE ASCI STATUS REGISTER AGAIN
+       OR STAT0_TIE                ; MASK IN0 (ENABLE) THE TX INTERRUPT
+       OUT0 (STAT0),A              ; SET THE ASCI STATUS REGISTER
+       EI                          ; CRITICAL SECTION END
+
+SETUP:  
+       LD SP, 0FFFFH
+       LD A,00FH
+       OUT0 (003H),A
+
+LOOP:   
+       LD A,0FFH
+       OUT0 (002H),A
+       CALL WAIT
+       LD A,000H
+       OUT0 (002H),A
+       CALL WAIT
+       JP LOOP
+
+WAIT:   LD BC, 00010H
+OUTER:  LD DE, 00100H
+INNER:  DEC DE
+       LD A, D
+       OR E
+       JP NZ, INNER
+       DEC BC
+       LD A, B
+       OR C
+       JP NZ, OUTER
+       RET
 
 
-total time: 0.0031 sec.
+
+       JP MAIN_LOOP
+
+
+.END
+
+
+total time: 0.0027 sec.
 no errors
