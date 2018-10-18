@@ -1,0 +1,8208 @@
+.globl sine_table_start
+
+sine_table_start:
+.byte 0x00  # row #0, sin ( 0.000 ) = 0.000
+.byte 0x00
+.byte 0x00
+.byte 0x00
+.byte 0x88  # row #1, sin ( 0.002 ) = 0.002
+.byte 0x64
+.byte 0x00
+.byte 0x00
+.byte 0x10  # row #2, sin ( 0.003 ) = 0.003
+.byte 0xc9
+.byte 0x00
+.byte 0x00
+.byte 0x98  # row #3, sin ( 0.005 ) = 0.005
+.byte 0x2d
+.byte 0x01
+.byte 0x00
+.byte 0x1f  # row #4, sin ( 0.006 ) = 0.006
+.byte 0x92
+.byte 0x01
+.byte 0x00
+.byte 0xa6  # row #5, sin ( 0.008 ) = 0.008
+.byte 0xf6
+.byte 0x01
+.byte 0x00
+.byte 0x2d  # row #6, sin ( 0.009 ) = 0.009
+.byte 0x5b
+.byte 0x02
+.byte 0x00
+.byte 0xb4  # row #7, sin ( 0.011 ) = 0.011
+.byte 0xbf
+.byte 0x02
+.byte 0x00
+.byte 0x3a  # row #8, sin ( 0.012 ) = 0.012
+.byte 0x24
+.byte 0x03
+.byte 0x00
+.byte 0xc0  # row #9, sin ( 0.014 ) = 0.014
+.byte 0x88
+.byte 0x03
+.byte 0x00
+.byte 0x45  # row #10, sin ( 0.015 ) = 0.015
+.byte 0xed
+.byte 0x03
+.byte 0x00
+.byte 0xca  # row #11, sin ( 0.017 ) = 0.017
+.byte 0x51
+.byte 0x04
+.byte 0x00
+.byte 0x4e  # row #12, sin ( 0.018 ) = 0.018
+.byte 0xb6
+.byte 0x04
+.byte 0x00
+.byte 0xd1  # row #13, sin ( 0.020 ) = 0.020
+.byte 0x1a
+.byte 0x05
+.byte 0x00
+.byte 0x53  # row #14, sin ( 0.021 ) = 0.021
+.byte 0x7f
+.byte 0x05
+.byte 0x00
+.byte 0xd5  # row #15, sin ( 0.023 ) = 0.023
+.byte 0xe3
+.byte 0x05
+.byte 0x00
+.byte 0x55  # row #16, sin ( 0.025 ) = 0.025
+.byte 0x48
+.byte 0x06
+.byte 0x00
+.byte 0xd5  # row #17, sin ( 0.026 ) = 0.026
+.byte 0xac
+.byte 0x06
+.byte 0x00
+.byte 0x54  # row #18, sin ( 0.028 ) = 0.028
+.byte 0x11
+.byte 0x07
+.byte 0x00
+.byte 0xd1  # row #19, sin ( 0.029 ) = 0.029
+.byte 0x75
+.byte 0x07
+.byte 0x00
+.byte 0x4e  # row #20, sin ( 0.031 ) = 0.031
+.byte 0xda
+.byte 0x07
+.byte 0x00
+.byte 0xc9  # row #21, sin ( 0.032 ) = 0.032
+.byte 0x3e
+.byte 0x08
+.byte 0x00
+.byte 0x43  # row #22, sin ( 0.034 ) = 0.034
+.byte 0xa3
+.byte 0x08
+.byte 0x00
+.byte 0xbc  # row #23, sin ( 0.035 ) = 0.035
+.byte 0x07
+.byte 0x09
+.byte 0x00
+.byte 0x33  # row #24, sin ( 0.037 ) = 0.037
+.byte 0x6c
+.byte 0x09
+.byte 0x00
+.byte 0xa8  # row #25, sin ( 0.038 ) = 0.038
+.byte 0xd0
+.byte 0x09
+.byte 0x00
+.byte 0x1d  # row #26, sin ( 0.040 ) = 0.040
+.byte 0x35
+.byte 0x0a
+.byte 0x00
+.byte 0x8f  # row #27, sin ( 0.041 ) = 0.041
+.byte 0x99
+.byte 0x0a
+.byte 0x00
+.byte 0x00  # row #28, sin ( 0.043 ) = 0.043
+.byte 0xfe
+.byte 0x0a
+.byte 0x00
+.byte 0x70  # row #29, sin ( 0.044 ) = 0.044
+.byte 0x62
+.byte 0x0b
+.byte 0x00
+.byte 0xdd  # row #30, sin ( 0.046 ) = 0.046
+.byte 0xc6
+.byte 0x0b
+.byte 0x00
+.byte 0x49  # row #31, sin ( 0.048 ) = 0.048
+.byte 0x2b
+.byte 0x0c
+.byte 0x00
+.byte 0xb3  # row #32, sin ( 0.049 ) = 0.049
+.byte 0x8f
+.byte 0x0c
+.byte 0x00
+.byte 0x1b  # row #33, sin ( 0.051 ) = 0.051
+.byte 0xf4
+.byte 0x0c
+.byte 0x00
+.byte 0x81  # row #34, sin ( 0.052 ) = 0.052
+.byte 0x58
+.byte 0x0d
+.byte 0x00
+.byte 0xe5  # row #35, sin ( 0.054 ) = 0.054
+.byte 0xbc
+.byte 0x0d
+.byte 0x00
+.byte 0x47  # row #36, sin ( 0.055 ) = 0.055
+.byte 0x21
+.byte 0x0e
+.byte 0x00
+.byte 0xa6  # row #37, sin ( 0.057 ) = 0.057
+.byte 0x85
+.byte 0x0e
+.byte 0x00
+.byte 0x03  # row #38, sin ( 0.058 ) = 0.058
+.byte 0xea
+.byte 0x0e
+.byte 0x00
+.byte 0x5f  # row #39, sin ( 0.060 ) = 0.060
+.byte 0x4e
+.byte 0x0f
+.byte 0x00
+.byte 0xb7  # row #40, sin ( 0.061 ) = 0.061
+.byte 0xb2
+.byte 0x0f
+.byte 0x00
+.byte 0x0e  # row #41, sin ( 0.063 ) = 0.063
+.byte 0x17
+.byte 0x10
+.byte 0x00
+.byte 0x61  # row #42, sin ( 0.064 ) = 0.064
+.byte 0x7b
+.byte 0x10
+.byte 0x00
+.byte 0xb3  # row #43, sin ( 0.066 ) = 0.066
+.byte 0xdf
+.byte 0x10
+.byte 0x00
+.byte 0x01  # row #44, sin ( 0.067 ) = 0.067
+.byte 0x44
+.byte 0x11
+.byte 0x00
+.byte 0x4d  # row #45, sin ( 0.069 ) = 0.069
+.byte 0xa8
+.byte 0x11
+.byte 0x00
+.byte 0x96  # row #46, sin ( 0.071 ) = 0.071
+.byte 0x0c
+.byte 0x12
+.byte 0x00
+.byte 0xdd  # row #47, sin ( 0.072 ) = 0.072
+.byte 0x70
+.byte 0x12
+.byte 0x00
+.byte 0x21  # row #48, sin ( 0.074 ) = 0.074
+.byte 0xd5
+.byte 0x12
+.byte 0x00
+.byte 0x61  # row #49, sin ( 0.075 ) = 0.075
+.byte 0x39
+.byte 0x13
+.byte 0x00
+.byte 0x9f  # row #50, sin ( 0.077 ) = 0.077
+.byte 0x9d
+.byte 0x13
+.byte 0x00
+.byte 0xda  # row #51, sin ( 0.078 ) = 0.078
+.byte 0x01
+.byte 0x14
+.byte 0x00
+.byte 0x11  # row #52, sin ( 0.080 ) = 0.080
+.byte 0x66
+.byte 0x14
+.byte 0x00
+.byte 0x46  # row #53, sin ( 0.081 ) = 0.081
+.byte 0xca
+.byte 0x14
+.byte 0x00
+.byte 0x77  # row #54, sin ( 0.083 ) = 0.083
+.byte 0x2e
+.byte 0x15
+.byte 0x00
+.byte 0xa5  # row #55, sin ( 0.084 ) = 0.084
+.byte 0x92
+.byte 0x15
+.byte 0x00
+.byte 0xd0  # row #56, sin ( 0.086 ) = 0.086
+.byte 0xf6
+.byte 0x15
+.byte 0x00
+.byte 0xf7  # row #57, sin ( 0.087 ) = 0.087
+.byte 0x5a
+.byte 0x16
+.byte 0x00
+.byte 0x1b  # row #58, sin ( 0.089 ) = 0.089
+.byte 0xbf
+.byte 0x16
+.byte 0x00
+.byte 0x3c  # row #59, sin ( 0.091 ) = 0.090
+.byte 0x23
+.byte 0x17
+.byte 0x00
+.byte 0x58  # row #60, sin ( 0.092 ) = 0.092
+.byte 0x87
+.byte 0x17
+.byte 0x00
+.byte 0x72  # row #61, sin ( 0.094 ) = 0.093
+.byte 0xeb
+.byte 0x17
+.byte 0x00
+.byte 0x87  # row #62, sin ( 0.095 ) = 0.095
+.byte 0x4f
+.byte 0x18
+.byte 0x00
+.byte 0x99  # row #63, sin ( 0.097 ) = 0.096
+.byte 0xb3
+.byte 0x18
+.byte 0x00
+.byte 0xa7  # row #64, sin ( 0.098 ) = 0.098
+.byte 0x17
+.byte 0x19
+.byte 0x00
+.byte 0xb1  # row #65, sin ( 0.100 ) = 0.100
+.byte 0x7b
+.byte 0x19
+.byte 0x00
+.byte 0xb7  # row #66, sin ( 0.101 ) = 0.101
+.byte 0xdf
+.byte 0x19
+.byte 0x00
+.byte 0xb9  # row #67, sin ( 0.103 ) = 0.103
+.byte 0x43
+.byte 0x1a
+.byte 0x00
+.byte 0xb7  # row #68, sin ( 0.104 ) = 0.104
+.byte 0xa7
+.byte 0x1a
+.byte 0x00
+.byte 0xb1  # row #69, sin ( 0.106 ) = 0.106
+.byte 0x0b
+.byte 0x1b
+.byte 0x00
+.byte 0xa7  # row #70, sin ( 0.107 ) = 0.107
+.byte 0x6f
+.byte 0x1b
+.byte 0x00
+.byte 0x98  # row #71, sin ( 0.109 ) = 0.109
+.byte 0xd3
+.byte 0x1b
+.byte 0x00
+.byte 0x86  # row #72, sin ( 0.110 ) = 0.110
+.byte 0x37
+.byte 0x1c
+.byte 0x00
+.byte 0x6f  # row #73, sin ( 0.112 ) = 0.112
+.byte 0x9b
+.byte 0x1c
+.byte 0x00
+.byte 0x53  # row #74, sin ( 0.114 ) = 0.113
+.byte 0xff
+.byte 0x1c
+.byte 0x00
+.byte 0x33  # row #75, sin ( 0.115 ) = 0.115
+.byte 0x63
+.byte 0x1d
+.byte 0x00
+.byte 0x0f  # row #76, sin ( 0.117 ) = 0.116
+.byte 0xc7
+.byte 0x1d
+.byte 0x00
+.byte 0xe6  # row #77, sin ( 0.118 ) = 0.118
+.byte 0x2a
+.byte 0x1e
+.byte 0x00
+.byte 0xb8  # row #78, sin ( 0.120 ) = 0.119
+.byte 0x8e
+.byte 0x1e
+.byte 0x00
+.byte 0x86  # row #79, sin ( 0.121 ) = 0.121
+.byte 0xf2
+.byte 0x1e
+.byte 0x00
+.byte 0x4e  # row #80, sin ( 0.123 ) = 0.122
+.byte 0x56
+.byte 0x1f
+.byte 0x00
+.byte 0x12  # row #81, sin ( 0.124 ) = 0.124
+.byte 0xba
+.byte 0x1f
+.byte 0x00
+.byte 0xd1  # row #82, sin ( 0.126 ) = 0.125
+.byte 0x1d
+.byte 0x20
+.byte 0x00
+.byte 0x8b  # row #83, sin ( 0.127 ) = 0.127
+.byte 0x81
+.byte 0x20
+.byte 0x00
+.byte 0x41  # row #84, sin ( 0.129 ) = 0.128
+.byte 0xe5
+.byte 0x20
+.byte 0x00
+.byte 0xf1  # row #85, sin ( 0.130 ) = 0.130
+.byte 0x48
+.byte 0x21
+.byte 0x00
+.byte 0x9b  # row #86, sin ( 0.132 ) = 0.132
+.byte 0xac
+.byte 0x21
+.byte 0x00
+.byte 0x41  # row #87, sin ( 0.133 ) = 0.133
+.byte 0x10
+.byte 0x22
+.byte 0x00
+.byte 0xe2  # row #88, sin ( 0.135 ) = 0.135
+.byte 0x73
+.byte 0x22
+.byte 0x00
+.byte 0x7d  # row #89, sin ( 0.137 ) = 0.136
+.byte 0xd7
+.byte 0x22
+.byte 0x00
+.byte 0x13  # row #90, sin ( 0.138 ) = 0.138
+.byte 0x3b
+.byte 0x23
+.byte 0x00
+.byte 0xa3  # row #91, sin ( 0.140 ) = 0.139
+.byte 0x9e
+.byte 0x23
+.byte 0x00
+.byte 0x2e  # row #92, sin ( 0.141 ) = 0.141
+.byte 0x02
+.byte 0x24
+.byte 0x00
+.byte 0xb3  # row #93, sin ( 0.143 ) = 0.142
+.byte 0x65
+.byte 0x24
+.byte 0x00
+.byte 0x33  # row #94, sin ( 0.144 ) = 0.144
+.byte 0xc9
+.byte 0x24
+.byte 0x00
+.byte 0xad  # row #95, sin ( 0.146 ) = 0.145
+.byte 0x2c
+.byte 0x25
+.byte 0x00
+.byte 0x21  # row #96, sin ( 0.147 ) = 0.147
+.byte 0x90
+.byte 0x25
+.byte 0x00
+.byte 0x8f  # row #97, sin ( 0.149 ) = 0.148
+.byte 0xf3
+.byte 0x25
+.byte 0x00
+.byte 0xf8  # row #98, sin ( 0.150 ) = 0.150
+.byte 0x56
+.byte 0x26
+.byte 0x00
+.byte 0x5b  # row #99, sin ( 0.152 ) = 0.151
+.byte 0xba
+.byte 0x26
+.byte 0x00
+.byte 0xb7  # row #100, sin ( 0.153 ) = 0.153
+.byte 0x1d
+.byte 0x27
+.byte 0x00
+.byte 0x0e  # row #101, sin ( 0.155 ) = 0.154
+.byte 0x81
+.byte 0x27
+.byte 0x00
+.byte 0x5f  # row #102, sin ( 0.156 ) = 0.156
+.byte 0xe4
+.byte 0x27
+.byte 0x00
+.byte 0xa9  # row #103, sin ( 0.158 ) = 0.157
+.byte 0x47
+.byte 0x28
+.byte 0x00
+.byte 0xed  # row #104, sin ( 0.160 ) = 0.159
+.byte 0xaa
+.byte 0x28
+.byte 0x00
+.byte 0x2b  # row #105, sin ( 0.161 ) = 0.160
+.byte 0x0e
+.byte 0x29
+.byte 0x00
+.byte 0x63  # row #106, sin ( 0.163 ) = 0.162
+.byte 0x71
+.byte 0x29
+.byte 0x00
+.byte 0x94  # row #107, sin ( 0.164 ) = 0.163
+.byte 0xd4
+.byte 0x29
+.byte 0x00
+.byte 0xbf  # row #108, sin ( 0.166 ) = 0.165
+.byte 0x37
+.byte 0x2a
+.byte 0x00
+.byte 0xe3  # row #109, sin ( 0.167 ) = 0.166
+.byte 0x9a
+.byte 0x2a
+.byte 0x00
+.byte 0x01  # row #110, sin ( 0.169 ) = 0.168
+.byte 0xfe
+.byte 0x2a
+.byte 0x00
+.byte 0x18  # row #111, sin ( 0.170 ) = 0.169
+.byte 0x61
+.byte 0x2b
+.byte 0x00
+.byte 0x29  # row #112, sin ( 0.172 ) = 0.171
+.byte 0xc4
+.byte 0x2b
+.byte 0x00
+.byte 0x32  # row #113, sin ( 0.173 ) = 0.172
+.byte 0x27
+.byte 0x2c
+.byte 0x00
+.byte 0x35  # row #114, sin ( 0.175 ) = 0.174
+.byte 0x8a
+.byte 0x2c
+.byte 0x00
+.byte 0x31  # row #115, sin ( 0.176 ) = 0.175
+.byte 0xed
+.byte 0x2c
+.byte 0x00
+.byte 0x26  # row #116, sin ( 0.178 ) = 0.177
+.byte 0x50
+.byte 0x2d
+.byte 0x00
+.byte 0x14  # row #117, sin ( 0.179 ) = 0.179
+.byte 0xb3
+.byte 0x2d
+.byte 0x00
+.byte 0xfb  # row #118, sin ( 0.181 ) = 0.180
+.byte 0x15
+.byte 0x2e
+.byte 0x00
+.byte 0xdb  # row #119, sin ( 0.183 ) = 0.182
+.byte 0x78
+.byte 0x2e
+.byte 0x00
+.byte 0xb4  # row #120, sin ( 0.184 ) = 0.183
+.byte 0xdb
+.byte 0x2e
+.byte 0x00
+.byte 0x85  # row #121, sin ( 0.186 ) = 0.185
+.byte 0x3e
+.byte 0x2f
+.byte 0x00
+.byte 0x4f  # row #122, sin ( 0.187 ) = 0.186
+.byte 0xa1
+.byte 0x2f
+.byte 0x00
+.byte 0x12  # row #123, sin ( 0.189 ) = 0.188
+.byte 0x04
+.byte 0x30
+.byte 0x00
+.byte 0xce  # row #124, sin ( 0.190 ) = 0.189
+.byte 0x66
+.byte 0x30
+.byte 0x00
+.byte 0x82  # row #125, sin ( 0.192 ) = 0.191
+.byte 0xc9
+.byte 0x30
+.byte 0x00
+.byte 0x2e  # row #126, sin ( 0.193 ) = 0.192
+.byte 0x2c
+.byte 0x31
+.byte 0x00
+.byte 0xd3  # row #127, sin ( 0.195 ) = 0.194
+.byte 0x8e
+.byte 0x31
+.byte 0x00
+.byte 0x70  # row #128, sin ( 0.196 ) = 0.195
+.byte 0xf1
+.byte 0x31
+.byte 0x00
+.byte 0x06  # row #129, sin ( 0.198 ) = 0.197
+.byte 0x54
+.byte 0x32
+.byte 0x00
+.byte 0x94  # row #130, sin ( 0.199 ) = 0.198
+.byte 0xb6
+.byte 0x32
+.byte 0x00
+.byte 0x1a  # row #131, sin ( 0.201 ) = 0.200
+.byte 0x19
+.byte 0x33
+.byte 0x00
+.byte 0x98  # row #132, sin ( 0.202 ) = 0.201
+.byte 0x7b
+.byte 0x33
+.byte 0x00
+.byte 0x0e  # row #133, sin ( 0.204 ) = 0.203
+.byte 0xde
+.byte 0x33
+.byte 0x00
+.byte 0x7c  # row #134, sin ( 0.206 ) = 0.204
+.byte 0x40
+.byte 0x34
+.byte 0x00
+.byte 0xe2  # row #135, sin ( 0.207 ) = 0.206
+.byte 0xa2
+.byte 0x34
+.byte 0x00
+.byte 0x40  # row #136, sin ( 0.209 ) = 0.207
+.byte 0x05
+.byte 0x35
+.byte 0x00
+.byte 0x96  # row #137, sin ( 0.210 ) = 0.209
+.byte 0x67
+.byte 0x35
+.byte 0x00
+.byte 0xe4  # row #138, sin ( 0.212 ) = 0.210
+.byte 0xc9
+.byte 0x35
+.byte 0x00
+.byte 0x29  # row #139, sin ( 0.213 ) = 0.212
+.byte 0x2c
+.byte 0x36
+.byte 0x00
+.byte 0x66  # row #140, sin ( 0.215 ) = 0.213
+.byte 0x8e
+.byte 0x36
+.byte 0x00
+.byte 0x9a  # row #141, sin ( 0.216 ) = 0.215
+.byte 0xf0
+.byte 0x36
+.byte 0x00
+.byte 0xc6  # row #142, sin ( 0.218 ) = 0.216
+.byte 0x52
+.byte 0x37
+.byte 0x00
+.byte 0xea  # row #143, sin ( 0.219 ) = 0.218
+.byte 0xb4
+.byte 0x37
+.byte 0x00
+.byte 0x05  # row #144, sin ( 0.221 ) = 0.219
+.byte 0x17
+.byte 0x38
+.byte 0x00
+.byte 0x17  # row #145, sin ( 0.222 ) = 0.221
+.byte 0x79
+.byte 0x38
+.byte 0x00
+.byte 0x21  # row #146, sin ( 0.224 ) = 0.222
+.byte 0xdb
+.byte 0x38
+.byte 0x00
+.byte 0x21  # row #147, sin ( 0.225 ) = 0.224
+.byte 0x3d
+.byte 0x39
+.byte 0x00
+.byte 0x19  # row #148, sin ( 0.227 ) = 0.225
+.byte 0x9f
+.byte 0x39
+.byte 0x00
+.byte 0x08  # row #149, sin ( 0.229 ) = 0.227
+.byte 0x01
+.byte 0x3a
+.byte 0x00
+.byte 0xef  # row #150, sin ( 0.230 ) = 0.228
+.byte 0x62
+.byte 0x3a
+.byte 0x00
+.byte 0xcc  # row #151, sin ( 0.232 ) = 0.230
+.byte 0xc4
+.byte 0x3a
+.byte 0x00
+.byte 0xa0  # row #152, sin ( 0.233 ) = 0.231
+.byte 0x26
+.byte 0x3b
+.byte 0x00
+.byte 0x6b  # row #153, sin ( 0.235 ) = 0.233
+.byte 0x88
+.byte 0x3b
+.byte 0x00
+.byte 0x2c  # row #154, sin ( 0.236 ) = 0.234
+.byte 0xea
+.byte 0x3b
+.byte 0x00
+.byte 0xe5  # row #155, sin ( 0.238 ) = 0.236
+.byte 0x4b
+.byte 0x3c
+.byte 0x00
+.byte 0x94  # row #156, sin ( 0.239 ) = 0.237
+.byte 0xad
+.byte 0x3c
+.byte 0x00
+.byte 0x3a  # row #157, sin ( 0.241 ) = 0.239
+.byte 0x0f
+.byte 0x3d
+.byte 0x00
+.byte 0xd7  # row #158, sin ( 0.242 ) = 0.240
+.byte 0x70
+.byte 0x3d
+.byte 0x00
+.byte 0x6a  # row #159, sin ( 0.244 ) = 0.241
+.byte 0xd2
+.byte 0x3d
+.byte 0x00
+.byte 0xf3  # row #160, sin ( 0.245 ) = 0.243
+.byte 0x33
+.byte 0x3e
+.byte 0x00
+.byte 0x73  # row #161, sin ( 0.247 ) = 0.244
+.byte 0x95
+.byte 0x3e
+.byte 0x00
+.byte 0xe9  # row #162, sin ( 0.249 ) = 0.246
+.byte 0xf6
+.byte 0x3e
+.byte 0x00
+.byte 0x55  # row #163, sin ( 0.250 ) = 0.247
+.byte 0x58
+.byte 0x3f
+.byte 0x00
+.byte 0xb8  # row #164, sin ( 0.252 ) = 0.249
+.byte 0xb9
+.byte 0x3f
+.byte 0x00
+.byte 0x11  # row #165, sin ( 0.253 ) = 0.250
+.byte 0x1b
+.byte 0x40
+.byte 0x00
+.byte 0x60  # row #166, sin ( 0.255 ) = 0.252
+.byte 0x7c
+.byte 0x40
+.byte 0x00
+.byte 0xa5  # row #167, sin ( 0.256 ) = 0.253
+.byte 0xdd
+.byte 0x40
+.byte 0x00
+.byte 0xe0  # row #168, sin ( 0.258 ) = 0.255
+.byte 0x3e
+.byte 0x41
+.byte 0x00
+.byte 0x11  # row #169, sin ( 0.259 ) = 0.256
+.byte 0xa0
+.byte 0x41
+.byte 0x00
+.byte 0x38  # row #170, sin ( 0.261 ) = 0.258
+.byte 0x01
+.byte 0x42
+.byte 0x00
+.byte 0x55  # row #171, sin ( 0.262 ) = 0.259
+.byte 0x62
+.byte 0x42
+.byte 0x00
+.byte 0x67  # row #172, sin ( 0.264 ) = 0.261
+.byte 0xc3
+.byte 0x42
+.byte 0x00
+.byte 0x6f  # row #173, sin ( 0.265 ) = 0.262
+.byte 0x24
+.byte 0x43
+.byte 0x00
+.byte 0x6d  # row #174, sin ( 0.267 ) = 0.264
+.byte 0x85
+.byte 0x43
+.byte 0x00
+.byte 0x61  # row #175, sin ( 0.268 ) = 0.265
+.byte 0xe6
+.byte 0x43
+.byte 0x00
+.byte 0x4a  # row #176, sin ( 0.270 ) = 0.267
+.byte 0x47
+.byte 0x44
+.byte 0x00
+.byte 0x28  # row #177, sin ( 0.272 ) = 0.268
+.byte 0xa8
+.byte 0x44
+.byte 0x00
+.byte 0xfc  # row #178, sin ( 0.273 ) = 0.270
+.byte 0x08
+.byte 0x45
+.byte 0x00
+.byte 0xc5  # row #179, sin ( 0.275 ) = 0.271
+.byte 0x69
+.byte 0x45
+.byte 0x00
+.byte 0x83  # row #180, sin ( 0.276 ) = 0.273
+.byte 0xca
+.byte 0x45
+.byte 0x00
+.byte 0x37  # row #181, sin ( 0.278 ) = 0.274
+.byte 0x2b
+.byte 0x46
+.byte 0x00
+.byte 0xe0  # row #182, sin ( 0.279 ) = 0.276
+.byte 0x8b
+.byte 0x46
+.byte 0x00
+.byte 0x7e  # row #183, sin ( 0.281 ) = 0.277
+.byte 0xec
+.byte 0x46
+.byte 0x00
+.byte 0x11  # row #184, sin ( 0.282 ) = 0.279
+.byte 0x4d
+.byte 0x47
+.byte 0x00
+.byte 0x99  # row #185, sin ( 0.284 ) = 0.280
+.byte 0xad
+.byte 0x47
+.byte 0x00
+.byte 0x16  # row #186, sin ( 0.285 ) = 0.281
+.byte 0x0e
+.byte 0x48
+.byte 0x00
+.byte 0x88  # row #187, sin ( 0.287 ) = 0.283
+.byte 0x6e
+.byte 0x48
+.byte 0x00
+.byte 0xef  # row #188, sin ( 0.288 ) = 0.284
+.byte 0xce
+.byte 0x48
+.byte 0x00
+.byte 0x4a  # row #189, sin ( 0.290 ) = 0.286
+.byte 0x2f
+.byte 0x49
+.byte 0x00
+.byte 0x9a  # row #190, sin ( 0.291 ) = 0.287
+.byte 0x8f
+.byte 0x49
+.byte 0x00
+.byte 0xdf  # row #191, sin ( 0.293 ) = 0.289
+.byte 0xef
+.byte 0x49
+.byte 0x00
+.byte 0x19  # row #192, sin ( 0.295 ) = 0.290
+.byte 0x50
+.byte 0x4a
+.byte 0x00
+.byte 0x47  # row #193, sin ( 0.296 ) = 0.292
+.byte 0xb0
+.byte 0x4a
+.byte 0x00
+.byte 0x69  # row #194, sin ( 0.298 ) = 0.293
+.byte 0x10
+.byte 0x4b
+.byte 0x00
+.byte 0x80  # row #195, sin ( 0.299 ) = 0.295
+.byte 0x70
+.byte 0x4b
+.byte 0x00
+.byte 0x8b  # row #196, sin ( 0.301 ) = 0.296
+.byte 0xd0
+.byte 0x4b
+.byte 0x00
+.byte 0x8b  # row #197, sin ( 0.302 ) = 0.298
+.byte 0x30
+.byte 0x4c
+.byte 0x00
+.byte 0x7f  # row #198, sin ( 0.304 ) = 0.299
+.byte 0x90
+.byte 0x4c
+.byte 0x00
+.byte 0x67  # row #199, sin ( 0.305 ) = 0.301
+.byte 0xf0
+.byte 0x4c
+.byte 0x00
+.byte 0x43  # row #200, sin ( 0.307 ) = 0.302
+.byte 0x50
+.byte 0x4d
+.byte 0x00
+.byte 0x13  # row #201, sin ( 0.308 ) = 0.303
+.byte 0xb0
+.byte 0x4d
+.byte 0x00
+.byte 0xd8  # row #202, sin ( 0.310 ) = 0.305
+.byte 0x0f
+.byte 0x4e
+.byte 0x00
+.byte 0x90  # row #203, sin ( 0.311 ) = 0.306
+.byte 0x6f
+.byte 0x4e
+.byte 0x00
+.byte 0x3c  # row #204, sin ( 0.313 ) = 0.308
+.byte 0xcf
+.byte 0x4e
+.byte 0x00
+.byte 0xdc  # row #205, sin ( 0.314 ) = 0.309
+.byte 0x2e
+.byte 0x4f
+.byte 0x00
+.byte 0x70  # row #206, sin ( 0.316 ) = 0.311
+.byte 0x8e
+.byte 0x4f
+.byte 0x00
+.byte 0xf7  # row #207, sin ( 0.318 ) = 0.312
+.byte 0xed
+.byte 0x4f
+.byte 0x00
+.byte 0x72  # row #208, sin ( 0.319 ) = 0.314
+.byte 0x4d
+.byte 0x50
+.byte 0x00
+.byte 0xe1  # row #209, sin ( 0.321 ) = 0.315
+.byte 0xac
+.byte 0x50
+.byte 0x00
+.byte 0x43  # row #210, sin ( 0.322 ) = 0.317
+.byte 0x0c
+.byte 0x51
+.byte 0x00
+.byte 0x99  # row #211, sin ( 0.324 ) = 0.318
+.byte 0x6b
+.byte 0x51
+.byte 0x00
+.byte 0xe3  # row #212, sin ( 0.325 ) = 0.320
+.byte 0xca
+.byte 0x51
+.byte 0x00
+.byte 0x1f  # row #213, sin ( 0.327 ) = 0.321
+.byte 0x2a
+.byte 0x52
+.byte 0x00
+.byte 0x4f  # row #214, sin ( 0.328 ) = 0.322
+.byte 0x89
+.byte 0x52
+.byte 0x00
+.byte 0x73  # row #215, sin ( 0.330 ) = 0.324
+.byte 0xe8
+.byte 0x52
+.byte 0x00
+.byte 0x89  # row #216, sin ( 0.331 ) = 0.325
+.byte 0x47
+.byte 0x53
+.byte 0x00
+.byte 0x93  # row #217, sin ( 0.333 ) = 0.327
+.byte 0xa6
+.byte 0x53
+.byte 0x00
+.byte 0x8f  # row #218, sin ( 0.334 ) = 0.328
+.byte 0x05
+.byte 0x54
+.byte 0x00
+.byte 0x7f  # row #219, sin ( 0.336 ) = 0.330
+.byte 0x64
+.byte 0x54
+.byte 0x00
+.byte 0x62  # row #220, sin ( 0.337 ) = 0.331
+.byte 0xc3
+.byte 0x54
+.byte 0x00
+.byte 0x38  # row #221, sin ( 0.339 ) = 0.333
+.byte 0x22
+.byte 0x55
+.byte 0x00
+.byte 0x00  # row #222, sin ( 0.341 ) = 0.334
+.byte 0x81
+.byte 0x55
+.byte 0x00
+.byte 0xbc  # row #223, sin ( 0.342 ) = 0.335
+.byte 0xdf
+.byte 0x55
+.byte 0x00
+.byte 0x6a  # row #224, sin ( 0.344 ) = 0.337
+.byte 0x3e
+.byte 0x56
+.byte 0x00
+.byte 0x0b  # row #225, sin ( 0.345 ) = 0.338
+.byte 0x9d
+.byte 0x56
+.byte 0x00
+.byte 0x9e  # row #226, sin ( 0.347 ) = 0.340
+.byte 0xfb
+.byte 0x56
+.byte 0x00
+.byte 0x24  # row #227, sin ( 0.348 ) = 0.341
+.byte 0x5a
+.byte 0x57
+.byte 0x00
+.byte 0x9d  # row #228, sin ( 0.350 ) = 0.343
+.byte 0xb8
+.byte 0x57
+.byte 0x00
+.byte 0x08  # row #229, sin ( 0.351 ) = 0.344
+.byte 0x17
+.byte 0x58
+.byte 0x00
+.byte 0x65  # row #230, sin ( 0.353 ) = 0.346
+.byte 0x75
+.byte 0x58
+.byte 0x00
+.byte 0xb5  # row #231, sin ( 0.354 ) = 0.347
+.byte 0xd3
+.byte 0x58
+.byte 0x00
+.byte 0xf7  # row #232, sin ( 0.356 ) = 0.348
+.byte 0x31
+.byte 0x59
+.byte 0x00
+.byte 0x2c  # row #233, sin ( 0.357 ) = 0.350
+.byte 0x90
+.byte 0x59
+.byte 0x00
+.byte 0x52  # row #234, sin ( 0.359 ) = 0.351
+.byte 0xee
+.byte 0x59
+.byte 0x00
+.byte 0x6b  # row #235, sin ( 0.360 ) = 0.353
+.byte 0x4c
+.byte 0x5a
+.byte 0x00
+.byte 0x76  # row #236, sin ( 0.362 ) = 0.354
+.byte 0xaa
+.byte 0x5a
+.byte 0x00
+.byte 0x73  # row #237, sin ( 0.364 ) = 0.356
+.byte 0x08
+.byte 0x5b
+.byte 0x00
+.byte 0x62  # row #238, sin ( 0.365 ) = 0.357
+.byte 0x66
+.byte 0x5b
+.byte 0x00
+.byte 0x42  # row #239, sin ( 0.367 ) = 0.358
+.byte 0xc4
+.byte 0x5b
+.byte 0x00
+.byte 0x15  # row #240, sin ( 0.368 ) = 0.360
+.byte 0x22
+.byte 0x5c
+.byte 0x00
+.byte 0xd9  # row #241, sin ( 0.370 ) = 0.361
+.byte 0x7f
+.byte 0x5c
+.byte 0x00
+.byte 0x8f  # row #242, sin ( 0.371 ) = 0.363
+.byte 0xdd
+.byte 0x5c
+.byte 0x00
+.byte 0x37  # row #243, sin ( 0.373 ) = 0.364
+.byte 0x3b
+.byte 0x5d
+.byte 0x00
+.byte 0xd0  # row #244, sin ( 0.374 ) = 0.366
+.byte 0x98
+.byte 0x5d
+.byte 0x00
+.byte 0x5b  # row #245, sin ( 0.376 ) = 0.367
+.byte 0xf6
+.byte 0x5d
+.byte 0x00
+.byte 0xd8  # row #246, sin ( 0.377 ) = 0.368
+.byte 0x53
+.byte 0x5e
+.byte 0x00
+.byte 0x45  # row #247, sin ( 0.379 ) = 0.370
+.byte 0xb1
+.byte 0x5e
+.byte 0x00
+.byte 0xa5  # row #248, sin ( 0.380 ) = 0.371
+.byte 0x0e
+.byte 0x5f
+.byte 0x00
+.byte 0xf5  # row #249, sin ( 0.382 ) = 0.373
+.byte 0x6b
+.byte 0x5f
+.byte 0x00
+.byte 0x37  # row #250, sin ( 0.383 ) = 0.374
+.byte 0xc9
+.byte 0x5f
+.byte 0x00
+.byte 0x6a  # row #251, sin ( 0.385 ) = 0.376
+.byte 0x26
+.byte 0x60
+.byte 0x00
+.byte 0x8f  # row #252, sin ( 0.387 ) = 0.377
+.byte 0x83
+.byte 0x60
+.byte 0x00
+.byte 0xa4  # row #253, sin ( 0.388 ) = 0.378
+.byte 0xe0
+.byte 0x60
+.byte 0x00
+.byte 0xab  # row #254, sin ( 0.390 ) = 0.380
+.byte 0x3d
+.byte 0x61
+.byte 0x00
+.byte 0xa2  # row #255, sin ( 0.391 ) = 0.381
+.byte 0x9a
+.byte 0x61
+.byte 0x00
+.byte 0x8b  # row #256, sin ( 0.393 ) = 0.383
+.byte 0xf7
+.byte 0x61
+.byte 0x00
+.byte 0x64  # row #257, sin ( 0.394 ) = 0.384
+.byte 0x54
+.byte 0x62
+.byte 0x00
+.byte 0x2e  # row #258, sin ( 0.396 ) = 0.386
+.byte 0xb1
+.byte 0x62
+.byte 0x00
+.byte 0xe9  # row #259, sin ( 0.397 ) = 0.387
+.byte 0x0d
+.byte 0x63
+.byte 0x00
+.byte 0x95  # row #260, sin ( 0.399 ) = 0.388
+.byte 0x6a
+.byte 0x63
+.byte 0x00
+.byte 0x31  # row #261, sin ( 0.400 ) = 0.390
+.byte 0xc7
+.byte 0x63
+.byte 0x00
+.byte 0xbe  # row #262, sin ( 0.402 ) = 0.391
+.byte 0x23
+.byte 0x64
+.byte 0x00
+.byte 0x3c  # row #263, sin ( 0.403 ) = 0.393
+.byte 0x80
+.byte 0x64
+.byte 0x00
+.byte 0xaa  # row #264, sin ( 0.405 ) = 0.394
+.byte 0xdc
+.byte 0x64
+.byte 0x00
+.byte 0x08  # row #265, sin ( 0.407 ) = 0.395
+.byte 0x39
+.byte 0x65
+.byte 0x00
+.byte 0x57  # row #266, sin ( 0.408 ) = 0.397
+.byte 0x95
+.byte 0x65
+.byte 0x00
+.byte 0x96  # row #267, sin ( 0.410 ) = 0.398
+.byte 0xf1
+.byte 0x65
+.byte 0x00
+.byte 0xc6  # row #268, sin ( 0.411 ) = 0.400
+.byte 0x4d
+.byte 0x66
+.byte 0x00
+.byte 0xe5  # row #269, sin ( 0.413 ) = 0.401
+.byte 0xa9
+.byte 0x66
+.byte 0x00
+.byte 0xf5  # row #270, sin ( 0.414 ) = 0.402
+.byte 0x05
+.byte 0x67
+.byte 0x00
+.byte 0xf5  # row #271, sin ( 0.416 ) = 0.404
+.byte 0x61
+.byte 0x67
+.byte 0x00
+.byte 0xe5  # row #272, sin ( 0.417 ) = 0.405
+.byte 0xbd
+.byte 0x67
+.byte 0x00
+.byte 0xc5  # row #273, sin ( 0.419 ) = 0.407
+.byte 0x19
+.byte 0x68
+.byte 0x00
+.byte 0x95  # row #274, sin ( 0.420 ) = 0.408
+.byte 0x75
+.byte 0x68
+.byte 0x00
+.byte 0x55  # row #275, sin ( 0.422 ) = 0.409
+.byte 0xd1
+.byte 0x68
+.byte 0x00
+.byte 0x05  # row #276, sin ( 0.423 ) = 0.411
+.byte 0x2d
+.byte 0x69
+.byte 0x00
+.byte 0xa4  # row #277, sin ( 0.425 ) = 0.412
+.byte 0x88
+.byte 0x69
+.byte 0x00
+.byte 0x33  # row #278, sin ( 0.426 ) = 0.414
+.byte 0xe4
+.byte 0x69
+.byte 0x00
+.byte 0xb2  # row #279, sin ( 0.428 ) = 0.415
+.byte 0x3f
+.byte 0x6a
+.byte 0x00
+.byte 0x21  # row #280, sin ( 0.430 ) = 0.416
+.byte 0x9b
+.byte 0x6a
+.byte 0x00
+.byte 0x7f  # row #281, sin ( 0.431 ) = 0.418
+.byte 0xf6
+.byte 0x6a
+.byte 0x00
+.byte 0xcc  # row #282, sin ( 0.433 ) = 0.419
+.byte 0x51
+.byte 0x6b
+.byte 0x00
+.byte 0x09  # row #283, sin ( 0.434 ) = 0.421
+.byte 0xad
+.byte 0x6b
+.byte 0x00
+.byte 0x36  # row #284, sin ( 0.436 ) = 0.422
+.byte 0x08
+.byte 0x6c
+.byte 0x00
+.byte 0x51  # row #285, sin ( 0.437 ) = 0.423
+.byte 0x63
+.byte 0x6c
+.byte 0x00
+.byte 0x5c  # row #286, sin ( 0.439 ) = 0.425
+.byte 0xbe
+.byte 0x6c
+.byte 0x00
+.byte 0x57  # row #287, sin ( 0.440 ) = 0.426
+.byte 0x19
+.byte 0x6d
+.byte 0x00
+.byte 0x40  # row #288, sin ( 0.442 ) = 0.428
+.byte 0x74
+.byte 0x6d
+.byte 0x00
+.byte 0x19  # row #289, sin ( 0.443 ) = 0.429
+.byte 0xcf
+.byte 0x6d
+.byte 0x00
+.byte 0xe0  # row #290, sin ( 0.445 ) = 0.430
+.byte 0x29
+.byte 0x6e
+.byte 0x00
+.byte 0x97  # row #291, sin ( 0.446 ) = 0.432
+.byte 0x84
+.byte 0x6e
+.byte 0x00
+.byte 0x3d  # row #292, sin ( 0.448 ) = 0.433
+.byte 0xdf
+.byte 0x6e
+.byte 0x00
+.byte 0xd1  # row #293, sin ( 0.449 ) = 0.434
+.byte 0x39
+.byte 0x6f
+.byte 0x00
+.byte 0x54  # row #294, sin ( 0.451 ) = 0.436
+.byte 0x94
+.byte 0x6f
+.byte 0x00
+.byte 0xc7  # row #295, sin ( 0.453 ) = 0.437
+.byte 0xee
+.byte 0x6f
+.byte 0x00
+.byte 0x27  # row #296, sin ( 0.454 ) = 0.439
+.byte 0x49
+.byte 0x70
+.byte 0x00
+.byte 0x77  # row #297, sin ( 0.456 ) = 0.440
+.byte 0xa3
+.byte 0x70
+.byte 0x00
+.byte 0xb5  # row #298, sin ( 0.457 ) = 0.441
+.byte 0xfd
+.byte 0x70
+.byte 0x00
+.byte 0xe2  # row #299, sin ( 0.459 ) = 0.443
+.byte 0x57
+.byte 0x71
+.byte 0x00
+.byte 0xfd  # row #300, sin ( 0.460 ) = 0.444
+.byte 0xb1
+.byte 0x71
+.byte 0x00
+.byte 0x07  # row #301, sin ( 0.462 ) = 0.445
+.byte 0x0c
+.byte 0x72
+.byte 0x00
+.byte 0xff  # row #302, sin ( 0.463 ) = 0.447
+.byte 0x65
+.byte 0x72
+.byte 0x00
+.byte 0xe6  # row #303, sin ( 0.465 ) = 0.448
+.byte 0xbf
+.byte 0x72
+.byte 0x00
+.byte 0xba  # row #304, sin ( 0.466 ) = 0.450
+.byte 0x19
+.byte 0x73
+.byte 0x00
+.byte 0x7d  # row #305, sin ( 0.468 ) = 0.451
+.byte 0x73
+.byte 0x73
+.byte 0x00
+.byte 0x2f  # row #306, sin ( 0.469 ) = 0.452
+.byte 0xcd
+.byte 0x73
+.byte 0x00
+.byte 0xce  # row #307, sin ( 0.471 ) = 0.454
+.byte 0x26
+.byte 0x74
+.byte 0x00
+.byte 0x5c  # row #308, sin ( 0.472 ) = 0.455
+.byte 0x80
+.byte 0x74
+.byte 0x00
+.byte 0xd7  # row #309, sin ( 0.474 ) = 0.456
+.byte 0xd9
+.byte 0x74
+.byte 0x00
+.byte 0x41  # row #310, sin ( 0.476 ) = 0.458
+.byte 0x33
+.byte 0x75
+.byte 0x00
+.byte 0x98  # row #311, sin ( 0.477 ) = 0.459
+.byte 0x8c
+.byte 0x75
+.byte 0x00
+.byte 0xdd  # row #312, sin ( 0.479 ) = 0.461
+.byte 0xe5
+.byte 0x75
+.byte 0x00
+.byte 0x11  # row #313, sin ( 0.480 ) = 0.462
+.byte 0x3f
+.byte 0x76
+.byte 0x00
+.byte 0x31  # row #314, sin ( 0.482 ) = 0.463
+.byte 0x98
+.byte 0x76
+.byte 0x00
+.byte 0x40  # row #315, sin ( 0.483 ) = 0.465
+.byte 0xf1
+.byte 0x76
+.byte 0x00
+.byte 0x3c  # row #316, sin ( 0.485 ) = 0.466
+.byte 0x4a
+.byte 0x77
+.byte 0x00
+.byte 0x26  # row #317, sin ( 0.486 ) = 0.467
+.byte 0xa3
+.byte 0x77
+.byte 0x00
+.byte 0xfe  # row #318, sin ( 0.488 ) = 0.469
+.byte 0xfb
+.byte 0x77
+.byte 0x00
+.byte 0xc3  # row #319, sin ( 0.489 ) = 0.470
+.byte 0x54
+.byte 0x78
+.byte 0x00
+.byte 0x75  # row #320, sin ( 0.491 ) = 0.471
+.byte 0xad
+.byte 0x78
+.byte 0x00
+.byte 0x15  # row #321, sin ( 0.492 ) = 0.473
+.byte 0x06
+.byte 0x79
+.byte 0x00
+.byte 0xa2  # row #322, sin ( 0.494 ) = 0.474
+.byte 0x5e
+.byte 0x79
+.byte 0x00
+.byte 0x1c  # row #323, sin ( 0.495 ) = 0.475
+.byte 0xb7
+.byte 0x79
+.byte 0x00
+.byte 0x84  # row #324, sin ( 0.497 ) = 0.477
+.byte 0x0f
+.byte 0x7a
+.byte 0x00
+.byte 0xd8  # row #325, sin ( 0.499 ) = 0.478
+.byte 0x67
+.byte 0x7a
+.byte 0x00
+.byte 0x1a  # row #326, sin ( 0.500 ) = 0.479
+.byte 0xc0
+.byte 0x7a
+.byte 0x00
+.byte 0x49  # row #327, sin ( 0.502 ) = 0.481
+.byte 0x18
+.byte 0x7b
+.byte 0x00
+.byte 0x65  # row #328, sin ( 0.503 ) = 0.482
+.byte 0x70
+.byte 0x7b
+.byte 0x00
+.byte 0x6e  # row #329, sin ( 0.505 ) = 0.484
+.byte 0xc8
+.byte 0x7b
+.byte 0x00
+.byte 0x64  # row #330, sin ( 0.506 ) = 0.485
+.byte 0x20
+.byte 0x7c
+.byte 0x00
+.byte 0x47  # row #331, sin ( 0.508 ) = 0.486
+.byte 0x78
+.byte 0x7c
+.byte 0x00
+.byte 0x16  # row #332, sin ( 0.509 ) = 0.488
+.byte 0xd0
+.byte 0x7c
+.byte 0x00
+.byte 0xd3  # row #333, sin ( 0.511 ) = 0.489
+.byte 0x27
+.byte 0x7d
+.byte 0x00
+.byte 0x7c  # row #334, sin ( 0.512 ) = 0.490
+.byte 0x7f
+.byte 0x7d
+.byte 0x00
+.byte 0x11  # row #335, sin ( 0.514 ) = 0.492
+.byte 0xd7
+.byte 0x7d
+.byte 0x00
+.byte 0x93  # row #336, sin ( 0.515 ) = 0.493
+.byte 0x2e
+.byte 0x7e
+.byte 0x00
+.byte 0x02  # row #337, sin ( 0.517 ) = 0.494
+.byte 0x86
+.byte 0x7e
+.byte 0x00
+.byte 0x5d  # row #338, sin ( 0.518 ) = 0.496
+.byte 0xdd
+.byte 0x7e
+.byte 0x00
+.byte 0xa5  # row #339, sin ( 0.520 ) = 0.497
+.byte 0x34
+.byte 0x7f
+.byte 0x00
+.byte 0xd9  # row #340, sin ( 0.522 ) = 0.498
+.byte 0x8b
+.byte 0x7f
+.byte 0x00
+.byte 0xfa  # row #341, sin ( 0.523 ) = 0.500
+.byte 0xe2
+.byte 0x7f
+.byte 0x00
+.byte 0x06  # row #342, sin ( 0.525 ) = 0.501
+.byte 0x3a
+.byte 0x80
+.byte 0x00
+.byte 0xff  # row #343, sin ( 0.526 ) = 0.502
+.byte 0x90
+.byte 0x80
+.byte 0x00
+.byte 0xe4  # row #344, sin ( 0.528 ) = 0.504
+.byte 0xe7
+.byte 0x80
+.byte 0x00
+.byte 0xb5  # row #345, sin ( 0.529 ) = 0.505
+.byte 0x3e
+.byte 0x81
+.byte 0x00
+.byte 0x73  # row #346, sin ( 0.531 ) = 0.506
+.byte 0x95
+.byte 0x81
+.byte 0x00
+.byte 0x1c  # row #347, sin ( 0.532 ) = 0.508
+.byte 0xec
+.byte 0x81
+.byte 0x00
+.byte 0xb1  # row #348, sin ( 0.534 ) = 0.509
+.byte 0x42
+.byte 0x82
+.byte 0x00
+.byte 0x32  # row #349, sin ( 0.535 ) = 0.510
+.byte 0x99
+.byte 0x82
+.byte 0x00
+.byte 0x9f  # row #350, sin ( 0.537 ) = 0.511
+.byte 0xef
+.byte 0x82
+.byte 0x00
+.byte 0xf8  # row #351, sin ( 0.538 ) = 0.513
+.byte 0x45
+.byte 0x83
+.byte 0x00
+.byte 0x3d  # row #352, sin ( 0.540 ) = 0.514
+.byte 0x9c
+.byte 0x83
+.byte 0x00
+.byte 0x6d  # row #353, sin ( 0.541 ) = 0.515
+.byte 0xf2
+.byte 0x83
+.byte 0x00
+.byte 0x89  # row #354, sin ( 0.543 ) = 0.517
+.byte 0x48
+.byte 0x84
+.byte 0x00
+.byte 0x91  # row #355, sin ( 0.545 ) = 0.518
+.byte 0x9e
+.byte 0x84
+.byte 0x00
+.byte 0x84  # row #356, sin ( 0.546 ) = 0.519
+.byte 0xf4
+.byte 0x84
+.byte 0x00
+.byte 0x62  # row #357, sin ( 0.548 ) = 0.521
+.byte 0x4a
+.byte 0x85
+.byte 0x00
+.byte 0x2c  # row #358, sin ( 0.549 ) = 0.522
+.byte 0xa0
+.byte 0x85
+.byte 0x00
+.byte 0xe2  # row #359, sin ( 0.551 ) = 0.523
+.byte 0xf5
+.byte 0x85
+.byte 0x00
+.byte 0x82  # row #360, sin ( 0.552 ) = 0.525
+.byte 0x4b
+.byte 0x86
+.byte 0x00
+.byte 0x0e  # row #361, sin ( 0.554 ) = 0.526
+.byte 0xa1
+.byte 0x86
+.byte 0x00
+.byte 0x86  # row #362, sin ( 0.555 ) = 0.527
+.byte 0xf6
+.byte 0x86
+.byte 0x00
+.byte 0xe8  # row #363, sin ( 0.557 ) = 0.529
+.byte 0x4b
+.byte 0x87
+.byte 0x00
+.byte 0x36  # row #364, sin ( 0.558 ) = 0.530
+.byte 0xa1
+.byte 0x87
+.byte 0x00
+.byte 0x6f  # row #365, sin ( 0.560 ) = 0.531
+.byte 0xf6
+.byte 0x87
+.byte 0x00
+.byte 0x92  # row #366, sin ( 0.561 ) = 0.532
+.byte 0x4b
+.byte 0x88
+.byte 0x00
+.byte 0xa1  # row #367, sin ( 0.563 ) = 0.534
+.byte 0xa0
+.byte 0x88
+.byte 0x00
+.byte 0x9b  # row #368, sin ( 0.565 ) = 0.535
+.byte 0xf5
+.byte 0x88
+.byte 0x00
+.byte 0x7f  # row #369, sin ( 0.566 ) = 0.536
+.byte 0x4a
+.byte 0x89
+.byte 0x00
+.byte 0x4e  # row #370, sin ( 0.568 ) = 0.538
+.byte 0x9f
+.byte 0x89
+.byte 0x00
+.byte 0x09  # row #371, sin ( 0.569 ) = 0.539
+.byte 0xf4
+.byte 0x89
+.byte 0x00
+.byte 0xad  # row #372, sin ( 0.571 ) = 0.540
+.byte 0x48
+.byte 0x8a
+.byte 0x00
+.byte 0x3d  # row #373, sin ( 0.572 ) = 0.541
+.byte 0x9d
+.byte 0x8a
+.byte 0x00
+.byte 0xb7  # row #374, sin ( 0.574 ) = 0.543
+.byte 0xf1
+.byte 0x8a
+.byte 0x00
+.byte 0x1c  # row #375, sin ( 0.575 ) = 0.544
+.byte 0x46
+.byte 0x8b
+.byte 0x00
+.byte 0x6b  # row #376, sin ( 0.577 ) = 0.545
+.byte 0x9a
+.byte 0x8b
+.byte 0x00
+.byte 0xa5  # row #377, sin ( 0.578 ) = 0.547
+.byte 0xee
+.byte 0x8b
+.byte 0x00
+.byte 0xc9  # row #378, sin ( 0.580 ) = 0.548
+.byte 0x42
+.byte 0x8c
+.byte 0x00
+.byte 0xd7  # row #379, sin ( 0.581 ) = 0.549
+.byte 0x96
+.byte 0x8c
+.byte 0x00
+.byte 0xd0  # row #380, sin ( 0.583 ) = 0.550
+.byte 0xea
+.byte 0x8c
+.byte 0x00
+.byte 0xb3  # row #381, sin ( 0.584 ) = 0.552
+.byte 0x3e
+.byte 0x8d
+.byte 0x00
+.byte 0x81  # row #382, sin ( 0.586 ) = 0.553
+.byte 0x92
+.byte 0x8d
+.byte 0x00
+.byte 0x38  # row #383, sin ( 0.588 ) = 0.554
+.byte 0xe6
+.byte 0x8d
+.byte 0x00
+.byte 0xda  # row #384, sin ( 0.589 ) = 0.556
+.byte 0x39
+.byte 0x8e
+.byte 0x00
+.byte 0x65  # row #385, sin ( 0.591 ) = 0.557
+.byte 0x8d
+.byte 0x8e
+.byte 0x00
+.byte 0xdb  # row #386, sin ( 0.592 ) = 0.558
+.byte 0xe0
+.byte 0x8e
+.byte 0x00
+.byte 0x3b  # row #387, sin ( 0.594 ) = 0.559
+.byte 0x34
+.byte 0x8f
+.byte 0x00
+.byte 0x84  # row #388, sin ( 0.595 ) = 0.561
+.byte 0x87
+.byte 0x8f
+.byte 0x00
+.byte 0xb8  # row #389, sin ( 0.597 ) = 0.562
+.byte 0xda
+.byte 0x8f
+.byte 0x00
+.byte 0xd5  # row #390, sin ( 0.598 ) = 0.563
+.byte 0x2d
+.byte 0x90
+.byte 0x00
+.byte 0xdc  # row #391, sin ( 0.600 ) = 0.564
+.byte 0x80
+.byte 0x90
+.byte 0x00
+.byte 0xcd  # row #392, sin ( 0.601 ) = 0.566
+.byte 0xd3
+.byte 0x90
+.byte 0x00
+.byte 0xa7  # row #393, sin ( 0.603 ) = 0.567
+.byte 0x26
+.byte 0x91
+.byte 0x00
+.byte 0x6b  # row #394, sin ( 0.604 ) = 0.568
+.byte 0x79
+.byte 0x91
+.byte 0x00
+.byte 0x19  # row #395, sin ( 0.606 ) = 0.570
+.byte 0xcc
+.byte 0x91
+.byte 0x00
+.byte 0xb0  # row #396, sin ( 0.607 ) = 0.571
+.byte 0x1e
+.byte 0x92
+.byte 0x00
+.byte 0x30  # row #397, sin ( 0.609 ) = 0.572
+.byte 0x71
+.byte 0x92
+.byte 0x00
+.byte 0x9a  # row #398, sin ( 0.611 ) = 0.573
+.byte 0xc3
+.byte 0x92
+.byte 0x00
+.byte 0xee  # row #399, sin ( 0.612 ) = 0.575
+.byte 0x15
+.byte 0x93
+.byte 0x00
+.byte 0x2a  # row #400, sin ( 0.614 ) = 0.576
+.byte 0x68
+.byte 0x93
+.byte 0x00
+.byte 0x50  # row #401, sin ( 0.615 ) = 0.577
+.byte 0xba
+.byte 0x93
+.byte 0x00
+.byte 0x5f  # row #402, sin ( 0.617 ) = 0.578
+.byte 0x0c
+.byte 0x94
+.byte 0x00
+.byte 0x58  # row #403, sin ( 0.618 ) = 0.580
+.byte 0x5e
+.byte 0x94
+.byte 0x00
+.byte 0x39  # row #404, sin ( 0.620 ) = 0.581
+.byte 0xb0
+.byte 0x94
+.byte 0x00
+.byte 0x04  # row #405, sin ( 0.621 ) = 0.582
+.byte 0x02
+.byte 0x95
+.byte 0x00
+.byte 0xb7  # row #406, sin ( 0.623 ) = 0.583
+.byte 0x53
+.byte 0x95
+.byte 0x00
+.byte 0x54  # row #407, sin ( 0.624 ) = 0.585
+.byte 0xa5
+.byte 0x95
+.byte 0x00
+.byte 0xd9  # row #408, sin ( 0.626 ) = 0.586
+.byte 0xf6
+.byte 0x95
+.byte 0x00
+.byte 0x47  # row #409, sin ( 0.627 ) = 0.587
+.byte 0x48
+.byte 0x96
+.byte 0x00
+.byte 0x9f  # row #410, sin ( 0.629 ) = 0.588
+.byte 0x99
+.byte 0x96
+.byte 0x00
+.byte 0xde  # row #411, sin ( 0.630 ) = 0.590
+.byte 0xea
+.byte 0x96
+.byte 0x00
+.byte 0x07  # row #412, sin ( 0.632 ) = 0.591
+.byte 0x3c
+.byte 0x97
+.byte 0x00
+.byte 0x18  # row #413, sin ( 0.634 ) = 0.592
+.byte 0x8d
+.byte 0x97
+.byte 0x00
+.byte 0x12  # row #414, sin ( 0.635 ) = 0.593
+.byte 0xde
+.byte 0x97
+.byte 0x00
+.byte 0xf5  # row #415, sin ( 0.637 ) = 0.594
+.byte 0x2e
+.byte 0x98
+.byte 0x00
+.byte 0xc0  # row #416, sin ( 0.638 ) = 0.596
+.byte 0x7f
+.byte 0x98
+.byte 0x00
+.byte 0x73  # row #417, sin ( 0.640 ) = 0.597
+.byte 0xd0
+.byte 0x98
+.byte 0x00
+.byte 0x0f  # row #418, sin ( 0.641 ) = 0.598
+.byte 0x21
+.byte 0x99
+.byte 0x00
+.byte 0x94  # row #419, sin ( 0.643 ) = 0.599
+.byte 0x71
+.byte 0x99
+.byte 0x00
+.byte 0x00  # row #420, sin ( 0.644 ) = 0.601
+.byte 0xc2
+.byte 0x99
+.byte 0x00
+.byte 0x55  # row #421, sin ( 0.646 ) = 0.602
+.byte 0x12
+.byte 0x9a
+.byte 0x00
+.byte 0x93  # row #422, sin ( 0.647 ) = 0.603
+.byte 0x62
+.byte 0x9a
+.byte 0x00
+.byte 0xb8  # row #423, sin ( 0.649 ) = 0.604
+.byte 0xb2
+.byte 0x9a
+.byte 0x00
+.byte 0xc6  # row #424, sin ( 0.650 ) = 0.606
+.byte 0x02
+.byte 0x9b
+.byte 0x00
+.byte 0xbb  # row #425, sin ( 0.652 ) = 0.607
+.byte 0x52
+.byte 0x9b
+.byte 0x00
+.byte 0x99  # row #426, sin ( 0.653 ) = 0.608
+.byte 0xa2
+.byte 0x9b
+.byte 0x00
+.byte 0x5f  # row #427, sin ( 0.655 ) = 0.609
+.byte 0xf2
+.byte 0x9b
+.byte 0x00
+.byte 0x0c  # row #428, sin ( 0.657 ) = 0.610
+.byte 0x42
+.byte 0x9c
+.byte 0x00
+.byte 0xa2  # row #429, sin ( 0.658 ) = 0.612
+.byte 0x91
+.byte 0x9c
+.byte 0x00
+.byte 0x1f  # row #430, sin ( 0.660 ) = 0.613
+.byte 0xe1
+.byte 0x9c
+.byte 0x00
+.byte 0x84  # row #431, sin ( 0.661 ) = 0.614
+.byte 0x30
+.byte 0x9d
+.byte 0x00
+.byte 0xd1  # row #432, sin ( 0.663 ) = 0.615
+.byte 0x7f
+.byte 0x9d
+.byte 0x00
+.byte 0x06  # row #433, sin ( 0.664 ) = 0.616
+.byte 0xcf
+.byte 0x9d
+.byte 0x00
+.byte 0x22  # row #434, sin ( 0.666 ) = 0.618
+.byte 0x1e
+.byte 0x9e
+.byte 0x00
+.byte 0x26  # row #435, sin ( 0.667 ) = 0.619
+.byte 0x6d
+.byte 0x9e
+.byte 0x00
+.byte 0x12  # row #436, sin ( 0.669 ) = 0.620
+.byte 0xbc
+.byte 0x9e
+.byte 0x00
+.byte 0xe5  # row #437, sin ( 0.670 ) = 0.621
+.byte 0x0a
+.byte 0x9f
+.byte 0x00
+.byte 0x9f  # row #438, sin ( 0.672 ) = 0.622
+.byte 0x59
+.byte 0x9f
+.byte 0x00
+.byte 0x41  # row #439, sin ( 0.673 ) = 0.624
+.byte 0xa8
+.byte 0x9f
+.byte 0x00
+.byte 0xcb  # row #440, sin ( 0.675 ) = 0.625
+.byte 0xf6
+.byte 0x9f
+.byte 0x00
+.byte 0x3b  # row #441, sin ( 0.676 ) = 0.626
+.byte 0x45
+.byte 0xa0
+.byte 0x00
+.byte 0x93  # row #442, sin ( 0.678 ) = 0.627
+.byte 0x93
+.byte 0xa0
+.byte 0x00
+.byte 0xd2  # row #443, sin ( 0.680 ) = 0.628
+.byte 0xe1
+.byte 0xa0
+.byte 0x00
+.byte 0xf9  # row #444, sin ( 0.681 ) = 0.630
+.byte 0x2f
+.byte 0xa1
+.byte 0x00
+.byte 0x06  # row #445, sin ( 0.683 ) = 0.631
+.byte 0x7e
+.byte 0xa1
+.byte 0x00
+.byte 0xfb  # row #446, sin ( 0.684 ) = 0.632
+.byte 0xcb
+.byte 0xa1
+.byte 0x00
+.byte 0xd7  # row #447, sin ( 0.686 ) = 0.633
+.byte 0x19
+.byte 0xa2
+.byte 0x00
+.byte 0x99  # row #448, sin ( 0.687 ) = 0.634
+.byte 0x67
+.byte 0xa2
+.byte 0x00
+.byte 0x43  # row #449, sin ( 0.689 ) = 0.636
+.byte 0xb5
+.byte 0xa2
+.byte 0x00
+.byte 0xd3  # row #450, sin ( 0.690 ) = 0.637
+.byte 0x02
+.byte 0xa3
+.byte 0x00
+.byte 0x4b  # row #451, sin ( 0.692 ) = 0.638
+.byte 0x50
+.byte 0xa3
+.byte 0x00
+.byte 0xa9  # row #452, sin ( 0.693 ) = 0.639
+.byte 0x9d
+.byte 0xa3
+.byte 0x00
+.byte 0xee  # row #453, sin ( 0.695 ) = 0.640
+.byte 0xea
+.byte 0xa3
+.byte 0x00
+.byte 0x1a  # row #454, sin ( 0.696 ) = 0.641
+.byte 0x38
+.byte 0xa4
+.byte 0x00
+.byte 0x2c  # row #455, sin ( 0.698 ) = 0.643
+.byte 0x85
+.byte 0xa4
+.byte 0x00
+.byte 0x25  # row #456, sin ( 0.699 ) = 0.644
+.byte 0xd2
+.byte 0xa4
+.byte 0x00
+.byte 0x04  # row #457, sin ( 0.701 ) = 0.645
+.byte 0x1f
+.byte 0xa5
+.byte 0x00
+.byte 0xcb  # row #458, sin ( 0.703 ) = 0.646
+.byte 0x6b
+.byte 0xa5
+.byte 0x00
+.byte 0x77  # row #459, sin ( 0.704 ) = 0.647
+.byte 0xb8
+.byte 0xa5
+.byte 0x00
+.byte 0x0a  # row #460, sin ( 0.706 ) = 0.649
+.byte 0x05
+.byte 0xa6
+.byte 0x00
+.byte 0x84  # row #461, sin ( 0.707 ) = 0.650
+.byte 0x51
+.byte 0xa6
+.byte 0x00
+.byte 0xe3  # row #462, sin ( 0.709 ) = 0.651
+.byte 0x9d
+.byte 0xa6
+.byte 0x00
+.byte 0x2a  # row #463, sin ( 0.710 ) = 0.652
+.byte 0xea
+.byte 0xa6
+.byte 0x00
+.byte 0x56  # row #464, sin ( 0.712 ) = 0.653
+.byte 0x36
+.byte 0xa7
+.byte 0x00
+.byte 0x68  # row #465, sin ( 0.713 ) = 0.654
+.byte 0x82
+.byte 0xa7
+.byte 0x00
+.byte 0x61  # row #466, sin ( 0.715 ) = 0.655
+.byte 0xce
+.byte 0xa7
+.byte 0x00
+.byte 0x40  # row #467, sin ( 0.716 ) = 0.657
+.byte 0x1a
+.byte 0xa8
+.byte 0x00
+.byte 0x05  # row #468, sin ( 0.718 ) = 0.658
+.byte 0x66
+.byte 0xa8
+.byte 0x00
+.byte 0xb0  # row #469, sin ( 0.719 ) = 0.659
+.byte 0xb1
+.byte 0xa8
+.byte 0x00
+.byte 0x41  # row #470, sin ( 0.721 ) = 0.660
+.byte 0xfd
+.byte 0xa8
+.byte 0x00
+.byte 0xb8  # row #471, sin ( 0.723 ) = 0.661
+.byte 0x48
+.byte 0xa9
+.byte 0x00
+.byte 0x15  # row #472, sin ( 0.724 ) = 0.662
+.byte 0x94
+.byte 0xa9
+.byte 0x00
+.byte 0x57  # row #473, sin ( 0.726 ) = 0.664
+.byte 0xdf
+.byte 0xa9
+.byte 0x00
+.byte 0x80  # row #474, sin ( 0.727 ) = 0.665
+.byte 0x2a
+.byte 0xaa
+.byte 0x00
+.byte 0x8e  # row #475, sin ( 0.729 ) = 0.666
+.byte 0x75
+.byte 0xaa
+.byte 0x00
+.byte 0x82  # row #476, sin ( 0.730 ) = 0.667
+.byte 0xc0
+.byte 0xaa
+.byte 0x00
+.byte 0x5b  # row #477, sin ( 0.732 ) = 0.668
+.byte 0x0b
+.byte 0xab
+.byte 0x00
+.byte 0x1b  # row #478, sin ( 0.733 ) = 0.669
+.byte 0x56
+.byte 0xab
+.byte 0x00
+.byte 0xbf  # row #479, sin ( 0.735 ) = 0.670
+.byte 0xa0
+.byte 0xab
+.byte 0x00
+.byte 0x4a  # row #480, sin ( 0.736 ) = 0.672
+.byte 0xeb
+.byte 0xab
+.byte 0x00
+.byte 0xb9  # row #481, sin ( 0.738 ) = 0.673
+.byte 0x35
+.byte 0xac
+.byte 0x00
+.byte 0x0f  # row #482, sin ( 0.739 ) = 0.674
+.byte 0x80
+.byte 0xac
+.byte 0x00
+.byte 0x49  # row #483, sin ( 0.741 ) = 0.675
+.byte 0xca
+.byte 0xac
+.byte 0x00
+.byte 0x69  # row #484, sin ( 0.742 ) = 0.676
+.byte 0x14
+.byte 0xad
+.byte 0x00
+.byte 0x6f  # row #485, sin ( 0.744 ) = 0.677
+.byte 0x5e
+.byte 0xad
+.byte 0x00
+.byte 0x59  # row #486, sin ( 0.746 ) = 0.678
+.byte 0xa8
+.byte 0xad
+.byte 0x00
+.byte 0x29  # row #487, sin ( 0.747 ) = 0.679
+.byte 0xf2
+.byte 0xad
+.byte 0x00
+.byte 0xde  # row #488, sin ( 0.749 ) = 0.681
+.byte 0x3b
+.byte 0xae
+.byte 0x00
+.byte 0x78  # row #489, sin ( 0.750 ) = 0.682
+.byte 0x85
+.byte 0xae
+.byte 0x00
+.byte 0xf7  # row #490, sin ( 0.752 ) = 0.683
+.byte 0xce
+.byte 0xae
+.byte 0x00
+.byte 0x5b  # row #491, sin ( 0.753 ) = 0.684
+.byte 0x18
+.byte 0xaf
+.byte 0x00
+.byte 0xa5  # row #492, sin ( 0.755 ) = 0.685
+.byte 0x61
+.byte 0xaf
+.byte 0x00
+.byte 0xd3  # row #493, sin ( 0.756 ) = 0.686
+.byte 0xaa
+.byte 0xaf
+.byte 0x00
+.byte 0xe6  # row #494, sin ( 0.758 ) = 0.687
+.byte 0xf3
+.byte 0xaf
+.byte 0x00
+.byte 0xde  # row #495, sin ( 0.759 ) = 0.688
+.byte 0x3c
+.byte 0xb0
+.byte 0x00
+.byte 0xbb  # row #496, sin ( 0.761 ) = 0.690
+.byte 0x85
+.byte 0xb0
+.byte 0x00
+.byte 0x7c  # row #497, sin ( 0.762 ) = 0.691
+.byte 0xce
+.byte 0xb0
+.byte 0x00
+.byte 0x22  # row #498, sin ( 0.764 ) = 0.692
+.byte 0x17
+.byte 0xb1
+.byte 0x00
+.byte 0xad  # row #499, sin ( 0.765 ) = 0.693
+.byte 0x5f
+.byte 0xb1
+.byte 0x00
+.byte 0x1d  # row #500, sin ( 0.767 ) = 0.694
+.byte 0xa8
+.byte 0xb1
+.byte 0x00
+.byte 0x71  # row #501, sin ( 0.769 ) = 0.695
+.byte 0xf0
+.byte 0xb1
+.byte 0x00
+.byte 0xaa  # row #502, sin ( 0.770 ) = 0.696
+.byte 0x38
+.byte 0xb2
+.byte 0x00
+.byte 0xc7  # row #503, sin ( 0.772 ) = 0.697
+.byte 0x80
+.byte 0xb2
+.byte 0x00
+.byte 0xc9  # row #504, sin ( 0.773 ) = 0.698
+.byte 0xc8
+.byte 0xb2
+.byte 0x00
+.byte 0xaf  # row #505, sin ( 0.775 ) = 0.699
+.byte 0x10
+.byte 0xb3
+.byte 0x00
+.byte 0x7a  # row #506, sin ( 0.776 ) = 0.701
+.byte 0x58
+.byte 0xb3
+.byte 0x00
+.byte 0x29  # row #507, sin ( 0.778 ) = 0.702
+.byte 0xa0
+.byte 0xb3
+.byte 0x00
+.byte 0xbc  # row #508, sin ( 0.779 ) = 0.703
+.byte 0xe7
+.byte 0xb3
+.byte 0x00
+.byte 0x34  # row #509, sin ( 0.781 ) = 0.704
+.byte 0x2f
+.byte 0xb4
+.byte 0x00
+.byte 0x8f  # row #510, sin ( 0.782 ) = 0.705
+.byte 0x76
+.byte 0xb4
+.byte 0x00
+.byte 0xcf  # row #511, sin ( 0.784 ) = 0.706
+.byte 0xbd
+.byte 0xb4
+.byte 0x00
+.byte 0xf3  # row #512, sin ( 0.785 ) = 0.707
+.byte 0x04
+.byte 0xb5
+.byte 0x00
+.byte 0xfb  # row #513, sin ( 0.787 ) = 0.708
+.byte 0x4b
+.byte 0xb5
+.byte 0x00
+.byte 0xe7  # row #514, sin ( 0.788 ) = 0.709
+.byte 0x92
+.byte 0xb5
+.byte 0x00
+.byte 0xb8  # row #515, sin ( 0.790 ) = 0.710
+.byte 0xd9
+.byte 0xb5
+.byte 0x00
+.byte 0x6c  # row #516, sin ( 0.792 ) = 0.711
+.byte 0x20
+.byte 0xb6
+.byte 0x00
+.byte 0x04  # row #517, sin ( 0.793 ) = 0.713
+.byte 0x67
+.byte 0xb6
+.byte 0x00
+.byte 0x7f  # row #518, sin ( 0.795 ) = 0.714
+.byte 0xad
+.byte 0xb6
+.byte 0x00
+.byte 0xdf  # row #519, sin ( 0.796 ) = 0.715
+.byte 0xf3
+.byte 0xb6
+.byte 0x00
+.byte 0x23  # row #520, sin ( 0.798 ) = 0.716
+.byte 0x3a
+.byte 0xb7
+.byte 0x00
+.byte 0x4a  # row #521, sin ( 0.799 ) = 0.717
+.byte 0x80
+.byte 0xb7
+.byte 0x00
+.byte 0x55  # row #522, sin ( 0.801 ) = 0.718
+.byte 0xc6
+.byte 0xb7
+.byte 0x00
+.byte 0x43  # row #523, sin ( 0.802 ) = 0.719
+.byte 0x0c
+.byte 0xb8
+.byte 0x00
+.byte 0x16  # row #524, sin ( 0.804 ) = 0.720
+.byte 0x52
+.byte 0xb8
+.byte 0x00
+.byte 0xcb  # row #525, sin ( 0.805 ) = 0.721
+.byte 0x97
+.byte 0xb8
+.byte 0x00
+.byte 0x65  # row #526, sin ( 0.807 ) = 0.722
+.byte 0xdd
+.byte 0xb8
+.byte 0x00
+.byte 0xe1  # row #527, sin ( 0.808 ) = 0.723
+.byte 0x22
+.byte 0xb9
+.byte 0x00
+.byte 0x42  # row #528, sin ( 0.810 ) = 0.724
+.byte 0x68
+.byte 0xb9
+.byte 0x00
+.byte 0x85  # row #529, sin ( 0.811 ) = 0.725
+.byte 0xad
+.byte 0xb9
+.byte 0x00
+.byte 0xac  # row #530, sin ( 0.813 ) = 0.726
+.byte 0xf2
+.byte 0xb9
+.byte 0x00
+.byte 0xb7  # row #531, sin ( 0.815 ) = 0.727
+.byte 0x37
+.byte 0xba
+.byte 0x00
+.byte 0xa4  # row #532, sin ( 0.816 ) = 0.728
+.byte 0x7c
+.byte 0xba
+.byte 0x00
+.byte 0x75  # row #533, sin ( 0.818 ) = 0.730
+.byte 0xc1
+.byte 0xba
+.byte 0x00
+.byte 0x29  # row #534, sin ( 0.819 ) = 0.731
+.byte 0x06
+.byte 0xbb
+.byte 0x00
+.byte 0xc1  # row #535, sin ( 0.821 ) = 0.732
+.byte 0x4a
+.byte 0xbb
+.byte 0x00
+.byte 0x3b  # row #536, sin ( 0.822 ) = 0.733
+.byte 0x8f
+.byte 0xbb
+.byte 0x00
+.byte 0x98  # row #537, sin ( 0.824 ) = 0.734
+.byte 0xd3
+.byte 0xbb
+.byte 0x00
+.byte 0xd9  # row #538, sin ( 0.825 ) = 0.735
+.byte 0x17
+.byte 0xbc
+.byte 0x00
+.byte 0xfc  # row #539, sin ( 0.827 ) = 0.736
+.byte 0x5b
+.byte 0xbc
+.byte 0x00
+.byte 0x03  # row #540, sin ( 0.828 ) = 0.737
+.byte 0xa0
+.byte 0xbc
+.byte 0x00
+.byte 0xec  # row #541, sin ( 0.830 ) = 0.738
+.byte 0xe3
+.byte 0xbc
+.byte 0x00
+.byte 0xb8  # row #542, sin ( 0.831 ) = 0.739
+.byte 0x27
+.byte 0xbd
+.byte 0x00
+.byte 0x67  # row #543, sin ( 0.833 ) = 0.740
+.byte 0x6b
+.byte 0xbd
+.byte 0x00
+.byte 0xf9  # row #544, sin ( 0.834 ) = 0.741
+.byte 0xae
+.byte 0xbd
+.byte 0x00
+.byte 0x6e  # row #545, sin ( 0.836 ) = 0.742
+.byte 0xf2
+.byte 0xbd
+.byte 0x00
+.byte 0xc5  # row #546, sin ( 0.838 ) = 0.743
+.byte 0x35
+.byte 0xbe
+.byte 0x00
+.byte 0xff  # row #547, sin ( 0.839 ) = 0.744
+.byte 0x78
+.byte 0xbe
+.byte 0x00
+.byte 0x1b  # row #548, sin ( 0.841 ) = 0.745
+.byte 0xbc
+.byte 0xbe
+.byte 0x00
+.byte 0x1b  # row #549, sin ( 0.842 ) = 0.746
+.byte 0xff
+.byte 0xbe
+.byte 0x00
+.byte 0xfc  # row #550, sin ( 0.844 ) = 0.747
+.byte 0x41
+.byte 0xbf
+.byte 0x00
+.byte 0xc0  # row #551, sin ( 0.845 ) = 0.748
+.byte 0x84
+.byte 0xbf
+.byte 0x00
+.byte 0x67  # row #552, sin ( 0.847 ) = 0.749
+.byte 0xc7
+.byte 0xbf
+.byte 0x00
+.byte 0xf0  # row #553, sin ( 0.848 ) = 0.750
+.byte 0x09
+.byte 0xc0
+.byte 0x00
+.byte 0x5c  # row #554, sin ( 0.850 ) = 0.751
+.byte 0x4c
+.byte 0xc0
+.byte 0x00
+.byte 0xa9  # row #555, sin ( 0.851 ) = 0.752
+.byte 0x8e
+.byte 0xc0
+.byte 0x00
+.byte 0xda  # row #556, sin ( 0.853 ) = 0.753
+.byte 0xd0
+.byte 0xc0
+.byte 0x00
+.byte 0xec  # row #557, sin ( 0.854 ) = 0.754
+.byte 0x12
+.byte 0xc1
+.byte 0x00
+.byte 0xe1  # row #558, sin ( 0.856 ) = 0.755
+.byte 0x54
+.byte 0xc1
+.byte 0x00
+.byte 0xb7  # row #559, sin ( 0.857 ) = 0.756
+.byte 0x96
+.byte 0xc1
+.byte 0x00
+.byte 0x70  # row #560, sin ( 0.859 ) = 0.757
+.byte 0xd8
+.byte 0xc1
+.byte 0x00
+.byte 0x0b  # row #561, sin ( 0.861 ) = 0.758
+.byte 0x1a
+.byte 0xc2
+.byte 0x00
+.byte 0x89  # row #562, sin ( 0.862 ) = 0.759
+.byte 0x5b
+.byte 0xc2
+.byte 0x00
+.byte 0xe8  # row #563, sin ( 0.864 ) = 0.760
+.byte 0x9c
+.byte 0xc2
+.byte 0x00
+.byte 0x29  # row #564, sin ( 0.865 ) = 0.761
+.byte 0xde
+.byte 0xc2
+.byte 0x00
+.byte 0x4c  # row #565, sin ( 0.867 ) = 0.762
+.byte 0x1f
+.byte 0xc3
+.byte 0x00
+.byte 0x51  # row #566, sin ( 0.868 ) = 0.763
+.byte 0x60
+.byte 0xc3
+.byte 0x00
+.byte 0x38  # row #567, sin ( 0.870 ) = 0.764
+.byte 0xa1
+.byte 0xc3
+.byte 0x00
+.byte 0x00  # row #568, sin ( 0.871 ) = 0.765
+.byte 0xe2
+.byte 0xc3
+.byte 0x00
+.byte 0xab  # row #569, sin ( 0.873 ) = 0.766
+.byte 0x22
+.byte 0xc4
+.byte 0x00
+.byte 0x37  # row #570, sin ( 0.874 ) = 0.767
+.byte 0x63
+.byte 0xc4
+.byte 0x00
+.byte 0xa5  # row #571, sin ( 0.876 ) = 0.768
+.byte 0xa3
+.byte 0xc4
+.byte 0x00
+.byte 0xf5  # row #572, sin ( 0.877 ) = 0.769
+.byte 0xe3
+.byte 0xc4
+.byte 0x00
+.byte 0x26  # row #573, sin ( 0.879 ) = 0.770
+.byte 0x24
+.byte 0xc5
+.byte 0x00
+.byte 0x39  # row #574, sin ( 0.881 ) = 0.771
+.byte 0x64
+.byte 0xc5
+.byte 0x00
+.byte 0x2d  # row #575, sin ( 0.882 ) = 0.772
+.byte 0xa4
+.byte 0xc5
+.byte 0x00
+.byte 0x03  # row #576, sin ( 0.884 ) = 0.773
+.byte 0xe4
+.byte 0xc5
+.byte 0x00
+.byte 0xbb  # row #577, sin ( 0.885 ) = 0.774
+.byte 0x23
+.byte 0xc6
+.byte 0x00
+.byte 0x54  # row #578, sin ( 0.887 ) = 0.775
+.byte 0x63
+.byte 0xc6
+.byte 0x00
+.byte 0xce  # row #579, sin ( 0.888 ) = 0.776
+.byte 0xa2
+.byte 0xc6
+.byte 0x00
+.byte 0x2a  # row #580, sin ( 0.890 ) = 0.777
+.byte 0xe2
+.byte 0xc6
+.byte 0x00
+.byte 0x67  # row #581, sin ( 0.891 ) = 0.778
+.byte 0x21
+.byte 0xc7
+.byte 0x00
+.byte 0x85  # row #582, sin ( 0.893 ) = 0.779
+.byte 0x60
+.byte 0xc7
+.byte 0x00
+.byte 0x84  # row #583, sin ( 0.894 ) = 0.780
+.byte 0x9f
+.byte 0xc7
+.byte 0x00
+.byte 0x65  # row #584, sin ( 0.896 ) = 0.781
+.byte 0xde
+.byte 0xc7
+.byte 0x00
+.byte 0x27  # row #585, sin ( 0.897 ) = 0.782
+.byte 0x1d
+.byte 0xc8
+.byte 0x00
+.byte 0xca  # row #586, sin ( 0.899 ) = 0.783
+.byte 0x5b
+.byte 0xc8
+.byte 0x00
+.byte 0x4e  # row #587, sin ( 0.900 ) = 0.784
+.byte 0x9a
+.byte 0xc8
+.byte 0x00
+.byte 0xb3  # row #588, sin ( 0.902 ) = 0.785
+.byte 0xd8
+.byte 0xc8
+.byte 0x00
+.byte 0xfa  # row #589, sin ( 0.904 ) = 0.786
+.byte 0x16
+.byte 0xc9
+.byte 0x00
+.byte 0x21  # row #590, sin ( 0.905 ) = 0.786
+.byte 0x55
+.byte 0xc9
+.byte 0x00
+.byte 0x29  # row #591, sin ( 0.907 ) = 0.787
+.byte 0x93
+.byte 0xc9
+.byte 0x00
+.byte 0x12  # row #592, sin ( 0.908 ) = 0.788
+.byte 0xd1
+.byte 0xc9
+.byte 0x00
+.byte 0xdc  # row #593, sin ( 0.910 ) = 0.789
+.byte 0x0e
+.byte 0xca
+.byte 0x00
+.byte 0x87  # row #594, sin ( 0.911 ) = 0.790
+.byte 0x4c
+.byte 0xca
+.byte 0x00
+.byte 0x13  # row #595, sin ( 0.913 ) = 0.791
+.byte 0x8a
+.byte 0xca
+.byte 0x00
+.byte 0x7f  # row #596, sin ( 0.914 ) = 0.792
+.byte 0xc7
+.byte 0xca
+.byte 0x00
+.byte 0xcc  # row #597, sin ( 0.916 ) = 0.793
+.byte 0x04
+.byte 0xcb
+.byte 0x00
+.byte 0xfa  # row #598, sin ( 0.917 ) = 0.794
+.byte 0x41
+.byte 0xcb
+.byte 0x00
+.byte 0x09  # row #599, sin ( 0.919 ) = 0.795
+.byte 0x7f
+.byte 0xcb
+.byte 0x00
+.byte 0xf8  # row #600, sin ( 0.920 ) = 0.796
+.byte 0xbb
+.byte 0xcb
+.byte 0x00
+.byte 0xc7  # row #601, sin ( 0.922 ) = 0.797
+.byte 0xf8
+.byte 0xcb
+.byte 0x00
+.byte 0x78  # row #602, sin ( 0.923 ) = 0.798
+.byte 0x35
+.byte 0xcc
+.byte 0x00
+.byte 0x08  # row #603, sin ( 0.925 ) = 0.799
+.byte 0x72
+.byte 0xcc
+.byte 0x00
+.byte 0x79  # row #604, sin ( 0.927 ) = 0.800
+.byte 0xae
+.byte 0xcc
+.byte 0x00
+.byte 0xcb  # row #605, sin ( 0.928 ) = 0.800
+.byte 0xea
+.byte 0xcc
+.byte 0x00
+.byte 0xfd  # row #606, sin ( 0.930 ) = 0.801
+.byte 0x26
+.byte 0xcd
+.byte 0x00
+.byte 0x10  # row #607, sin ( 0.931 ) = 0.802
+.byte 0x63
+.byte 0xcd
+.byte 0x00
+.byte 0x02  # row #608, sin ( 0.933 ) = 0.803
+.byte 0x9f
+.byte 0xcd
+.byte 0x00
+.byte 0xd5  # row #609, sin ( 0.934 ) = 0.804
+.byte 0xda
+.byte 0xcd
+.byte 0x00
+.byte 0x89  # row #610, sin ( 0.936 ) = 0.805
+.byte 0x16
+.byte 0xce
+.byte 0x00
+.byte 0x1c  # row #611, sin ( 0.937 ) = 0.806
+.byte 0x52
+.byte 0xce
+.byte 0x00
+.byte 0x90  # row #612, sin ( 0.939 ) = 0.807
+.byte 0x8d
+.byte 0xce
+.byte 0x00
+.byte 0xe4  # row #613, sin ( 0.940 ) = 0.808
+.byte 0xc8
+.byte 0xce
+.byte 0x00
+.byte 0x17  # row #614, sin ( 0.942 ) = 0.809
+.byte 0x04
+.byte 0xcf
+.byte 0x00
+.byte 0x2b  # row #615, sin ( 0.943 ) = 0.810
+.byte 0x3f
+.byte 0xcf
+.byte 0x00
+.byte 0x1f  # row #616, sin ( 0.945 ) = 0.810
+.byte 0x7a
+.byte 0xcf
+.byte 0x00
+.byte 0xf4  # row #617, sin ( 0.946 ) = 0.811
+.byte 0xb4
+.byte 0xcf
+.byte 0x00
+.byte 0xa8  # row #618, sin ( 0.948 ) = 0.812
+.byte 0xef
+.byte 0xcf
+.byte 0x00
+.byte 0x3b  # row #619, sin ( 0.950 ) = 0.813
+.byte 0x2a
+.byte 0xd0
+.byte 0x00
+.byte 0xaf  # row #620, sin ( 0.951 ) = 0.814
+.byte 0x64
+.byte 0xd0
+.byte 0x00
+.byte 0x03  # row #621, sin ( 0.953 ) = 0.815
+.byte 0x9f
+.byte 0xd0
+.byte 0x00
+.byte 0x37  # row #622, sin ( 0.954 ) = 0.816
+.byte 0xd9
+.byte 0xd0
+.byte 0x00
+.byte 0x4a  # row #623, sin ( 0.956 ) = 0.817
+.byte 0x13
+.byte 0xd1
+.byte 0x00
+.byte 0x3d  # row #624, sin ( 0.957 ) = 0.818
+.byte 0x4d
+.byte 0xd1
+.byte 0x00
+.byte 0x10  # row #625, sin ( 0.959 ) = 0.818
+.byte 0x87
+.byte 0xd1
+.byte 0x00
+.byte 0xc2  # row #626, sin ( 0.960 ) = 0.819
+.byte 0xc0
+.byte 0xd1
+.byte 0x00
+.byte 0x54  # row #627, sin ( 0.962 ) = 0.820
+.byte 0xfa
+.byte 0xd1
+.byte 0x00
+.byte 0xc6  # row #628, sin ( 0.963 ) = 0.821
+.byte 0x33
+.byte 0xd2
+.byte 0x00
+.byte 0x18  # row #629, sin ( 0.965 ) = 0.822
+.byte 0x6d
+.byte 0xd2
+.byte 0x00
+.byte 0x49  # row #630, sin ( 0.966 ) = 0.823
+.byte 0xa6
+.byte 0xd2
+.byte 0x00
+.byte 0x59  # row #631, sin ( 0.968 ) = 0.824
+.byte 0xdf
+.byte 0xd2
+.byte 0x00
+.byte 0x49  # row #632, sin ( 0.969 ) = 0.825
+.byte 0x18
+.byte 0xd3
+.byte 0x00
+.byte 0x18  # row #633, sin ( 0.971 ) = 0.825
+.byte 0x51
+.byte 0xd3
+.byte 0x00
+.byte 0xc7  # row #634, sin ( 0.973 ) = 0.826
+.byte 0x89
+.byte 0xd3
+.byte 0x00
+.byte 0x55  # row #635, sin ( 0.974 ) = 0.827
+.byte 0xc2
+.byte 0xd3
+.byte 0x00
+.byte 0xc3  # row #636, sin ( 0.976 ) = 0.828
+.byte 0xfa
+.byte 0xd3
+.byte 0x00
+.byte 0x0f  # row #637, sin ( 0.977 ) = 0.829
+.byte 0x33
+.byte 0xd4
+.byte 0x00
+.byte 0x3b  # row #638, sin ( 0.979 ) = 0.830
+.byte 0x6b
+.byte 0xd4
+.byte 0x00
+.byte 0x47  # row #639, sin ( 0.980 ) = 0.831
+.byte 0xa3
+.byte 0xd4
+.byte 0x00
+.byte 0x31  # row #640, sin ( 0.982 ) = 0.831
+.byte 0xdb
+.byte 0xd4
+.byte 0x00
+.byte 0xfb  # row #641, sin ( 0.983 ) = 0.832
+.byte 0x12
+.byte 0xd5
+.byte 0x00
+.byte 0xa4  # row #642, sin ( 0.985 ) = 0.833
+.byte 0x4a
+.byte 0xd5
+.byte 0x00
+.byte 0x2c  # row #643, sin ( 0.986 ) = 0.834
+.byte 0x82
+.byte 0xd5
+.byte 0x00
+.byte 0x93  # row #644, sin ( 0.988 ) = 0.835
+.byte 0xb9
+.byte 0xd5
+.byte 0x00
+.byte 0xd9  # row #645, sin ( 0.989 ) = 0.836
+.byte 0xf0
+.byte 0xd5
+.byte 0x00
+.byte 0xfe  # row #646, sin ( 0.991 ) = 0.837
+.byte 0x27
+.byte 0xd6
+.byte 0x00
+.byte 0x02  # row #647, sin ( 0.992 ) = 0.837
+.byte 0x5f
+.byte 0xd6
+.byte 0x00
+.byte 0xe5  # row #648, sin ( 0.994 ) = 0.838
+.byte 0x95
+.byte 0xd6
+.byte 0x00
+.byte 0xa7  # row #649, sin ( 0.996 ) = 0.839
+.byte 0xcc
+.byte 0xd6
+.byte 0x00
+.byte 0x48  # row #650, sin ( 0.997 ) = 0.840
+.byte 0x03
+.byte 0xd7
+.byte 0x00
+.byte 0xc7  # row #651, sin ( 0.999 ) = 0.841
+.byte 0x39
+.byte 0xd7
+.byte 0x00
+.byte 0x26  # row #652, sin ( 1.000 ) = 0.842
+.byte 0x70
+.byte 0xd7
+.byte 0x00
+.byte 0x63  # row #653, sin ( 1.002 ) = 0.842
+.byte 0xa6
+.byte 0xd7
+.byte 0x00
+.byte 0x7f  # row #654, sin ( 1.003 ) = 0.843
+.byte 0xdc
+.byte 0xd7
+.byte 0x00
+.byte 0x79  # row #655, sin ( 1.005 ) = 0.844
+.byte 0x12
+.byte 0xd8
+.byte 0x00
+.byte 0x53  # row #656, sin ( 1.006 ) = 0.845
+.byte 0x48
+.byte 0xd8
+.byte 0x00
+.byte 0x0b  # row #657, sin ( 1.008 ) = 0.846
+.byte 0x7e
+.byte 0xd8
+.byte 0x00
+.byte 0xa1  # row #658, sin ( 1.009 ) = 0.846
+.byte 0xb3
+.byte 0xd8
+.byte 0x00
+.byte 0x16  # row #659, sin ( 1.011 ) = 0.847
+.byte 0xe9
+.byte 0xd8
+.byte 0x00
+.byte 0x6a  # row #660, sin ( 1.012 ) = 0.848
+.byte 0x1e
+.byte 0xd9
+.byte 0x00
+.byte 0x9c  # row #661, sin ( 1.014 ) = 0.849
+.byte 0x53
+.byte 0xd9
+.byte 0x00
+.byte 0xad  # row #662, sin ( 1.015 ) = 0.850
+.byte 0x88
+.byte 0xd9
+.byte 0x00
+.byte 0x9c  # row #663, sin ( 1.017 ) = 0.851
+.byte 0xbd
+.byte 0xd9
+.byte 0x00
+.byte 0x6a  # row #664, sin ( 1.019 ) = 0.851
+.byte 0xf2
+.byte 0xd9
+.byte 0x00
+.byte 0x16  # row #665, sin ( 1.020 ) = 0.852
+.byte 0x27
+.byte 0xda
+.byte 0x00
+.byte 0xa0  # row #666, sin ( 1.022 ) = 0.853
+.byte 0x5b
+.byte 0xda
+.byte 0x00
+.byte 0x09  # row #667, sin ( 1.023 ) = 0.854
+.byte 0x90
+.byte 0xda
+.byte 0x00
+.byte 0x50  # row #668, sin ( 1.025 ) = 0.855
+.byte 0xc4
+.byte 0xda
+.byte 0x00
+.byte 0x75  # row #669, sin ( 1.026 ) = 0.855
+.byte 0xf8
+.byte 0xda
+.byte 0x00
+.byte 0x79  # row #670, sin ( 1.028 ) = 0.856
+.byte 0x2c
+.byte 0xdb
+.byte 0x00
+.byte 0x5a  # row #671, sin ( 1.029 ) = 0.857
+.byte 0x60
+.byte 0xdb
+.byte 0x00
+.byte 0x1a  # row #672, sin ( 1.031 ) = 0.858
+.byte 0x94
+.byte 0xdb
+.byte 0x00
+.byte 0xb8  # row #673, sin ( 1.032 ) = 0.859
+.byte 0xc7
+.byte 0xdb
+.byte 0x00
+.byte 0x34  # row #674, sin ( 1.034 ) = 0.859
+.byte 0xfb
+.byte 0xdb
+.byte 0x00
+.byte 0x8e  # row #675, sin ( 1.035 ) = 0.860
+.byte 0x2e
+.byte 0xdc
+.byte 0x00
+.byte 0xc7  # row #676, sin ( 1.037 ) = 0.861
+.byte 0x61
+.byte 0xdc
+.byte 0x00
+.byte 0xdd  # row #677, sin ( 1.039 ) = 0.862
+.byte 0x94
+.byte 0xdc
+.byte 0x00
+.byte 0xd1  # row #678, sin ( 1.040 ) = 0.862
+.byte 0xc7
+.byte 0xdc
+.byte 0x00
+.byte 0xa3  # row #679, sin ( 1.042 ) = 0.863
+.byte 0xfa
+.byte 0xdc
+.byte 0x00
+.byte 0x53  # row #680, sin ( 1.043 ) = 0.864
+.byte 0x2d
+.byte 0xdd
+.byte 0x00
+.byte 0xe1  # row #681, sin ( 1.045 ) = 0.865
+.byte 0x5f
+.byte 0xdd
+.byte 0x00
+.byte 0x4d  # row #682, sin ( 1.046 ) = 0.866
+.byte 0x92
+.byte 0xdd
+.byte 0x00
+.byte 0x97  # row #683, sin ( 1.048 ) = 0.866
+.byte 0xc4
+.byte 0xdd
+.byte 0x00
+.byte 0xbe  # row #684, sin ( 1.049 ) = 0.867
+.byte 0xf6
+.byte 0xdd
+.byte 0x00
+.byte 0xc3  # row #685, sin ( 1.051 ) = 0.868
+.byte 0x28
+.byte 0xde
+.byte 0x00
+.byte 0xa6  # row #686, sin ( 1.052 ) = 0.869
+.byte 0x5a
+.byte 0xde
+.byte 0x00
+.byte 0x67  # row #687, sin ( 1.054 ) = 0.869
+.byte 0x8c
+.byte 0xde
+.byte 0x00
+.byte 0x05  # row #688, sin ( 1.055 ) = 0.870
+.byte 0xbe
+.byte 0xde
+.byte 0x00
+.byte 0x81  # row #689, sin ( 1.057 ) = 0.871
+.byte 0xef
+.byte 0xde
+.byte 0x00
+.byte 0xdb  # row #690, sin ( 1.058 ) = 0.872
+.byte 0x20
+.byte 0xdf
+.byte 0x00
+.byte 0x12  # row #691, sin ( 1.060 ) = 0.872
+.byte 0x52
+.byte 0xdf
+.byte 0x00
+.byte 0x27  # row #692, sin ( 1.062 ) = 0.873
+.byte 0x83
+.byte 0xdf
+.byte 0x00
+.byte 0x19  # row #693, sin ( 1.063 ) = 0.874
+.byte 0xb4
+.byte 0xdf
+.byte 0x00
+.byte 0xe9  # row #694, sin ( 1.065 ) = 0.875
+.byte 0xe4
+.byte 0xdf
+.byte 0x00
+.byte 0x96  # row #695, sin ( 1.066 ) = 0.875
+.byte 0x15
+.byte 0xe0
+.byte 0x00
+.byte 0x21  # row #696, sin ( 1.068 ) = 0.876
+.byte 0x46
+.byte 0xe0
+.byte 0x00
+.byte 0x89  # row #697, sin ( 1.069 ) = 0.877
+.byte 0x76
+.byte 0xe0
+.byte 0x00
+.byte 0xcf  # row #698, sin ( 1.071 ) = 0.878
+.byte 0xa6
+.byte 0xe0
+.byte 0x00
+.byte 0xf2  # row #699, sin ( 1.072 ) = 0.878
+.byte 0xd6
+.byte 0xe0
+.byte 0x00
+.byte 0xf2  # row #700, sin ( 1.074 ) = 0.879
+.byte 0x06
+.byte 0xe1
+.byte 0x00
+.byte 0xd0  # row #701, sin ( 1.075 ) = 0.880
+.byte 0x36
+.byte 0xe1
+.byte 0x00
+.byte 0x8a  # row #702, sin ( 1.077 ) = 0.880
+.byte 0x66
+.byte 0xe1
+.byte 0x00
+.byte 0x22  # row #703, sin ( 1.078 ) = 0.881
+.byte 0x96
+.byte 0xe1
+.byte 0x00
+.byte 0x98  # row #704, sin ( 1.080 ) = 0.882
+.byte 0xc5
+.byte 0xe1
+.byte 0x00
+.byte 0xea  # row #705, sin ( 1.081 ) = 0.883
+.byte 0xf4
+.byte 0xe1
+.byte 0x00
+.byte 0x1a  # row #706, sin ( 1.083 ) = 0.883
+.byte 0x24
+.byte 0xe2
+.byte 0x00
+.byte 0x26  # row #707, sin ( 1.085 ) = 0.884
+.byte 0x53
+.byte 0xe2
+.byte 0x00
+.byte 0x10  # row #708, sin ( 1.086 ) = 0.885
+.byte 0x82
+.byte 0xe2
+.byte 0x00
+.byte 0xd7  # row #709, sin ( 1.088 ) = 0.886
+.byte 0xb0
+.byte 0xe2
+.byte 0x00
+.byte 0x7b  # row #710, sin ( 1.089 ) = 0.886
+.byte 0xdf
+.byte 0xe2
+.byte 0x00
+.byte 0xfc  # row #711, sin ( 1.091 ) = 0.887
+.byte 0x0d
+.byte 0xe3
+.byte 0x00
+.byte 0x5a  # row #712, sin ( 1.092 ) = 0.888
+.byte 0x3c
+.byte 0xe3
+.byte 0x00
+.byte 0x95  # row #713, sin ( 1.094 ) = 0.888
+.byte 0x6a
+.byte 0xe3
+.byte 0x00
+.byte 0xac  # row #714, sin ( 1.095 ) = 0.889
+.byte 0x98
+.byte 0xe3
+.byte 0x00
+.byte 0xa1  # row #715, sin ( 1.097 ) = 0.890
+.byte 0xc6
+.byte 0xe3
+.byte 0x00
+.byte 0x73  # row #716, sin ( 1.098 ) = 0.890
+.byte 0xf4
+.byte 0xe3
+.byte 0x00
+.byte 0x21  # row #717, sin ( 1.100 ) = 0.891
+.byte 0x22
+.byte 0xe4
+.byte 0x00
+.byte 0xac  # row #718, sin ( 1.101 ) = 0.892
+.byte 0x4f
+.byte 0xe4
+.byte 0x00
+.byte 0x14  # row #719, sin ( 1.103 ) = 0.893
+.byte 0x7d
+.byte 0xe4
+.byte 0x00
+.byte 0x59  # row #720, sin ( 1.104 ) = 0.893
+.byte 0xaa
+.byte 0xe4
+.byte 0x00
+.byte 0x7b  # row #721, sin ( 1.106 ) = 0.894
+.byte 0xd7
+.byte 0xe4
+.byte 0x00
+.byte 0x79  # row #722, sin ( 1.108 ) = 0.895
+.byte 0x04
+.byte 0xe5
+.byte 0x00
+.byte 0x54  # row #723, sin ( 1.109 ) = 0.895
+.byte 0x31
+.byte 0xe5
+.byte 0x00
+.byte 0x0b  # row #724, sin ( 1.111 ) = 0.896
+.byte 0x5e
+.byte 0xe5
+.byte 0x00
+.byte 0xa0  # row #725, sin ( 1.112 ) = 0.897
+.byte 0x8a
+.byte 0xe5
+.byte 0x00
+.byte 0x10  # row #726, sin ( 1.114 ) = 0.897
+.byte 0xb7
+.byte 0xe5
+.byte 0x00
+.byte 0x5e  # row #727, sin ( 1.115 ) = 0.898
+.byte 0xe3
+.byte 0xe5
+.byte 0x00
+.byte 0x88  # row #728, sin ( 1.117 ) = 0.899
+.byte 0x0f
+.byte 0xe6
+.byte 0x00
+.byte 0x8e  # row #729, sin ( 1.118 ) = 0.899
+.byte 0x3b
+.byte 0xe6
+.byte 0x00
+.byte 0x71  # row #730, sin ( 1.120 ) = 0.900
+.byte 0x67
+.byte 0xe6
+.byte 0x00
+.byte 0x30  # row #731, sin ( 1.121 ) = 0.901
+.byte 0x93
+.byte 0xe6
+.byte 0x00
+.byte 0xcc  # row #732, sin ( 1.123 ) = 0.901
+.byte 0xbe
+.byte 0xe6
+.byte 0x00
+.byte 0x45  # row #733, sin ( 1.124 ) = 0.902
+.byte 0xea
+.byte 0xe6
+.byte 0x00
+.byte 0x99  # row #734, sin ( 1.126 ) = 0.903
+.byte 0x15
+.byte 0xe7
+.byte 0x00
+.byte 0xca  # row #735, sin ( 1.127 ) = 0.903
+.byte 0x40
+.byte 0xe7
+.byte 0x00
+.byte 0xd8  # row #736, sin ( 1.129 ) = 0.904
+.byte 0x6b
+.byte 0xe7
+.byte 0x00
+.byte 0xc1  # row #737, sin ( 1.131 ) = 0.905
+.byte 0x96
+.byte 0xe7
+.byte 0x00
+.byte 0x87  # row #738, sin ( 1.132 ) = 0.905
+.byte 0xc1
+.byte 0xe7
+.byte 0x00
+.byte 0x29  # row #739, sin ( 1.134 ) = 0.906
+.byte 0xec
+.byte 0xe7
+.byte 0x00
+.byte 0xa8  # row #740, sin ( 1.135 ) = 0.907
+.byte 0x16
+.byte 0xe8
+.byte 0x00
+.byte 0x03  # row #741, sin ( 1.137 ) = 0.907
+.byte 0x41
+.byte 0xe8
+.byte 0x00
+.byte 0x39  # row #742, sin ( 1.138 ) = 0.908
+.byte 0x6b
+.byte 0xe8
+.byte 0x00
+.byte 0x4c  # row #743, sin ( 1.140 ) = 0.909
+.byte 0x95
+.byte 0xe8
+.byte 0x00
+.byte 0x3c  # row #744, sin ( 1.141 ) = 0.909
+.byte 0xbf
+.byte 0xe8
+.byte 0x00
+.byte 0x07  # row #745, sin ( 1.143 ) = 0.910
+.byte 0xe9
+.byte 0xe8
+.byte 0x00
+.byte 0xae  # row #746, sin ( 1.144 ) = 0.910
+.byte 0x12
+.byte 0xe9
+.byte 0x00
+.byte 0x32  # row #747, sin ( 1.146 ) = 0.911
+.byte 0x3c
+.byte 0xe9
+.byte 0x00
+.byte 0x91  # row #748, sin ( 1.147 ) = 0.912
+.byte 0x65
+.byte 0xe9
+.byte 0x00
+.byte 0xcc  # row #749, sin ( 1.149 ) = 0.912
+.byte 0x8e
+.byte 0xe9
+.byte 0x00
+.byte 0xe4  # row #750, sin ( 1.150 ) = 0.913
+.byte 0xb7
+.byte 0xe9
+.byte 0x00
+.byte 0xd7  # row #751, sin ( 1.152 ) = 0.914
+.byte 0xe0
+.byte 0xe9
+.byte 0x00
+.byte 0xa7  # row #752, sin ( 1.154 ) = 0.914
+.byte 0x09
+.byte 0xea
+.byte 0x00
+.byte 0x52  # row #753, sin ( 1.155 ) = 0.915
+.byte 0x32
+.byte 0xea
+.byte 0x00
+.byte 0xd9  # row #754, sin ( 1.157 ) = 0.915
+.byte 0x5a
+.byte 0xea
+.byte 0x00
+.byte 0x3c  # row #755, sin ( 1.158 ) = 0.916
+.byte 0x83
+.byte 0xea
+.byte 0x00
+.byte 0x7b  # row #756, sin ( 1.160 ) = 0.917
+.byte 0xab
+.byte 0xea
+.byte 0x00
+.byte 0x95  # row #757, sin ( 1.161 ) = 0.917
+.byte 0xd3
+.byte 0xea
+.byte 0x00
+.byte 0x8c  # row #758, sin ( 1.163 ) = 0.918
+.byte 0xfb
+.byte 0xea
+.byte 0x00
+.byte 0x5e  # row #759, sin ( 1.164 ) = 0.919
+.byte 0x23
+.byte 0xeb
+.byte 0x00
+.byte 0x0c  # row #760, sin ( 1.166 ) = 0.919
+.byte 0x4b
+.byte 0xeb
+.byte 0x00
+.byte 0x95  # row #761, sin ( 1.167 ) = 0.920
+.byte 0x72
+.byte 0xeb
+.byte 0x00
+.byte 0xfb  # row #762, sin ( 1.169 ) = 0.920
+.byte 0x99
+.byte 0xeb
+.byte 0x00
+.byte 0x3b  # row #763, sin ( 1.170 ) = 0.921
+.byte 0xc1
+.byte 0xeb
+.byte 0x00
+.byte 0x58  # row #764, sin ( 1.172 ) = 0.922
+.byte 0xe8
+.byte 0xeb
+.byte 0x00
+.byte 0x50  # row #765, sin ( 1.173 ) = 0.922
+.byte 0x0f
+.byte 0xec
+.byte 0x00
+.byte 0x24  # row #766, sin ( 1.175 ) = 0.923
+.byte 0x36
+.byte 0xec
+.byte 0x00
+.byte 0xd4  # row #767, sin ( 1.177 ) = 0.923
+.byte 0x5c
+.byte 0xec
+.byte 0x00
+.byte 0x5e  # row #768, sin ( 1.178 ) = 0.924
+.byte 0x83
+.byte 0xec
+.byte 0x00
+.byte 0xc5  # row #769, sin ( 1.180 ) = 0.924
+.byte 0xa9
+.byte 0xec
+.byte 0x00
+.byte 0x07  # row #770, sin ( 1.181 ) = 0.925
+.byte 0xd0
+.byte 0xec
+.byte 0x00
+.byte 0x24  # row #771, sin ( 1.183 ) = 0.926
+.byte 0xf6
+.byte 0xec
+.byte 0x00
+.byte 0x1d  # row #772, sin ( 1.184 ) = 0.926
+.byte 0x1c
+.byte 0xed
+.byte 0x00
+.byte 0xf2  # row #773, sin ( 1.186 ) = 0.927
+.byte 0x41
+.byte 0xed
+.byte 0x00
+.byte 0xa1  # row #774, sin ( 1.187 ) = 0.927
+.byte 0x67
+.byte 0xed
+.byte 0x00
+.byte 0x2d  # row #775, sin ( 1.189 ) = 0.928
+.byte 0x8d
+.byte 0xed
+.byte 0x00
+.byte 0x93  # row #776, sin ( 1.190 ) = 0.929
+.byte 0xb2
+.byte 0xed
+.byte 0x00
+.byte 0xd5  # row #777, sin ( 1.192 ) = 0.929
+.byte 0xd7
+.byte 0xed
+.byte 0x00
+.byte 0xf2  # row #778, sin ( 1.193 ) = 0.930
+.byte 0xfc
+.byte 0xed
+.byte 0x00
+.byte 0xeb  # row #779, sin ( 1.195 ) = 0.930
+.byte 0x21
+.byte 0xee
+.byte 0x00
+.byte 0xbe  # row #780, sin ( 1.197 ) = 0.931
+.byte 0x46
+.byte 0xee
+.byte 0x00
+.byte 0x6d  # row #781, sin ( 1.198 ) = 0.931
+.byte 0x6b
+.byte 0xee
+.byte 0x00
+.byte 0xf8  # row #782, sin ( 1.200 ) = 0.932
+.byte 0x8f
+.byte 0xee
+.byte 0x00
+.byte 0x5d  # row #783, sin ( 1.201 ) = 0.932
+.byte 0xb4
+.byte 0xee
+.byte 0x00
+.byte 0x9e  # row #784, sin ( 1.203 ) = 0.933
+.byte 0xd8
+.byte 0xee
+.byte 0x00
+.byte 0xba  # row #785, sin ( 1.204 ) = 0.934
+.byte 0xfc
+.byte 0xee
+.byte 0x00
+.byte 0xb0  # row #786, sin ( 1.206 ) = 0.934
+.byte 0x20
+.byte 0xef
+.byte 0x00
+.byte 0x83  # row #787, sin ( 1.207 ) = 0.935
+.byte 0x44
+.byte 0xef
+.byte 0x00
+.byte 0x30  # row #788, sin ( 1.209 ) = 0.935
+.byte 0x68
+.byte 0xef
+.byte 0x00
+.byte 0xb8  # row #789, sin ( 1.210 ) = 0.936
+.byte 0x8b
+.byte 0xef
+.byte 0x00
+.byte 0x1b  # row #790, sin ( 1.212 ) = 0.936
+.byte 0xaf
+.byte 0xef
+.byte 0x00
+.byte 0x5a  # row #791, sin ( 1.213 ) = 0.937
+.byte 0xd2
+.byte 0xef
+.byte 0x00
+.byte 0x73  # row #792, sin ( 1.215 ) = 0.937
+.byte 0xf5
+.byte 0xef
+.byte 0x00
+.byte 0x67  # row #793, sin ( 1.216 ) = 0.938
+.byte 0x18
+.byte 0xf0
+.byte 0x00
+.byte 0x37  # row #794, sin ( 1.218 ) = 0.938
+.byte 0x3b
+.byte 0xf0
+.byte 0x00
+.byte 0xe1  # row #795, sin ( 1.220 ) = 0.939
+.byte 0x5d
+.byte 0xf0
+.byte 0x00
+.byte 0x66  # row #796, sin ( 1.221 ) = 0.939
+.byte 0x80
+.byte 0xf0
+.byte 0x00
+.byte 0xc6  # row #797, sin ( 1.223 ) = 0.940
+.byte 0xa2
+.byte 0xf0
+.byte 0x00
+.byte 0x01  # row #798, sin ( 1.224 ) = 0.941
+.byte 0xc5
+.byte 0xf0
+.byte 0x00
+.byte 0x17  # row #799, sin ( 1.226 ) = 0.941
+.byte 0xe7
+.byte 0xf0
+.byte 0x00
+.byte 0x08  # row #800, sin ( 1.227 ) = 0.942
+.byte 0x09
+.byte 0xf1
+.byte 0x00
+.byte 0xd4  # row #801, sin ( 1.229 ) = 0.942
+.byte 0x2a
+.byte 0xf1
+.byte 0x00
+.byte 0x7a  # row #802, sin ( 1.230 ) = 0.943
+.byte 0x4c
+.byte 0xf1
+.byte 0x00
+.byte 0xfb  # row #803, sin ( 1.232 ) = 0.943
+.byte 0x6d
+.byte 0xf1
+.byte 0x00
+.byte 0x57  # row #804, sin ( 1.233 ) = 0.944
+.byte 0x8f
+.byte 0xf1
+.byte 0x00
+.byte 0x8e  # row #805, sin ( 1.235 ) = 0.944
+.byte 0xb0
+.byte 0xf1
+.byte 0x00
+.byte 0x9f  # row #806, sin ( 1.236 ) = 0.945
+.byte 0xd1
+.byte 0xf1
+.byte 0x00
+.byte 0x8c  # row #807, sin ( 1.238 ) = 0.945
+.byte 0xf2
+.byte 0xf1
+.byte 0x00
+.byte 0x52  # row #808, sin ( 1.239 ) = 0.946
+.byte 0x13
+.byte 0xf2
+.byte 0x00
+.byte 0xf4  # row #809, sin ( 1.241 ) = 0.946
+.byte 0x33
+.byte 0xf2
+.byte 0x00
+.byte 0x70  # row #810, sin ( 1.243 ) = 0.947
+.byte 0x54
+.byte 0xf2
+.byte 0x00
+.byte 0xc7  # row #811, sin ( 1.244 ) = 0.947
+.byte 0x74
+.byte 0xf2
+.byte 0x00
+.byte 0xf8  # row #812, sin ( 1.246 ) = 0.948
+.byte 0x94
+.byte 0xf2
+.byte 0x00
+.byte 0x04  # row #813, sin ( 1.247 ) = 0.948
+.byte 0xb5
+.byte 0xf2
+.byte 0x00
+.byte 0xeb  # row #814, sin ( 1.249 ) = 0.949
+.byte 0xd4
+.byte 0xf2
+.byte 0x00
+.byte 0xac  # row #815, sin ( 1.250 ) = 0.949
+.byte 0xf4
+.byte 0xf2
+.byte 0x00
+.byte 0x47  # row #816, sin ( 1.252 ) = 0.950
+.byte 0x14
+.byte 0xf3
+.byte 0x00
+.byte 0xbe  # row #817, sin ( 1.253 ) = 0.950
+.byte 0x33
+.byte 0xf3
+.byte 0x00
+.byte 0x0e  # row #818, sin ( 1.255 ) = 0.950
+.byte 0x53
+.byte 0xf3
+.byte 0x00
+.byte 0x39  # row #819, sin ( 1.256 ) = 0.951
+.byte 0x72
+.byte 0xf3
+.byte 0x00
+.byte 0x3f  # row #820, sin ( 1.258 ) = 0.951
+.byte 0x91
+.byte 0xf3
+.byte 0x00
+.byte 0x1f  # row #821, sin ( 1.259 ) = 0.952
+.byte 0xb0
+.byte 0xf3
+.byte 0x00
+.byte 0xd9  # row #822, sin ( 1.261 ) = 0.952
+.byte 0xce
+.byte 0xf3
+.byte 0x00
+.byte 0x6e  # row #823, sin ( 1.262 ) = 0.953
+.byte 0xed
+.byte 0xf3
+.byte 0x00
+.byte 0xdd  # row #824, sin ( 1.264 ) = 0.953
+.byte 0x0b
+.byte 0xf4
+.byte 0x00
+.byte 0x27  # row #825, sin ( 1.266 ) = 0.954
+.byte 0x2a
+.byte 0xf4
+.byte 0x00
+.byte 0x4b  # row #826, sin ( 1.267 ) = 0.954
+.byte 0x48
+.byte 0xf4
+.byte 0x00
+.byte 0x49  # row #827, sin ( 1.269 ) = 0.955
+.byte 0x66
+.byte 0xf4
+.byte 0x00
+.byte 0x22  # row #828, sin ( 1.270 ) = 0.955
+.byte 0x84
+.byte 0xf4
+.byte 0x00
+.byte 0xd5  # row #829, sin ( 1.272 ) = 0.956
+.byte 0xa1
+.byte 0xf4
+.byte 0x00
+.byte 0x62  # row #830, sin ( 1.273 ) = 0.956
+.byte 0xbf
+.byte 0xf4
+.byte 0x00
+.byte 0xc9  # row #831, sin ( 1.275 ) = 0.956
+.byte 0xdc
+.byte 0xf4
+.byte 0x00
+.byte 0x0b  # row #832, sin ( 1.276 ) = 0.957
+.byte 0xfa
+.byte 0xf4
+.byte 0x00
+.byte 0x27  # row #833, sin ( 1.278 ) = 0.957
+.byte 0x17
+.byte 0xf5
+.byte 0x00
+.byte 0x1d  # row #834, sin ( 1.279 ) = 0.958
+.byte 0x34
+.byte 0xf5
+.byte 0x00
+.byte 0xed  # row #835, sin ( 1.281 ) = 0.958
+.byte 0x50
+.byte 0xf5
+.byte 0x00
+.byte 0x97  # row #836, sin ( 1.282 ) = 0.959
+.byte 0x6d
+.byte 0xf5
+.byte 0x00
+.byte 0x1c  # row #837, sin ( 1.284 ) = 0.959
+.byte 0x8a
+.byte 0xf5
+.byte 0x00
+.byte 0x7b  # row #838, sin ( 1.285 ) = 0.960
+.byte 0xa6
+.byte 0xf5
+.byte 0x00
+.byte 0xb3  # row #839, sin ( 1.287 ) = 0.960
+.byte 0xc2
+.byte 0xf5
+.byte 0x00
+.byte 0xc6  # row #840, sin ( 1.289 ) = 0.960
+.byte 0xde
+.byte 0xf5
+.byte 0x00
+.byte 0xb3  # row #841, sin ( 1.290 ) = 0.961
+.byte 0xfa
+.byte 0xf5
+.byte 0x00
+.byte 0x7a  # row #842, sin ( 1.292 ) = 0.961
+.byte 0x16
+.byte 0xf6
+.byte 0x00
+.byte 0x1b  # row #843, sin ( 1.293 ) = 0.962
+.byte 0x32
+.byte 0xf6
+.byte 0x00
+.byte 0x97  # row #844, sin ( 1.295 ) = 0.962
+.byte 0x4d
+.byte 0xf6
+.byte 0x00
+.byte 0xec  # row #845, sin ( 1.296 ) = 0.963
+.byte 0x68
+.byte 0xf6
+.byte 0x00
+.byte 0x1b  # row #846, sin ( 1.298 ) = 0.963
+.byte 0x84
+.byte 0xf6
+.byte 0x00
+.byte 0x24  # row #847, sin ( 1.299 ) = 0.963
+.byte 0x9f
+.byte 0xf6
+.byte 0x00
+.byte 0x07  # row #848, sin ( 1.301 ) = 0.964
+.byte 0xba
+.byte 0xf6
+.byte 0x00
+.byte 0xc4  # row #849, sin ( 1.302 ) = 0.964
+.byte 0xd4
+.byte 0xf6
+.byte 0x00
+.byte 0x5b  # row #850, sin ( 1.304 ) = 0.965
+.byte 0xef
+.byte 0xf6
+.byte 0x00
+.byte 0xcc  # row #851, sin ( 1.305 ) = 0.965
+.byte 0x09
+.byte 0xf7
+.byte 0x00
+.byte 0x17  # row #852, sin ( 1.307 ) = 0.965
+.byte 0x24
+.byte 0xf7
+.byte 0x00
+.byte 0x3c  # row #853, sin ( 1.308 ) = 0.966
+.byte 0x3e
+.byte 0xf7
+.byte 0x00
+.byte 0x3a  # row #854, sin ( 1.310 ) = 0.966
+.byte 0x58
+.byte 0xf7
+.byte 0x00
+.byte 0x13  # row #855, sin ( 1.312 ) = 0.967
+.byte 0x72
+.byte 0xf7
+.byte 0x00
+.byte 0xc5  # row #856, sin ( 1.313 ) = 0.967
+.byte 0x8b
+.byte 0xf7
+.byte 0x00
+.byte 0x51  # row #857, sin ( 1.315 ) = 0.967
+.byte 0xa5
+.byte 0xf7
+.byte 0x00
+.byte 0xb7  # row #858, sin ( 1.316 ) = 0.968
+.byte 0xbe
+.byte 0xf7
+.byte 0x00
+.byte 0xf7  # row #859, sin ( 1.318 ) = 0.968
+.byte 0xd7
+.byte 0xf7
+.byte 0x00
+.byte 0x10  # row #860, sin ( 1.319 ) = 0.969
+.byte 0xf1
+.byte 0xf7
+.byte 0x00
+.byte 0x04  # row #861, sin ( 1.321 ) = 0.969
+.byte 0x0a
+.byte 0xf8
+.byte 0x00
+.byte 0xd1  # row #862, sin ( 1.322 ) = 0.969
+.byte 0x22
+.byte 0xf8
+.byte 0x00
+.byte 0x77  # row #863, sin ( 1.324 ) = 0.970
+.byte 0x3b
+.byte 0xf8
+.byte 0x00
+.byte 0xf8  # row #864, sin ( 1.325 ) = 0.970
+.byte 0x53
+.byte 0xf8
+.byte 0x00
+.byte 0x52  # row #865, sin ( 1.327 ) = 0.970
+.byte 0x6c
+.byte 0xf8
+.byte 0x00
+.byte 0x86  # row #866, sin ( 1.328 ) = 0.971
+.byte 0x84
+.byte 0xf8
+.byte 0x00
+.byte 0x93  # row #867, sin ( 1.330 ) = 0.971
+.byte 0x9c
+.byte 0xf8
+.byte 0x00
+.byte 0x7b  # row #868, sin ( 1.331 ) = 0.972
+.byte 0xb4
+.byte 0xf8
+.byte 0x00
+.byte 0x3b  # row #869, sin ( 1.333 ) = 0.972
+.byte 0xcc
+.byte 0xf8
+.byte 0x00
+.byte 0xd6  # row #870, sin ( 1.335 ) = 0.972
+.byte 0xe3
+.byte 0xf8
+.byte 0x00
+.byte 0x4a  # row #871, sin ( 1.336 ) = 0.973
+.byte 0xfb
+.byte 0xf8
+.byte 0x00
+.byte 0x98  # row #872, sin ( 1.338 ) = 0.973
+.byte 0x12
+.byte 0xf9
+.byte 0x00
+.byte 0xbf  # row #873, sin ( 1.339 ) = 0.973
+.byte 0x29
+.byte 0xf9
+.byte 0x00
+.byte 0xc0  # row #874, sin ( 1.341 ) = 0.974
+.byte 0x40
+.byte 0xf9
+.byte 0x00
+.byte 0x9a  # row #875, sin ( 1.342 ) = 0.974
+.byte 0x57
+.byte 0xf9
+.byte 0x00
+.byte 0x4e  # row #876, sin ( 1.344 ) = 0.974
+.byte 0x6e
+.byte 0xf9
+.byte 0x00
+.byte 0xdc  # row #877, sin ( 1.345 ) = 0.975
+.byte 0x84
+.byte 0xf9
+.byte 0x00
+.byte 0x43  # row #878, sin ( 1.347 ) = 0.975
+.byte 0x9b
+.byte 0xf9
+.byte 0x00
+.byte 0x83  # row #879, sin ( 1.348 ) = 0.975
+.byte 0xb1
+.byte 0xf9
+.byte 0x00
+.byte 0x9d  # row #880, sin ( 1.350 ) = 0.976
+.byte 0xc7
+.byte 0xf9
+.byte 0x00
+.byte 0x91  # row #881, sin ( 1.351 ) = 0.976
+.byte 0xdd
+.byte 0xf9
+.byte 0x00
+.byte 0x5e  # row #882, sin ( 1.353 ) = 0.976
+.byte 0xf3
+.byte 0xf9
+.byte 0x00
+.byte 0x04  # row #883, sin ( 1.355 ) = 0.977
+.byte 0x09
+.byte 0xfa
+.byte 0x00
+.byte 0x84  # row #884, sin ( 1.356 ) = 0.977
+.byte 0x1e
+.byte 0xfa
+.byte 0x00
+.byte 0xdd  # row #885, sin ( 1.358 ) = 0.977
+.byte 0x33
+.byte 0xfa
+.byte 0x00
+.byte 0x10  # row #886, sin ( 1.359 ) = 0.978
+.byte 0x49
+.byte 0xfa
+.byte 0x00
+.byte 0x1c  # row #887, sin ( 1.361 ) = 0.978
+.byte 0x5e
+.byte 0xfa
+.byte 0x00
+.byte 0x02  # row #888, sin ( 1.362 ) = 0.978
+.byte 0x73
+.byte 0xfa
+.byte 0x00
+.byte 0xc1  # row #889, sin ( 1.364 ) = 0.979
+.byte 0x87
+.byte 0xfa
+.byte 0x00
+.byte 0x59  # row #890, sin ( 1.365 ) = 0.979
+.byte 0x9c
+.byte 0xfa
+.byte 0x00
+.byte 0xcb  # row #891, sin ( 1.367 ) = 0.979
+.byte 0xb0
+.byte 0xfa
+.byte 0x00
+.byte 0x16  # row #892, sin ( 1.368 ) = 0.980
+.byte 0xc5
+.byte 0xfa
+.byte 0x00
+.byte 0x3a  # row #893, sin ( 1.370 ) = 0.980
+.byte 0xd9
+.byte 0xfa
+.byte 0x00
+.byte 0x37  # row #894, sin ( 1.371 ) = 0.980
+.byte 0xed
+.byte 0xfa
+.byte 0x00
+.byte 0x0e  # row #895, sin ( 1.373 ) = 0.980
+.byte 0x01
+.byte 0xfb
+.byte 0x00
+.byte 0xbe  # row #896, sin ( 1.374 ) = 0.981
+.byte 0x14
+.byte 0xfb
+.byte 0x00
+.byte 0x48  # row #897, sin ( 1.376 ) = 0.981
+.byte 0x28
+.byte 0xfb
+.byte 0x00
+.byte 0xab  # row #898, sin ( 1.378 ) = 0.981
+.byte 0x3b
+.byte 0xfb
+.byte 0x00
+.byte 0xe7  # row #899, sin ( 1.379 ) = 0.982
+.byte 0x4e
+.byte 0xfb
+.byte 0x00
+.byte 0xfc  # row #900, sin ( 1.381 ) = 0.982
+.byte 0x61
+.byte 0xfb
+.byte 0x00
+.byte 0xea  # row #901, sin ( 1.382 ) = 0.982
+.byte 0x74
+.byte 0xfb
+.byte 0x00
+.byte 0xb2  # row #902, sin ( 1.384 ) = 0.983
+.byte 0x87
+.byte 0xfb
+.byte 0x00
+.byte 0x53  # row #903, sin ( 1.385 ) = 0.983
+.byte 0x9a
+.byte 0xfb
+.byte 0x00
+.byte 0xcd  # row #904, sin ( 1.387 ) = 0.983
+.byte 0xac
+.byte 0xfb
+.byte 0x00
+.byte 0x20  # row #905, sin ( 1.388 ) = 0.983
+.byte 0xbf
+.byte 0xfb
+.byte 0x00
+.byte 0x4d  # row #906, sin ( 1.390 ) = 0.984
+.byte 0xd1
+.byte 0xfb
+.byte 0x00
+.byte 0x53  # row #907, sin ( 1.391 ) = 0.984
+.byte 0xe3
+.byte 0xfb
+.byte 0x00
+.byte 0x31  # row #908, sin ( 1.393 ) = 0.984
+.byte 0xf5
+.byte 0xfb
+.byte 0x00
+.byte 0xe9  # row #909, sin ( 1.394 ) = 0.984
+.byte 0x06
+.byte 0xfc
+.byte 0x00
+.byte 0x7a  # row #910, sin ( 1.396 ) = 0.985
+.byte 0x18
+.byte 0xfc
+.byte 0x00
+.byte 0xe5  # row #911, sin ( 1.397 ) = 0.985
+.byte 0x29
+.byte 0xfc
+.byte 0x00
+.byte 0x28  # row #912, sin ( 1.399 ) = 0.985
+.byte 0x3b
+.byte 0xfc
+.byte 0x00
+.byte 0x44  # row #913, sin ( 1.401 ) = 0.986
+.byte 0x4c
+.byte 0xfc
+.byte 0x00
+.byte 0x3a  # row #914, sin ( 1.402 ) = 0.986
+.byte 0x5d
+.byte 0xfc
+.byte 0x00
+.byte 0x08  # row #915, sin ( 1.404 ) = 0.986
+.byte 0x6e
+.byte 0xfc
+.byte 0x00
+.byte 0xb0  # row #916, sin ( 1.405 ) = 0.986
+.byte 0x7e
+.byte 0xfc
+.byte 0x00
+.byte 0x31  # row #917, sin ( 1.407 ) = 0.987
+.byte 0x8f
+.byte 0xfc
+.byte 0x00
+.byte 0x8a  # row #918, sin ( 1.408 ) = 0.987
+.byte 0x9f
+.byte 0xfc
+.byte 0x00
+.byte 0xbd  # row #919, sin ( 1.410 ) = 0.987
+.byte 0xaf
+.byte 0xfc
+.byte 0x00
+.byte 0xc9  # row #920, sin ( 1.411 ) = 0.987
+.byte 0xbf
+.byte 0xfc
+.byte 0x00
+.byte 0xae  # row #921, sin ( 1.413 ) = 0.988
+.byte 0xcf
+.byte 0xfc
+.byte 0x00
+.byte 0x6c  # row #922, sin ( 1.414 ) = 0.988
+.byte 0xdf
+.byte 0xfc
+.byte 0x00
+.byte 0x03  # row #923, sin ( 1.416 ) = 0.988
+.byte 0xef
+.byte 0xfc
+.byte 0x00
+.byte 0x73  # row #924, sin ( 1.417 ) = 0.988
+.byte 0xfe
+.byte 0xfc
+.byte 0x00
+.byte 0xbc  # row #925, sin ( 1.419 ) = 0.988
+.byte 0x0d
+.byte 0xfd
+.byte 0x00
+.byte 0xdd  # row #926, sin ( 1.420 ) = 0.989
+.byte 0x1c
+.byte 0xfd
+.byte 0x00
+.byte 0xd8  # row #927, sin ( 1.422 ) = 0.989
+.byte 0x2b
+.byte 0xfd
+.byte 0x00
+.byte 0xac  # row #928, sin ( 1.424 ) = 0.989
+.byte 0x3a
+.byte 0xfd
+.byte 0x00
+.byte 0x59  # row #929, sin ( 1.425 ) = 0.989
+.byte 0x49
+.byte 0xfd
+.byte 0x00
+.byte 0xde  # row #930, sin ( 1.427 ) = 0.990
+.byte 0x57
+.byte 0xfd
+.byte 0x00
+.byte 0x3d  # row #931, sin ( 1.428 ) = 0.990
+.byte 0x66
+.byte 0xfd
+.byte 0x00
+.byte 0x74  # row #932, sin ( 1.430 ) = 0.990
+.byte 0x74
+.byte 0xfd
+.byte 0x00
+.byte 0x85  # row #933, sin ( 1.431 ) = 0.990
+.byte 0x82
+.byte 0xfd
+.byte 0x00
+.byte 0x6e  # row #934, sin ( 1.433 ) = 0.990
+.byte 0x90
+.byte 0xfd
+.byte 0x00
+.byte 0x30  # row #935, sin ( 1.434 ) = 0.991
+.byte 0x9e
+.byte 0xfd
+.byte 0x00
+.byte 0xcc  # row #936, sin ( 1.436 ) = 0.991
+.byte 0xab
+.byte 0xfd
+.byte 0x00
+.byte 0x40  # row #937, sin ( 1.437 ) = 0.991
+.byte 0xb9
+.byte 0xfd
+.byte 0x00
+.byte 0x8c  # row #938, sin ( 1.439 ) = 0.991
+.byte 0xc6
+.byte 0xfd
+.byte 0x00
+.byte 0xb2  # row #939, sin ( 1.440 ) = 0.992
+.byte 0xd3
+.byte 0xfd
+.byte 0x00
+.byte 0xb1  # row #940, sin ( 1.442 ) = 0.992
+.byte 0xe0
+.byte 0xfd
+.byte 0x00
+.byte 0x88  # row #941, sin ( 1.443 ) = 0.992
+.byte 0xed
+.byte 0xfd
+.byte 0x00
+.byte 0x38  # row #942, sin ( 1.445 ) = 0.992
+.byte 0xfa
+.byte 0xfd
+.byte 0x00
+.byte 0xc2  # row #943, sin ( 1.447 ) = 0.992
+.byte 0x06
+.byte 0xfe
+.byte 0x00
+.byte 0x24  # row #944, sin ( 1.448 ) = 0.992
+.byte 0x13
+.byte 0xfe
+.byte 0x00
+.byte 0x5e  # row #945, sin ( 1.450 ) = 0.993
+.byte 0x1f
+.byte 0xfe
+.byte 0x00
+.byte 0x72  # row #946, sin ( 1.451 ) = 0.993
+.byte 0x2b
+.byte 0xfe
+.byte 0x00
+.byte 0x5e  # row #947, sin ( 1.453 ) = 0.993
+.byte 0x37
+.byte 0xfe
+.byte 0x00
+.byte 0x23  # row #948, sin ( 1.454 ) = 0.993
+.byte 0x43
+.byte 0xfe
+.byte 0x00
+.byte 0xc1  # row #949, sin ( 1.456 ) = 0.993
+.byte 0x4e
+.byte 0xfe
+.byte 0x00
+.byte 0x38  # row #950, sin ( 1.457 ) = 0.994
+.byte 0x5a
+.byte 0xfe
+.byte 0x00
+.byte 0x88  # row #951, sin ( 1.459 ) = 0.994
+.byte 0x65
+.byte 0xfe
+.byte 0x00
+.byte 0xb0  # row #952, sin ( 1.460 ) = 0.994
+.byte 0x70
+.byte 0xfe
+.byte 0x00
+.byte 0xb1  # row #953, sin ( 1.462 ) = 0.994
+.byte 0x7b
+.byte 0xfe
+.byte 0x00
+.byte 0x8b  # row #954, sin ( 1.463 ) = 0.994
+.byte 0x86
+.byte 0xfe
+.byte 0x00
+.byte 0x3d  # row #955, sin ( 1.465 ) = 0.994
+.byte 0x91
+.byte 0xfe
+.byte 0x00
+.byte 0xc9  # row #956, sin ( 1.466 ) = 0.995
+.byte 0x9b
+.byte 0xfe
+.byte 0x00
+.byte 0x2d  # row #957, sin ( 1.468 ) = 0.995
+.byte 0xa6
+.byte 0xfe
+.byte 0x00
+.byte 0x69  # row #958, sin ( 1.470 ) = 0.995
+.byte 0xb0
+.byte 0xfe
+.byte 0x00
+.byte 0x7f  # row #959, sin ( 1.471 ) = 0.995
+.byte 0xba
+.byte 0xfe
+.byte 0x00
+.byte 0x6d  # row #960, sin ( 1.473 ) = 0.995
+.byte 0xc4
+.byte 0xfe
+.byte 0x00
+.byte 0x34  # row #961, sin ( 1.474 ) = 0.995
+.byte 0xce
+.byte 0xfe
+.byte 0x00
+.byte 0xd4  # row #962, sin ( 1.476 ) = 0.995
+.byte 0xd7
+.byte 0xfe
+.byte 0x00
+.byte 0x4c  # row #963, sin ( 1.477 ) = 0.996
+.byte 0xe1
+.byte 0xfe
+.byte 0x00
+.byte 0x9d  # row #964, sin ( 1.479 ) = 0.996
+.byte 0xea
+.byte 0xfe
+.byte 0x00
+.byte 0xc7  # row #965, sin ( 1.480 ) = 0.996
+.byte 0xf3
+.byte 0xfe
+.byte 0x00
+.byte 0xc9  # row #966, sin ( 1.482 ) = 0.996
+.byte 0xfc
+.byte 0xfe
+.byte 0x00
+.byte 0xa4  # row #967, sin ( 1.483 ) = 0.996
+.byte 0x05
+.byte 0xff
+.byte 0x00
+.byte 0x58  # row #968, sin ( 1.485 ) = 0.996
+.byte 0x0e
+.byte 0xff
+.byte 0x00
+.byte 0xe4  # row #969, sin ( 1.486 ) = 0.996
+.byte 0x16
+.byte 0xff
+.byte 0x00
+.byte 0x49  # row #970, sin ( 1.488 ) = 0.997
+.byte 0x1f
+.byte 0xff
+.byte 0x00
+.byte 0x87  # row #971, sin ( 1.489 ) = 0.997
+.byte 0x27
+.byte 0xff
+.byte 0x00
+.byte 0x9d  # row #972, sin ( 1.491 ) = 0.997
+.byte 0x2f
+.byte 0xff
+.byte 0x00
+.byte 0x8c  # row #973, sin ( 1.493 ) = 0.997
+.byte 0x37
+.byte 0xff
+.byte 0x00
+.byte 0x54  # row #974, sin ( 1.494 ) = 0.997
+.byte 0x3f
+.byte 0xff
+.byte 0x00
+.byte 0xf4  # row #975, sin ( 1.496 ) = 0.997
+.byte 0x46
+.byte 0xff
+.byte 0x00
+.byte 0x6d  # row #976, sin ( 1.497 ) = 0.997
+.byte 0x4e
+.byte 0xff
+.byte 0x00
+.byte 0xbf  # row #977, sin ( 1.499 ) = 0.997
+.byte 0x55
+.byte 0xff
+.byte 0x00
+.byte 0xe9  # row #978, sin ( 1.500 ) = 0.998
+.byte 0x5c
+.byte 0xff
+.byte 0x00
+.byte 0xec  # row #979, sin ( 1.502 ) = 0.998
+.byte 0x63
+.byte 0xff
+.byte 0x00
+.byte 0xc7  # row #980, sin ( 1.503 ) = 0.998
+.byte 0x6a
+.byte 0xff
+.byte 0x00
+.byte 0x7b  # row #981, sin ( 1.505 ) = 0.998
+.byte 0x71
+.byte 0xff
+.byte 0x00
+.byte 0x08  # row #982, sin ( 1.506 ) = 0.998
+.byte 0x78
+.byte 0xff
+.byte 0x00
+.byte 0x6d  # row #983, sin ( 1.508 ) = 0.998
+.byte 0x7e
+.byte 0xff
+.byte 0x00
+.byte 0xab  # row #984, sin ( 1.509 ) = 0.998
+.byte 0x84
+.byte 0xff
+.byte 0x00
+.byte 0xc2  # row #985, sin ( 1.511 ) = 0.998
+.byte 0x8a
+.byte 0xff
+.byte 0x00
+.byte 0xb1  # row #986, sin ( 1.513 ) = 0.998
+.byte 0x90
+.byte 0xff
+.byte 0x00
+.byte 0x78  # row #987, sin ( 1.514 ) = 0.998
+.byte 0x96
+.byte 0xff
+.byte 0x00
+.byte 0x18  # row #988, sin ( 1.516 ) = 0.998
+.byte 0x9c
+.byte 0xff
+.byte 0x00
+.byte 0x91  # row #989, sin ( 1.517 ) = 0.999
+.byte 0xa1
+.byte 0xff
+.byte 0x00
+.byte 0xe3  # row #990, sin ( 1.519 ) = 0.999
+.byte 0xa6
+.byte 0xff
+.byte 0x00
+.byte 0x0d  # row #991, sin ( 1.520 ) = 0.999
+.byte 0xac
+.byte 0xff
+.byte 0x00
+.byte 0x0f  # row #992, sin ( 1.522 ) = 0.999
+.byte 0xb1
+.byte 0xff
+.byte 0x00
+.byte 0xea  # row #993, sin ( 1.523 ) = 0.999
+.byte 0xb5
+.byte 0xff
+.byte 0x00
+.byte 0x9e  # row #994, sin ( 1.525 ) = 0.999
+.byte 0xba
+.byte 0xff
+.byte 0x00
+.byte 0x2a  # row #995, sin ( 1.526 ) = 0.999
+.byte 0xbf
+.byte 0xff
+.byte 0x00
+.byte 0x8f  # row #996, sin ( 1.528 ) = 0.999
+.byte 0xc3
+.byte 0xff
+.byte 0x00
+.byte 0xcc  # row #997, sin ( 1.529 ) = 0.999
+.byte 0xc7
+.byte 0xff
+.byte 0x00
+.byte 0xe2  # row #998, sin ( 1.531 ) = 0.999
+.byte 0xcb
+.byte 0xff
+.byte 0x00
+.byte 0xd1  # row #999, sin ( 1.532 ) = 0.999
+.byte 0xcf
+.byte 0xff
+.byte 0x00
+.byte 0x97  # row #1000, sin ( 1.534 ) = 0.999
+.byte 0xd3
+.byte 0xff
+.byte 0x00
+.byte 0x37  # row #1001, sin ( 1.536 ) = 0.999
+.byte 0xd7
+.byte 0xff
+.byte 0x00
+.byte 0xaf  # row #1002, sin ( 1.537 ) = 0.999
+.byte 0xda
+.byte 0xff
+.byte 0x00
+.byte 0x00  # row #1003, sin ( 1.539 ) = 0.999
+.byte 0xde
+.byte 0xff
+.byte 0x00
+.byte 0x29  # row #1004, sin ( 1.540 ) = 1.000
+.byte 0xe1
+.byte 0xff
+.byte 0x00
+.byte 0x2b  # row #1005, sin ( 1.542 ) = 1.000
+.byte 0xe4
+.byte 0xff
+.byte 0x00
+.byte 0x05  # row #1006, sin ( 1.543 ) = 1.000
+.byte 0xe7
+.byte 0xff
+.byte 0x00
+.byte 0xb8  # row #1007, sin ( 1.545 ) = 1.000
+.byte 0xe9
+.byte 0xff
+.byte 0x00
+.byte 0x43  # row #1008, sin ( 1.546 ) = 1.000
+.byte 0xec
+.byte 0xff
+.byte 0x00
+.byte 0xa7  # row #1009, sin ( 1.548 ) = 1.000
+.byte 0xee
+.byte 0xff
+.byte 0x00
+.byte 0xe3  # row #1010, sin ( 1.549 ) = 1.000
+.byte 0xf0
+.byte 0xff
+.byte 0x00
+.byte 0xf8  # row #1011, sin ( 1.551 ) = 1.000
+.byte 0xf2
+.byte 0xff
+.byte 0x00
+.byte 0xe6  # row #1012, sin ( 1.552 ) = 1.000
+.byte 0xf4
+.byte 0xff
+.byte 0x00
+.byte 0xac  # row #1013, sin ( 1.554 ) = 1.000
+.byte 0xf6
+.byte 0xff
+.byte 0x00
+.byte 0x4a  # row #1014, sin ( 1.555 ) = 1.000
+.byte 0xf8
+.byte 0xff
+.byte 0x00
+.byte 0xc1  # row #1015, sin ( 1.557 ) = 1.000
+.byte 0xf9
+.byte 0xff
+.byte 0x00
+.byte 0x11  # row #1016, sin ( 1.559 ) = 1.000
+.byte 0xfb
+.byte 0xff
+.byte 0x00
+.byte 0x39  # row #1017, sin ( 1.560 ) = 1.000
+.byte 0xfc
+.byte 0xff
+.byte 0x00
+.byte 0x39  # row #1018, sin ( 1.562 ) = 1.000
+.byte 0xfd
+.byte 0xff
+.byte 0x00
+.byte 0x13  # row #1019, sin ( 1.563 ) = 1.000
+.byte 0xfe
+.byte 0xff
+.byte 0x00
+.byte 0xc4  # row #1020, sin ( 1.565 ) = 1.000
+.byte 0xfe
+.byte 0xff
+.byte 0x00
+.byte 0x4e  # row #1021, sin ( 1.566 ) = 1.000
+.byte 0xff
+.byte 0xff
+.byte 0x00
+.byte 0xb1  # row #1022, sin ( 1.568 ) = 1.000
+.byte 0xff
+.byte 0xff
+.byte 0x00
+.byte 0xec  # row #1023, sin ( 1.569 ) = 1.000
+.byte 0xff
+.byte 0xff
+.byte 0x00
+.byte 0x00  # row #1024, sin ( 1.571 ) = 1.000
+.byte 0x00
+.byte 0x00
+.byte 0x01
+
+.globl arctan_table_start
+
+arctan_table_start:
+.byte 0x00  # row #0, atan ( 0.000 ) = 0.000
+.byte 0x00
+.byte 0x00
+.byte 0x00
+.byte 0x00  # row #1, atan ( 0.001 ) = 0.001
+.byte 0x40
+.byte 0x00
+.byte 0x00
+.byte 0x00  # row #2, atan ( 0.002 ) = 0.002
+.byte 0x80
+.byte 0x00
+.byte 0x00
+.byte 0x00  # row #3, atan ( 0.003 ) = 0.003
+.byte 0xc0
+.byte 0x00
+.byte 0x00
+.byte 0x00  # row #4, atan ( 0.004 ) = 0.004
+.byte 0x00
+.byte 0x01
+.byte 0x00
+.byte 0xff  # row #5, atan ( 0.005 ) = 0.005
+.byte 0x3f
+.byte 0x01
+.byte 0x00
+.byte 0xff  # row #6, atan ( 0.006 ) = 0.006
+.byte 0x7f
+.byte 0x01
+.byte 0x00
+.byte 0xfe  # row #7, atan ( 0.007 ) = 0.007
+.byte 0xbf
+.byte 0x01
+.byte 0x00
+.byte 0xfd  # row #8, atan ( 0.008 ) = 0.008
+.byte 0xff
+.byte 0x01
+.byte 0x00
+.byte 0xfc  # row #9, atan ( 0.009 ) = 0.009
+.byte 0x3f
+.byte 0x02
+.byte 0x00
+.byte 0xfb  # row #10, atan ( 0.010 ) = 0.010
+.byte 0x7f
+.byte 0x02
+.byte 0x00
+.byte 0xf9  # row #11, atan ( 0.011 ) = 0.011
+.byte 0xbf
+.byte 0x02
+.byte 0x00
+.byte 0xf7  # row #12, atan ( 0.012 ) = 0.012
+.byte 0xff
+.byte 0x02
+.byte 0x00
+.byte 0xf5  # row #13, atan ( 0.013 ) = 0.013
+.byte 0x3f
+.byte 0x03
+.byte 0x00
+.byte 0xf2  # row #14, atan ( 0.014 ) = 0.014
+.byte 0x7f
+.byte 0x03
+.byte 0x00
+.byte 0xee  # row #15, atan ( 0.015 ) = 0.015
+.byte 0xbf
+.byte 0x03
+.byte 0x00
+.byte 0xeb  # row #16, atan ( 0.016 ) = 0.016
+.byte 0xff
+.byte 0x03
+.byte 0x00
+.byte 0xe6  # row #17, atan ( 0.017 ) = 0.017
+.byte 0x3f
+.byte 0x04
+.byte 0x00
+.byte 0xe2  # row #18, atan ( 0.018 ) = 0.018
+.byte 0x7f
+.byte 0x04
+.byte 0x00
+.byte 0xdc  # row #19, atan ( 0.019 ) = 0.019
+.byte 0xbf
+.byte 0x04
+.byte 0x00
+.byte 0xd6  # row #20, atan ( 0.020 ) = 0.020
+.byte 0xff
+.byte 0x04
+.byte 0x00
+.byte 0xd0  # row #21, atan ( 0.021 ) = 0.021
+.byte 0x3f
+.byte 0x05
+.byte 0x00
+.byte 0xc9  # row #22, atan ( 0.021 ) = 0.021
+.byte 0x7f
+.byte 0x05
+.byte 0x00
+.byte 0xc1  # row #23, atan ( 0.022 ) = 0.022
+.byte 0xbf
+.byte 0x05
+.byte 0x00
+.byte 0xb8  # row #24, atan ( 0.023 ) = 0.023
+.byte 0xff
+.byte 0x05
+.byte 0x00
+.byte 0xaf  # row #25, atan ( 0.024 ) = 0.024
+.byte 0x3f
+.byte 0x06
+.byte 0x00
+.byte 0xa4  # row #26, atan ( 0.025 ) = 0.025
+.byte 0x7f
+.byte 0x06
+.byte 0x00
+.byte 0x9a  # row #27, atan ( 0.026 ) = 0.026
+.byte 0xbf
+.byte 0x06
+.byte 0x00
+.byte 0x8e  # row #28, atan ( 0.027 ) = 0.027
+.byte 0xff
+.byte 0x06
+.byte 0x00
+.byte 0x81  # row #29, atan ( 0.028 ) = 0.028
+.byte 0x3f
+.byte 0x07
+.byte 0x00
+.byte 0x73  # row #30, atan ( 0.029 ) = 0.029
+.byte 0x7f
+.byte 0x07
+.byte 0x00
+.byte 0x65  # row #31, atan ( 0.030 ) = 0.030
+.byte 0xbf
+.byte 0x07
+.byte 0x00
+.byte 0x55  # row #32, atan ( 0.031 ) = 0.031
+.byte 0xff
+.byte 0x07
+.byte 0x00
+.byte 0x45  # row #33, atan ( 0.032 ) = 0.032
+.byte 0x3f
+.byte 0x08
+.byte 0x00
+.byte 0x33  # row #34, atan ( 0.033 ) = 0.033
+.byte 0x7f
+.byte 0x08
+.byte 0x00
+.byte 0x21  # row #35, atan ( 0.034 ) = 0.034
+.byte 0xbf
+.byte 0x08
+.byte 0x00
+.byte 0x0d  # row #36, atan ( 0.035 ) = 0.035
+.byte 0xff
+.byte 0x08
+.byte 0x00
+.byte 0xf8  # row #37, atan ( 0.036 ) = 0.036
+.byte 0x3e
+.byte 0x09
+.byte 0x00
+.byte 0xe2  # row #38, atan ( 0.037 ) = 0.037
+.byte 0x7e
+.byte 0x09
+.byte 0x00
+.byte 0xcb  # row #39, atan ( 0.038 ) = 0.038
+.byte 0xbe
+.byte 0x09
+.byte 0x00
+.byte 0xb3  # row #40, atan ( 0.039 ) = 0.039
+.byte 0xfe
+.byte 0x09
+.byte 0x00
+.byte 0x99  # row #41, atan ( 0.040 ) = 0.040
+.byte 0x3e
+.byte 0x0a
+.byte 0x00
+.byte 0x7f  # row #42, atan ( 0.041 ) = 0.041
+.byte 0x7e
+.byte 0x0a
+.byte 0x00
+.byte 0x62  # row #43, atan ( 0.042 ) = 0.042
+.byte 0xbe
+.byte 0x0a
+.byte 0x00
+.byte 0x45  # row #44, atan ( 0.043 ) = 0.043
+.byte 0xfe
+.byte 0x0a
+.byte 0x00
+.byte 0x26  # row #45, atan ( 0.044 ) = 0.044
+.byte 0x3e
+.byte 0x0b
+.byte 0x00
+.byte 0x06  # row #46, atan ( 0.045 ) = 0.045
+.byte 0x7e
+.byte 0x0b
+.byte 0x00
+.byte 0xe4  # row #47, atan ( 0.046 ) = 0.046
+.byte 0xbd
+.byte 0x0b
+.byte 0x00
+.byte 0xc1  # row #48, atan ( 0.047 ) = 0.047
+.byte 0xfd
+.byte 0x0b
+.byte 0x00
+.byte 0x9c  # row #49, atan ( 0.048 ) = 0.048
+.byte 0x3d
+.byte 0x0c
+.byte 0x00
+.byte 0x76  # row #50, atan ( 0.049 ) = 0.049
+.byte 0x7d
+.byte 0x0c
+.byte 0x00
+.byte 0x4e  # row #51, atan ( 0.050 ) = 0.050
+.byte 0xbd
+.byte 0x0c
+.byte 0x00
+.byte 0x25  # row #52, atan ( 0.051 ) = 0.051
+.byte 0xfd
+.byte 0x0c
+.byte 0x00
+.byte 0xfa  # row #53, atan ( 0.052 ) = 0.052
+.byte 0x3c
+.byte 0x0d
+.byte 0x00
+.byte 0xcd  # row #54, atan ( 0.053 ) = 0.053
+.byte 0x7c
+.byte 0x0d
+.byte 0x00
+.byte 0x9f  # row #55, atan ( 0.054 ) = 0.054
+.byte 0xbc
+.byte 0x0d
+.byte 0x00
+.byte 0x6f  # row #56, atan ( 0.055 ) = 0.055
+.byte 0xfc
+.byte 0x0d
+.byte 0x00
+.byte 0x3d  # row #57, atan ( 0.056 ) = 0.056
+.byte 0x3c
+.byte 0x0e
+.byte 0x00
+.byte 0x0a  # row #58, atan ( 0.057 ) = 0.057
+.byte 0x7c
+.byte 0x0e
+.byte 0x00
+.byte 0xd4  # row #59, atan ( 0.058 ) = 0.058
+.byte 0xbb
+.byte 0x0e
+.byte 0x00
+.byte 0x9d  # row #60, atan ( 0.059 ) = 0.059
+.byte 0xfb
+.byte 0x0e
+.byte 0x00
+.byte 0x64  # row #61, atan ( 0.060 ) = 0.059
+.byte 0x3b
+.byte 0x0f
+.byte 0x00
+.byte 0x29  # row #62, atan ( 0.061 ) = 0.060
+.byte 0x7b
+.byte 0x0f
+.byte 0x00
+.byte 0xed  # row #63, atan ( 0.062 ) = 0.061
+.byte 0xba
+.byte 0x0f
+.byte 0x00
+.byte 0xae  # row #64, atan ( 0.062 ) = 0.062
+.byte 0xfa
+.byte 0x0f
+.byte 0x00
+.byte 0x6d  # row #65, atan ( 0.063 ) = 0.063
+.byte 0x3a
+.byte 0x10
+.byte 0x00
+.byte 0x2a  # row #66, atan ( 0.064 ) = 0.064
+.byte 0x7a
+.byte 0x10
+.byte 0x00
+.byte 0xe6  # row #67, atan ( 0.065 ) = 0.065
+.byte 0xb9
+.byte 0x10
+.byte 0x00
+.byte 0x9f  # row #68, atan ( 0.066 ) = 0.066
+.byte 0xf9
+.byte 0x10
+.byte 0x00
+.byte 0x56  # row #69, atan ( 0.067 ) = 0.067
+.byte 0x39
+.byte 0x11
+.byte 0x00
+.byte 0x0b  # row #70, atan ( 0.068 ) = 0.068
+.byte 0x79
+.byte 0x11
+.byte 0x00
+.byte 0xbd  # row #71, atan ( 0.069 ) = 0.069
+.byte 0xb8
+.byte 0x11
+.byte 0x00
+.byte 0x6e  # row #72, atan ( 0.070 ) = 0.070
+.byte 0xf8
+.byte 0x11
+.byte 0x00
+.byte 0x1c  # row #73, atan ( 0.071 ) = 0.071
+.byte 0x38
+.byte 0x12
+.byte 0x00
+.byte 0xc8  # row #74, atan ( 0.072 ) = 0.072
+.byte 0x77
+.byte 0x12
+.byte 0x00
+.byte 0x72  # row #75, atan ( 0.073 ) = 0.073
+.byte 0xb7
+.byte 0x12
+.byte 0x00
+.byte 0x19  # row #76, atan ( 0.074 ) = 0.074
+.byte 0xf7
+.byte 0x12
+.byte 0x00
+.byte 0xbe  # row #77, atan ( 0.075 ) = 0.075
+.byte 0x36
+.byte 0x13
+.byte 0x00
+.byte 0x61  # row #78, atan ( 0.076 ) = 0.076
+.byte 0x76
+.byte 0x13
+.byte 0x00
+.byte 0x01  # row #79, atan ( 0.077 ) = 0.077
+.byte 0xb6
+.byte 0x13
+.byte 0x00
+.byte 0x9f  # row #80, atan ( 0.078 ) = 0.078
+.byte 0xf5
+.byte 0x13
+.byte 0x00
+.byte 0x3a  # row #81, atan ( 0.079 ) = 0.079
+.byte 0x35
+.byte 0x14
+.byte 0x00
+.byte 0xd3  # row #82, atan ( 0.080 ) = 0.080
+.byte 0x74
+.byte 0x14
+.byte 0x00
+.byte 0x6a  # row #83, atan ( 0.081 ) = 0.081
+.byte 0xb4
+.byte 0x14
+.byte 0x00
+.byte 0xfd  # row #84, atan ( 0.082 ) = 0.082
+.byte 0xf3
+.byte 0x14
+.byte 0x00
+.byte 0x8f  # row #85, atan ( 0.083 ) = 0.083
+.byte 0x33
+.byte 0x15
+.byte 0x00
+.byte 0x1d  # row #86, atan ( 0.084 ) = 0.084
+.byte 0x73
+.byte 0x15
+.byte 0x00
+.byte 0xa9  # row #87, atan ( 0.085 ) = 0.085
+.byte 0xb2
+.byte 0x15
+.byte 0x00
+.byte 0x32  # row #88, atan ( 0.086 ) = 0.086
+.byte 0xf2
+.byte 0x15
+.byte 0x00
+.byte 0xb9  # row #89, atan ( 0.087 ) = 0.087
+.byte 0x31
+.byte 0x16
+.byte 0x00
+.byte 0x3d  # row #90, atan ( 0.088 ) = 0.088
+.byte 0x71
+.byte 0x16
+.byte 0x00
+.byte 0xbe  # row #91, atan ( 0.089 ) = 0.089
+.byte 0xb0
+.byte 0x16
+.byte 0x00
+.byte 0x3c  # row #92, atan ( 0.090 ) = 0.090
+.byte 0xf0
+.byte 0x16
+.byte 0x00
+.byte 0xb7  # row #93, atan ( 0.091 ) = 0.091
+.byte 0x2f
+.byte 0x17
+.byte 0x00
+.byte 0x30  # row #94, atan ( 0.092 ) = 0.092
+.byte 0x6f
+.byte 0x17
+.byte 0x00
+.byte 0xa5  # row #95, atan ( 0.093 ) = 0.093
+.byte 0xae
+.byte 0x17
+.byte 0x00
+.byte 0x18  # row #96, atan ( 0.094 ) = 0.093
+.byte 0xee
+.byte 0x17
+.byte 0x00
+.byte 0x88  # row #97, atan ( 0.095 ) = 0.094
+.byte 0x2d
+.byte 0x18
+.byte 0x00
+.byte 0xf5  # row #98, atan ( 0.096 ) = 0.095
+.byte 0x6c
+.byte 0x18
+.byte 0x00
+.byte 0x5f  # row #99, atan ( 0.097 ) = 0.096
+.byte 0xac
+.byte 0x18
+.byte 0x00
+.byte 0xc5  # row #100, atan ( 0.098 ) = 0.097
+.byte 0xeb
+.byte 0x18
+.byte 0x00
+.byte 0x29  # row #101, atan ( 0.099 ) = 0.098
+.byte 0x2b
+.byte 0x19
+.byte 0x00
+.byte 0x8a  # row #102, atan ( 0.100 ) = 0.099
+.byte 0x6a
+.byte 0x19
+.byte 0x00
+.byte 0xe7  # row #103, atan ( 0.101 ) = 0.100
+.byte 0xa9
+.byte 0x19
+.byte 0x00
+.byte 0x41  # row #104, atan ( 0.102 ) = 0.101
+.byte 0xe9
+.byte 0x19
+.byte 0x00
+.byte 0x98  # row #105, atan ( 0.103 ) = 0.102
+.byte 0x28
+.byte 0x1a
+.byte 0x00
+.byte 0xec  # row #106, atan ( 0.104 ) = 0.103
+.byte 0x67
+.byte 0x1a
+.byte 0x00
+.byte 0x3d  # row #107, atan ( 0.104 ) = 0.104
+.byte 0xa7
+.byte 0x1a
+.byte 0x00
+.byte 0x8a  # row #108, atan ( 0.105 ) = 0.105
+.byte 0xe6
+.byte 0x1a
+.byte 0x00
+.byte 0xd5  # row #109, atan ( 0.106 ) = 0.106
+.byte 0x25
+.byte 0x1b
+.byte 0x00
+.byte 0x1b  # row #110, atan ( 0.107 ) = 0.107
+.byte 0x65
+.byte 0x1b
+.byte 0x00
+.byte 0x5f  # row #111, atan ( 0.108 ) = 0.108
+.byte 0xa4
+.byte 0x1b
+.byte 0x00
+.byte 0x9f  # row #112, atan ( 0.109 ) = 0.109
+.byte 0xe3
+.byte 0x1b
+.byte 0x00
+.byte 0xdb  # row #113, atan ( 0.110 ) = 0.110
+.byte 0x22
+.byte 0x1c
+.byte 0x00
+.byte 0x15  # row #114, atan ( 0.111 ) = 0.111
+.byte 0x62
+.byte 0x1c
+.byte 0x00
+.byte 0x4a  # row #115, atan ( 0.112 ) = 0.112
+.byte 0xa1
+.byte 0x1c
+.byte 0x00
+.byte 0x7c  # row #116, atan ( 0.113 ) = 0.113
+.byte 0xe0
+.byte 0x1c
+.byte 0x00
+.byte 0xab  # row #117, atan ( 0.114 ) = 0.114
+.byte 0x1f
+.byte 0x1d
+.byte 0x00
+.byte 0xd6  # row #118, atan ( 0.115 ) = 0.115
+.byte 0x5e
+.byte 0x1d
+.byte 0x00
+.byte 0xfe  # row #119, atan ( 0.116 ) = 0.116
+.byte 0x9d
+.byte 0x1d
+.byte 0x00
+.byte 0x21  # row #120, atan ( 0.117 ) = 0.117
+.byte 0xdd
+.byte 0x1d
+.byte 0x00
+.byte 0x42  # row #121, atan ( 0.118 ) = 0.118
+.byte 0x1c
+.byte 0x1e
+.byte 0x00
+.byte 0x5e  # row #122, atan ( 0.119 ) = 0.119
+.byte 0x5b
+.byte 0x1e
+.byte 0x00
+.byte 0x77  # row #123, atan ( 0.120 ) = 0.120
+.byte 0x9a
+.byte 0x1e
+.byte 0x00
+.byte 0x8c  # row #124, atan ( 0.121 ) = 0.121
+.byte 0xd9
+.byte 0x1e
+.byte 0x00
+.byte 0x9d  # row #125, atan ( 0.122 ) = 0.121
+.byte 0x18
+.byte 0x1f
+.byte 0x00
+.byte 0xab  # row #126, atan ( 0.123 ) = 0.122
+.byte 0x57
+.byte 0x1f
+.byte 0x00
+.byte 0xb5  # row #127, atan ( 0.124 ) = 0.123
+.byte 0x96
+.byte 0x1f
+.byte 0x00
+.byte 0xbb  # row #128, atan ( 0.125 ) = 0.124
+.byte 0xd5
+.byte 0x1f
+.byte 0x00
+.byte 0xbd  # row #129, atan ( 0.126 ) = 0.125
+.byte 0x14
+.byte 0x20
+.byte 0x00
+.byte 0xbb  # row #130, atan ( 0.127 ) = 0.126
+.byte 0x53
+.byte 0x20
+.byte 0x00
+.byte 0xb5  # row #131, atan ( 0.128 ) = 0.127
+.byte 0x92
+.byte 0x20
+.byte 0x00
+.byte 0xab  # row #132, atan ( 0.129 ) = 0.128
+.byte 0xd1
+.byte 0x20
+.byte 0x00
+.byte 0x9d  # row #133, atan ( 0.130 ) = 0.129
+.byte 0x10
+.byte 0x21
+.byte 0x00
+.byte 0x8b  # row #134, atan ( 0.131 ) = 0.130
+.byte 0x4f
+.byte 0x21
+.byte 0x00
+.byte 0x76  # row #135, atan ( 0.132 ) = 0.131
+.byte 0x8e
+.byte 0x21
+.byte 0x00
+.byte 0x5c  # row #136, atan ( 0.133 ) = 0.132
+.byte 0xcd
+.byte 0x21
+.byte 0x00
+.byte 0x3e  # row #137, atan ( 0.134 ) = 0.133
+.byte 0x0c
+.byte 0x22
+.byte 0x00
+.byte 0x1b  # row #138, atan ( 0.135 ) = 0.134
+.byte 0x4b
+.byte 0x22
+.byte 0x00
+.byte 0xf5  # row #139, atan ( 0.136 ) = 0.135
+.byte 0x89
+.byte 0x22
+.byte 0x00
+.byte 0xcb  # row #140, atan ( 0.137 ) = 0.136
+.byte 0xc8
+.byte 0x22
+.byte 0x00
+.byte 0x9c  # row #141, atan ( 0.138 ) = 0.137
+.byte 0x07
+.byte 0x23
+.byte 0x00
+.byte 0x69  # row #142, atan ( 0.139 ) = 0.138
+.byte 0x46
+.byte 0x23
+.byte 0x00
+.byte 0x32  # row #143, atan ( 0.140 ) = 0.139
+.byte 0x85
+.byte 0x23
+.byte 0x00
+.byte 0xf6  # row #144, atan ( 0.141 ) = 0.140
+.byte 0xc3
+.byte 0x23
+.byte 0x00
+.byte 0xb6  # row #145, atan ( 0.142 ) = 0.141
+.byte 0x02
+.byte 0x24
+.byte 0x00
+.byte 0x72  # row #146, atan ( 0.143 ) = 0.142
+.byte 0x41
+.byte 0x24
+.byte 0x00
+.byte 0x29  # row #147, atan ( 0.144 ) = 0.143
+.byte 0x80
+.byte 0x24
+.byte 0x00
+.byte 0xdc  # row #148, atan ( 0.145 ) = 0.144
+.byte 0xbe
+.byte 0x24
+.byte 0x00
+.byte 0x8b  # row #149, atan ( 0.146 ) = 0.144
+.byte 0xfd
+.byte 0x24
+.byte 0x00
+.byte 0x35  # row #150, atan ( 0.146 ) = 0.145
+.byte 0x3c
+.byte 0x25
+.byte 0x00
+.byte 0xda  # row #151, atan ( 0.147 ) = 0.146
+.byte 0x7a
+.byte 0x25
+.byte 0x00
+.byte 0x7b  # row #152, atan ( 0.148 ) = 0.147
+.byte 0xb9
+.byte 0x25
+.byte 0x00
+.byte 0x18  # row #153, atan ( 0.149 ) = 0.148
+.byte 0xf8
+.byte 0x25
+.byte 0x00
+.byte 0xb0  # row #154, atan ( 0.150 ) = 0.149
+.byte 0x36
+.byte 0x26
+.byte 0x00
+.byte 0x43  # row #155, atan ( 0.151 ) = 0.150
+.byte 0x75
+.byte 0x26
+.byte 0x00
+.byte 0xd2  # row #156, atan ( 0.152 ) = 0.151
+.byte 0xb3
+.byte 0x26
+.byte 0x00
+.byte 0x5c  # row #157, atan ( 0.153 ) = 0.152
+.byte 0xf2
+.byte 0x26
+.byte 0x00
+.byte 0xe1  # row #158, atan ( 0.154 ) = 0.153
+.byte 0x30
+.byte 0x27
+.byte 0x00
+.byte 0x62  # row #159, atan ( 0.155 ) = 0.154
+.byte 0x6f
+.byte 0x27
+.byte 0x00
+.byte 0xde  # row #160, atan ( 0.156 ) = 0.155
+.byte 0xad
+.byte 0x27
+.byte 0x00
+.byte 0x55  # row #161, atan ( 0.157 ) = 0.156
+.byte 0xec
+.byte 0x27
+.byte 0x00
+.byte 0xc7  # row #162, atan ( 0.158 ) = 0.157
+.byte 0x2a
+.byte 0x28
+.byte 0x00
+.byte 0x35  # row #163, atan ( 0.159 ) = 0.158
+.byte 0x69
+.byte 0x28
+.byte 0x00
+.byte 0x9e  # row #164, atan ( 0.160 ) = 0.159
+.byte 0xa7
+.byte 0x28
+.byte 0x00
+.byte 0x01  # row #165, atan ( 0.161 ) = 0.160
+.byte 0xe6
+.byte 0x28
+.byte 0x00
+.byte 0x60  # row #166, atan ( 0.162 ) = 0.161
+.byte 0x24
+.byte 0x29
+.byte 0x00
+.byte 0xba  # row #167, atan ( 0.163 ) = 0.162
+.byte 0x62
+.byte 0x29
+.byte 0x00
+.byte 0x0f  # row #168, atan ( 0.164 ) = 0.163
+.byte 0xa1
+.byte 0x29
+.byte 0x00
+.byte 0x5f  # row #169, atan ( 0.165 ) = 0.164
+.byte 0xdf
+.byte 0x29
+.byte 0x00
+.byte 0xaa  # row #170, atan ( 0.166 ) = 0.165
+.byte 0x1d
+.byte 0x2a
+.byte 0x00
+.byte 0xf0  # row #171, atan ( 0.167 ) = 0.165
+.byte 0x5b
+.byte 0x2a
+.byte 0x00
+.byte 0x31  # row #172, atan ( 0.168 ) = 0.166
+.byte 0x9a
+.byte 0x2a
+.byte 0x00
+.byte 0x6d  # row #173, atan ( 0.169 ) = 0.167
+.byte 0xd8
+.byte 0x2a
+.byte 0x00
+.byte 0xa4  # row #174, atan ( 0.170 ) = 0.168
+.byte 0x16
+.byte 0x2b
+.byte 0x00
+.byte 0xd6  # row #175, atan ( 0.171 ) = 0.169
+.byte 0x54
+.byte 0x2b
+.byte 0x00
+.byte 0x02  # row #176, atan ( 0.172 ) = 0.170
+.byte 0x93
+.byte 0x2b
+.byte 0x00
+.byte 0x2a  # row #177, atan ( 0.173 ) = 0.171
+.byte 0xd1
+.byte 0x2b
+.byte 0x00
+.byte 0x4c  # row #178, atan ( 0.174 ) = 0.172
+.byte 0x0f
+.byte 0x2c
+.byte 0x00
+.byte 0x68  # row #179, atan ( 0.175 ) = 0.173
+.byte 0x4d
+.byte 0x2c
+.byte 0x00
+.byte 0x80  # row #180, atan ( 0.176 ) = 0.174
+.byte 0x8b
+.byte 0x2c
+.byte 0x00
+.byte 0x92  # row #181, atan ( 0.177 ) = 0.175
+.byte 0xc9
+.byte 0x2c
+.byte 0x00
+.byte 0x9f  # row #182, atan ( 0.178 ) = 0.176
+.byte 0x07
+.byte 0x2d
+.byte 0x00
+.byte 0xa7  # row #183, atan ( 0.179 ) = 0.177
+.byte 0x45
+.byte 0x2d
+.byte 0x00
+.byte 0xa9  # row #184, atan ( 0.180 ) = 0.178
+.byte 0x83
+.byte 0x2d
+.byte 0x00
+.byte 0xa6  # row #185, atan ( 0.181 ) = 0.179
+.byte 0xc1
+.byte 0x2d
+.byte 0x00
+.byte 0x9d  # row #186, atan ( 0.182 ) = 0.180
+.byte 0xff
+.byte 0x2d
+.byte 0x00
+.byte 0x8f  # row #187, atan ( 0.183 ) = 0.181
+.byte 0x3d
+.byte 0x2e
+.byte 0x00
+.byte 0x7c  # row #188, atan ( 0.184 ) = 0.182
+.byte 0x7b
+.byte 0x2e
+.byte 0x00
+.byte 0x63  # row #189, atan ( 0.185 ) = 0.183
+.byte 0xb9
+.byte 0x2e
+.byte 0x00
+.byte 0x44  # row #190, atan ( 0.186 ) = 0.183
+.byte 0xf7
+.byte 0x2e
+.byte 0x00
+.byte 0x20  # row #191, atan ( 0.187 ) = 0.184
+.byte 0x35
+.byte 0x2f
+.byte 0x00
+.byte 0xf7  # row #192, atan ( 0.188 ) = 0.185
+.byte 0x72
+.byte 0x2f
+.byte 0x00
+.byte 0xc7  # row #193, atan ( 0.188 ) = 0.186
+.byte 0xb0
+.byte 0x2f
+.byte 0x00
+.byte 0x92  # row #194, atan ( 0.189 ) = 0.187
+.byte 0xee
+.byte 0x2f
+.byte 0x00
+.byte 0x58  # row #195, atan ( 0.190 ) = 0.188
+.byte 0x2c
+.byte 0x30
+.byte 0x00
+.byte 0x18  # row #196, atan ( 0.191 ) = 0.189
+.byte 0x6a
+.byte 0x30
+.byte 0x00
+.byte 0xd2  # row #197, atan ( 0.192 ) = 0.190
+.byte 0xa7
+.byte 0x30
+.byte 0x00
+.byte 0x86  # row #198, atan ( 0.193 ) = 0.191
+.byte 0xe5
+.byte 0x30
+.byte 0x00
+.byte 0x35  # row #199, atan ( 0.194 ) = 0.192
+.byte 0x23
+.byte 0x31
+.byte 0x00
+.byte 0xde  # row #200, atan ( 0.195 ) = 0.193
+.byte 0x60
+.byte 0x31
+.byte 0x00
+.byte 0x81  # row #201, atan ( 0.196 ) = 0.194
+.byte 0x9e
+.byte 0x31
+.byte 0x00
+.byte 0x1e  # row #202, atan ( 0.197 ) = 0.195
+.byte 0xdc
+.byte 0x31
+.byte 0x00
+.byte 0xb5  # row #203, atan ( 0.198 ) = 0.196
+.byte 0x19
+.byte 0x32
+.byte 0x00
+.byte 0x47  # row #204, atan ( 0.199 ) = 0.197
+.byte 0x57
+.byte 0x32
+.byte 0x00
+.byte 0xd3  # row #205, atan ( 0.200 ) = 0.198
+.byte 0x94
+.byte 0x32
+.byte 0x00
+.byte 0x58  # row #206, atan ( 0.201 ) = 0.199
+.byte 0xd2
+.byte 0x32
+.byte 0x00
+.byte 0xd8  # row #207, atan ( 0.202 ) = 0.199
+.byte 0x0f
+.byte 0x33
+.byte 0x00
+.byte 0x52  # row #208, atan ( 0.203 ) = 0.200
+.byte 0x4d
+.byte 0x33
+.byte 0x00
+.byte 0xc6  # row #209, atan ( 0.204 ) = 0.201
+.byte 0x8a
+.byte 0x33
+.byte 0x00
+.byte 0x33  # row #210, atan ( 0.205 ) = 0.202
+.byte 0xc8
+.byte 0x33
+.byte 0x00
+.byte 0x9b  # row #211, atan ( 0.206 ) = 0.203
+.byte 0x05
+.byte 0x34
+.byte 0x00
+.byte 0xfd  # row #212, atan ( 0.207 ) = 0.204
+.byte 0x42
+.byte 0x34
+.byte 0x00
+.byte 0x58  # row #213, atan ( 0.208 ) = 0.205
+.byte 0x80
+.byte 0x34
+.byte 0x00
+.byte 0xae  # row #214, atan ( 0.209 ) = 0.206
+.byte 0xbd
+.byte 0x34
+.byte 0x00
+.byte 0xfd  # row #215, atan ( 0.210 ) = 0.207
+.byte 0xfa
+.byte 0x34
+.byte 0x00
+.byte 0x46  # row #216, atan ( 0.211 ) = 0.208
+.byte 0x38
+.byte 0x35
+.byte 0x00
+.byte 0x89  # row #217, atan ( 0.212 ) = 0.209
+.byte 0x75
+.byte 0x35
+.byte 0x00
+.byte 0xc6  # row #218, atan ( 0.213 ) = 0.210
+.byte 0xb2
+.byte 0x35
+.byte 0x00
+.byte 0xfc  # row #219, atan ( 0.214 ) = 0.211
+.byte 0xef
+.byte 0x35
+.byte 0x00
+.byte 0x2d  # row #220, atan ( 0.215 ) = 0.212
+.byte 0x2d
+.byte 0x36
+.byte 0x00
+.byte 0x57  # row #221, atan ( 0.216 ) = 0.213
+.byte 0x6a
+.byte 0x36
+.byte 0x00
+.byte 0x7a  # row #222, atan ( 0.217 ) = 0.213
+.byte 0xa7
+.byte 0x36
+.byte 0x00
+.byte 0x98  # row #223, atan ( 0.218 ) = 0.214
+.byte 0xe4
+.byte 0x36
+.byte 0x00
+.byte 0xaf  # row #224, atan ( 0.219 ) = 0.215
+.byte 0x21
+.byte 0x37
+.byte 0x00
+.byte 0xbf  # row #225, atan ( 0.220 ) = 0.216
+.byte 0x5e
+.byte 0x37
+.byte 0x00
+.byte 0xc9  # row #226, atan ( 0.221 ) = 0.217
+.byte 0x9b
+.byte 0x37
+.byte 0x00
+.byte 0xcd  # row #227, atan ( 0.222 ) = 0.218
+.byte 0xd8
+.byte 0x37
+.byte 0x00
+.byte 0xcb  # row #228, atan ( 0.223 ) = 0.219
+.byte 0x15
+.byte 0x38
+.byte 0x00
+.byte 0xc1  # row #229, atan ( 0.224 ) = 0.220
+.byte 0x52
+.byte 0x38
+.byte 0x00
+.byte 0xb2  # row #230, atan ( 0.225 ) = 0.221
+.byte 0x8f
+.byte 0x38
+.byte 0x00
+.byte 0x9c  # row #231, atan ( 0.226 ) = 0.222
+.byte 0xcc
+.byte 0x38
+.byte 0x00
+.byte 0x7f  # row #232, atan ( 0.227 ) = 0.223
+.byte 0x09
+.byte 0x39
+.byte 0x00
+.byte 0x5c  # row #233, atan ( 0.228 ) = 0.224
+.byte 0x46
+.byte 0x39
+.byte 0x00
+.byte 0x32  # row #234, atan ( 0.229 ) = 0.225
+.byte 0x83
+.byte 0x39
+.byte 0x00
+.byte 0x02  # row #235, atan ( 0.229 ) = 0.226
+.byte 0xc0
+.byte 0x39
+.byte 0x00
+.byte 0xcb  # row #236, atan ( 0.230 ) = 0.227
+.byte 0xfc
+.byte 0x39
+.byte 0x00
+.byte 0x8d  # row #237, atan ( 0.231 ) = 0.227
+.byte 0x39
+.byte 0x3a
+.byte 0x00
+.byte 0x49  # row #238, atan ( 0.232 ) = 0.228
+.byte 0x76
+.byte 0x3a
+.byte 0x00
+.byte 0xfe  # row #239, atan ( 0.233 ) = 0.229
+.byte 0xb2
+.byte 0x3a
+.byte 0x00
+.byte 0xac  # row #240, atan ( 0.234 ) = 0.230
+.byte 0xef
+.byte 0x3a
+.byte 0x00
+.byte 0x53  # row #241, atan ( 0.235 ) = 0.231
+.byte 0x2c
+.byte 0x3b
+.byte 0x00
+.byte 0xf4  # row #242, atan ( 0.236 ) = 0.232
+.byte 0x68
+.byte 0x3b
+.byte 0x00
+.byte 0x8e  # row #243, atan ( 0.237 ) = 0.233
+.byte 0xa5
+.byte 0x3b
+.byte 0x00
+.byte 0x21  # row #244, atan ( 0.238 ) = 0.234
+.byte 0xe2
+.byte 0x3b
+.byte 0x00
+.byte 0xad  # row #245, atan ( 0.239 ) = 0.235
+.byte 0x1e
+.byte 0x3c
+.byte 0x00
+.byte 0x33  # row #246, atan ( 0.240 ) = 0.236
+.byte 0x5b
+.byte 0x3c
+.byte 0x00
+.byte 0xb1  # row #247, atan ( 0.241 ) = 0.237
+.byte 0x97
+.byte 0x3c
+.byte 0x00
+.byte 0x29  # row #248, atan ( 0.242 ) = 0.238
+.byte 0xd4
+.byte 0x3c
+.byte 0x00
+.byte 0x9a  # row #249, atan ( 0.243 ) = 0.239
+.byte 0x10
+.byte 0x3d
+.byte 0x00
+.byte 0x04  # row #250, atan ( 0.244 ) = 0.239
+.byte 0x4d
+.byte 0x3d
+.byte 0x00
+.byte 0x67  # row #251, atan ( 0.245 ) = 0.240
+.byte 0x89
+.byte 0x3d
+.byte 0x00
+.byte 0xc3  # row #252, atan ( 0.246 ) = 0.241
+.byte 0xc5
+.byte 0x3d
+.byte 0x00
+.byte 0x17  # row #253, atan ( 0.247 ) = 0.242
+.byte 0x02
+.byte 0x3e
+.byte 0x00
+.byte 0x65  # row #254, atan ( 0.248 ) = 0.243
+.byte 0x3e
+.byte 0x3e
+.byte 0x00
+.byte 0xac  # row #255, atan ( 0.249 ) = 0.244
+.byte 0x7a
+.byte 0x3e
+.byte 0x00
+.byte 0xec  # row #256, atan ( 0.250 ) = 0.245
+.byte 0xb6
+.byte 0x3e
+.byte 0x00
+.byte 0x25  # row #257, atan ( 0.251 ) = 0.246
+.byte 0xf3
+.byte 0x3e
+.byte 0x00
+.byte 0x56  # row #258, atan ( 0.252 ) = 0.247
+.byte 0x2f
+.byte 0x3f
+.byte 0x00
+.byte 0x81  # row #259, atan ( 0.253 ) = 0.248
+.byte 0x6b
+.byte 0x3f
+.byte 0x00
+.byte 0xa4  # row #260, atan ( 0.254 ) = 0.249
+.byte 0xa7
+.byte 0x3f
+.byte 0x00
+.byte 0xc0  # row #261, atan ( 0.255 ) = 0.250
+.byte 0xe3
+.byte 0x3f
+.byte 0x00
+.byte 0xd5  # row #262, atan ( 0.256 ) = 0.250
+.byte 0x1f
+.byte 0x40
+.byte 0x00
+.byte 0xe3  # row #263, atan ( 0.257 ) = 0.251
+.byte 0x5b
+.byte 0x40
+.byte 0x00
+.byte 0xe9  # row #264, atan ( 0.258 ) = 0.252
+.byte 0x97
+.byte 0x40
+.byte 0x00
+.byte 0xe9  # row #265, atan ( 0.259 ) = 0.253
+.byte 0xd3
+.byte 0x40
+.byte 0x00
+.byte 0xe0  # row #266, atan ( 0.260 ) = 0.254
+.byte 0x0f
+.byte 0x41
+.byte 0x00
+.byte 0xd1  # row #267, atan ( 0.261 ) = 0.255
+.byte 0x4b
+.byte 0x41
+.byte 0x00
+.byte 0xbb  # row #268, atan ( 0.262 ) = 0.256
+.byte 0x87
+.byte 0x41
+.byte 0x00
+.byte 0x9d  # row #269, atan ( 0.263 ) = 0.257
+.byte 0xc3
+.byte 0x41
+.byte 0x00
+.byte 0x77  # row #270, atan ( 0.264 ) = 0.258
+.byte 0xff
+.byte 0x41
+.byte 0x00
+.byte 0x4a  # row #271, atan ( 0.265 ) = 0.259
+.byte 0x3b
+.byte 0x42
+.byte 0x00
+.byte 0x16  # row #272, atan ( 0.266 ) = 0.260
+.byte 0x77
+.byte 0x42
+.byte 0x00
+.byte 0xdb  # row #273, atan ( 0.267 ) = 0.261
+.byte 0xb2
+.byte 0x42
+.byte 0x00
+.byte 0x98  # row #274, atan ( 0.268 ) = 0.261
+.byte 0xee
+.byte 0x42
+.byte 0x00
+.byte 0x4d  # row #275, atan ( 0.269 ) = 0.262
+.byte 0x2a
+.byte 0x43
+.byte 0x00
+.byte 0xfc  # row #276, atan ( 0.270 ) = 0.263
+.byte 0x65
+.byte 0x43
+.byte 0x00
+.byte 0xa2  # row #277, atan ( 0.271 ) = 0.264
+.byte 0xa1
+.byte 0x43
+.byte 0x00
+.byte 0x41  # row #278, atan ( 0.271 ) = 0.265
+.byte 0xdd
+.byte 0x43
+.byte 0x00
+.byte 0xd9  # row #279, atan ( 0.272 ) = 0.266
+.byte 0x18
+.byte 0x44
+.byte 0x00
+.byte 0x69  # row #280, atan ( 0.273 ) = 0.267
+.byte 0x54
+.byte 0x44
+.byte 0x00
+.byte 0xf1  # row #281, atan ( 0.274 ) = 0.268
+.byte 0x8f
+.byte 0x44
+.byte 0x00
+.byte 0x72  # row #282, atan ( 0.275 ) = 0.269
+.byte 0xcb
+.byte 0x44
+.byte 0x00
+.byte 0xeb  # row #283, atan ( 0.276 ) = 0.270
+.byte 0x06
+.byte 0x45
+.byte 0x00
+.byte 0x5d  # row #284, atan ( 0.277 ) = 0.271
+.byte 0x42
+.byte 0x45
+.byte 0x00
+.byte 0xc7  # row #285, atan ( 0.278 ) = 0.271
+.byte 0x7d
+.byte 0x45
+.byte 0x00
+.byte 0x29  # row #286, atan ( 0.279 ) = 0.272
+.byte 0xb9
+.byte 0x45
+.byte 0x00
+.byte 0x84  # row #287, atan ( 0.280 ) = 0.273
+.byte 0xf4
+.byte 0x45
+.byte 0x00
+.byte 0xd7  # row #288, atan ( 0.281 ) = 0.274
+.byte 0x2f
+.byte 0x46
+.byte 0x00
+.byte 0x22  # row #289, atan ( 0.282 ) = 0.275
+.byte 0x6b
+.byte 0x46
+.byte 0x00
+.byte 0x65  # row #290, atan ( 0.283 ) = 0.276
+.byte 0xa6
+.byte 0x46
+.byte 0x00
+.byte 0xa1  # row #291, atan ( 0.284 ) = 0.277
+.byte 0xe1
+.byte 0x46
+.byte 0x00
+.byte 0xd5  # row #292, atan ( 0.285 ) = 0.278
+.byte 0x1c
+.byte 0x47
+.byte 0x00
+.byte 0x01  # row #293, atan ( 0.286 ) = 0.279
+.byte 0x58
+.byte 0x47
+.byte 0x00
+.byte 0x25  # row #294, atan ( 0.287 ) = 0.280
+.byte 0x93
+.byte 0x47
+.byte 0x00
+.byte 0x41  # row #295, atan ( 0.288 ) = 0.280
+.byte 0xce
+.byte 0x47
+.byte 0x00
+.byte 0x56  # row #296, atan ( 0.289 ) = 0.281
+.byte 0x09
+.byte 0x48
+.byte 0x00
+.byte 0x62  # row #297, atan ( 0.290 ) = 0.282
+.byte 0x44
+.byte 0x48
+.byte 0x00
+.byte 0x67  # row #298, atan ( 0.291 ) = 0.283
+.byte 0x7f
+.byte 0x48
+.byte 0x00
+.byte 0x64  # row #299, atan ( 0.292 ) = 0.284
+.byte 0xba
+.byte 0x48
+.byte 0x00
+.byte 0x59  # row #300, atan ( 0.293 ) = 0.285
+.byte 0xf5
+.byte 0x48
+.byte 0x00
+.byte 0x46  # row #301, atan ( 0.294 ) = 0.286
+.byte 0x30
+.byte 0x49
+.byte 0x00
+.byte 0x2b  # row #302, atan ( 0.295 ) = 0.287
+.byte 0x6b
+.byte 0x49
+.byte 0x00
+.byte 0x08  # row #303, atan ( 0.296 ) = 0.288
+.byte 0xa6
+.byte 0x49
+.byte 0x00
+.byte 0xdd  # row #304, atan ( 0.297 ) = 0.289
+.byte 0xe0
+.byte 0x49
+.byte 0x00
+.byte 0xa9  # row #305, atan ( 0.298 ) = 0.289
+.byte 0x1b
+.byte 0x4a
+.byte 0x00
+.byte 0x6e  # row #306, atan ( 0.299 ) = 0.290
+.byte 0x56
+.byte 0x4a
+.byte 0x00
+.byte 0x2b  # row #307, atan ( 0.300 ) = 0.291
+.byte 0x91
+.byte 0x4a
+.byte 0x00
+.byte 0xe0  # row #308, atan ( 0.301 ) = 0.292
+.byte 0xcb
+.byte 0x4a
+.byte 0x00
+.byte 0x8d  # row #309, atan ( 0.302 ) = 0.293
+.byte 0x06
+.byte 0x4b
+.byte 0x00
+.byte 0x31  # row #310, atan ( 0.303 ) = 0.294
+.byte 0x41
+.byte 0x4b
+.byte 0x00
+.byte 0xce  # row #311, atan ( 0.304 ) = 0.295
+.byte 0x7b
+.byte 0x4b
+.byte 0x00
+.byte 0x62  # row #312, atan ( 0.305 ) = 0.296
+.byte 0xb6
+.byte 0x4b
+.byte 0x00
+.byte 0xee  # row #313, atan ( 0.306 ) = 0.297
+.byte 0xf0
+.byte 0x4b
+.byte 0x00
+.byte 0x72  # row #314, atan ( 0.307 ) = 0.298
+.byte 0x2b
+.byte 0x4c
+.byte 0x00
+.byte 0xee  # row #315, atan ( 0.308 ) = 0.298
+.byte 0x65
+.byte 0x4c
+.byte 0x00
+.byte 0x61  # row #316, atan ( 0.309 ) = 0.299
+.byte 0xa0
+.byte 0x4c
+.byte 0x00
+.byte 0xcd  # row #317, atan ( 0.310 ) = 0.300
+.byte 0xda
+.byte 0x4c
+.byte 0x00
+.byte 0x30  # row #318, atan ( 0.311 ) = 0.301
+.byte 0x15
+.byte 0x4d
+.byte 0x00
+.byte 0x8a  # row #319, atan ( 0.312 ) = 0.302
+.byte 0x4f
+.byte 0x4d
+.byte 0x00
+.byte 0xdd  # row #320, atan ( 0.312 ) = 0.303
+.byte 0x89
+.byte 0x4d
+.byte 0x00
+.byte 0x27  # row #321, atan ( 0.313 ) = 0.304
+.byte 0xc4
+.byte 0x4d
+.byte 0x00
+.byte 0x69  # row #322, atan ( 0.314 ) = 0.305
+.byte 0xfe
+.byte 0x4d
+.byte 0x00
+.byte 0xa2  # row #323, atan ( 0.315 ) = 0.306
+.byte 0x38
+.byte 0x4e
+.byte 0x00
+.byte 0xd4  # row #324, atan ( 0.316 ) = 0.306
+.byte 0x72
+.byte 0x4e
+.byte 0x00
+.byte 0xfd  # row #325, atan ( 0.317 ) = 0.307
+.byte 0xac
+.byte 0x4e
+.byte 0x00
+.byte 0x1d  # row #326, atan ( 0.318 ) = 0.308
+.byte 0xe7
+.byte 0x4e
+.byte 0x00
+.byte 0x35  # row #327, atan ( 0.319 ) = 0.309
+.byte 0x21
+.byte 0x4f
+.byte 0x00
+.byte 0x45  # row #328, atan ( 0.320 ) = 0.310
+.byte 0x5b
+.byte 0x4f
+.byte 0x00
+.byte 0x4c  # row #329, atan ( 0.321 ) = 0.311
+.byte 0x95
+.byte 0x4f
+.byte 0x00
+.byte 0x4b  # row #330, atan ( 0.322 ) = 0.312
+.byte 0xcf
+.byte 0x4f
+.byte 0x00
+.byte 0x41  # row #331, atan ( 0.323 ) = 0.313
+.byte 0x09
+.byte 0x50
+.byte 0x00
+.byte 0x2f  # row #332, atan ( 0.324 ) = 0.314
+.byte 0x43
+.byte 0x50
+.byte 0x00
+.byte 0x14  # row #333, atan ( 0.325 ) = 0.314
+.byte 0x7d
+.byte 0x50
+.byte 0x00
+.byte 0xf1  # row #334, atan ( 0.326 ) = 0.315
+.byte 0xb6
+.byte 0x50
+.byte 0x00
+.byte 0xc5  # row #335, atan ( 0.327 ) = 0.316
+.byte 0xf0
+.byte 0x50
+.byte 0x00
+.byte 0x91  # row #336, atan ( 0.328 ) = 0.317
+.byte 0x2a
+.byte 0x51
+.byte 0x00
+.byte 0x54  # row #337, atan ( 0.329 ) = 0.318
+.byte 0x64
+.byte 0x51
+.byte 0x00
+.byte 0x0f  # row #338, atan ( 0.330 ) = 0.319
+.byte 0x9e
+.byte 0x51
+.byte 0x00
+.byte 0xc1  # row #339, atan ( 0.331 ) = 0.320
+.byte 0xd7
+.byte 0x51
+.byte 0x00
+.byte 0x6a  # row #340, atan ( 0.332 ) = 0.321
+.byte 0x11
+.byte 0x52
+.byte 0x00
+.byte 0x0b  # row #341, atan ( 0.333 ) = 0.321
+.byte 0x4b
+.byte 0x52
+.byte 0x00
+.byte 0xa3  # row #342, atan ( 0.334 ) = 0.322
+.byte 0x84
+.byte 0x52
+.byte 0x00
+.byte 0x33  # row #343, atan ( 0.335 ) = 0.323
+.byte 0xbe
+.byte 0x52
+.byte 0x00
+.byte 0xb9  # row #344, atan ( 0.336 ) = 0.324
+.byte 0xf7
+.byte 0x52
+.byte 0x00
+.byte 0x38  # row #345, atan ( 0.337 ) = 0.325
+.byte 0x31
+.byte 0x53
+.byte 0x00
+.byte 0xad  # row #346, atan ( 0.338 ) = 0.326
+.byte 0x6a
+.byte 0x53
+.byte 0x00
+.byte 0x1a  # row #347, atan ( 0.339 ) = 0.327
+.byte 0xa4
+.byte 0x53
+.byte 0x00
+.byte 0x7e  # row #348, atan ( 0.340 ) = 0.328
+.byte 0xdd
+.byte 0x53
+.byte 0x00
+.byte 0xd9  # row #349, atan ( 0.341 ) = 0.328
+.byte 0x16
+.byte 0x54
+.byte 0x00
+.byte 0x2c  # row #350, atan ( 0.342 ) = 0.329
+.byte 0x50
+.byte 0x54
+.byte 0x00
+.byte 0x75  # row #351, atan ( 0.343 ) = 0.330
+.byte 0x89
+.byte 0x54
+.byte 0x00
+.byte 0xb6  # row #352, atan ( 0.344 ) = 0.331
+.byte 0xc2
+.byte 0x54
+.byte 0x00
+.byte 0xef  # row #353, atan ( 0.345 ) = 0.332
+.byte 0xfb
+.byte 0x54
+.byte 0x00
+.byte 0x1e  # row #354, atan ( 0.346 ) = 0.333
+.byte 0x35
+.byte 0x55
+.byte 0x00
+.byte 0x45  # row #355, atan ( 0.347 ) = 0.334
+.byte 0x6e
+.byte 0x55
+.byte 0x00
+.byte 0x62  # row #356, atan ( 0.348 ) = 0.335
+.byte 0xa7
+.byte 0x55
+.byte 0x00
+.byte 0x77  # row #357, atan ( 0.349 ) = 0.335
+.byte 0xe0
+.byte 0x55
+.byte 0x00
+.byte 0x83  # row #358, atan ( 0.350 ) = 0.336
+.byte 0x19
+.byte 0x56
+.byte 0x00
+.byte 0x86  # row #359, atan ( 0.351 ) = 0.337
+.byte 0x52
+.byte 0x56
+.byte 0x00
+.byte 0x80  # row #360, atan ( 0.352 ) = 0.338
+.byte 0x8b
+.byte 0x56
+.byte 0x00
+.byte 0x72  # row #361, atan ( 0.353 ) = 0.339
+.byte 0xc4
+.byte 0x56
+.byte 0x00
+.byte 0x5a  # row #362, atan ( 0.354 ) = 0.340
+.byte 0xfd
+.byte 0x56
+.byte 0x00
+.byte 0x39  # row #363, atan ( 0.354 ) = 0.341
+.byte 0x36
+.byte 0x57
+.byte 0x00
+.byte 0x10  # row #364, atan ( 0.355 ) = 0.342
+.byte 0x6f
+.byte 0x57
+.byte 0x00
+.byte 0xdd  # row #365, atan ( 0.356 ) = 0.342
+.byte 0xa7
+.byte 0x57
+.byte 0x00
+.byte 0xa2  # row #366, atan ( 0.357 ) = 0.343
+.byte 0xe0
+.byte 0x57
+.byte 0x00
+.byte 0x5e  # row #367, atan ( 0.358 ) = 0.344
+.byte 0x19
+.byte 0x58
+.byte 0x00
+.byte 0x10  # row #368, atan ( 0.359 ) = 0.345
+.byte 0x52
+.byte 0x58
+.byte 0x00
+.byte 0xba  # row #369, atan ( 0.360 ) = 0.346
+.byte 0x8a
+.byte 0x58
+.byte 0x00
+.byte 0x5a  # row #370, atan ( 0.361 ) = 0.347
+.byte 0xc3
+.byte 0x58
+.byte 0x00
+.byte 0xf1  # row #371, atan ( 0.362 ) = 0.348
+.byte 0xfb
+.byte 0x58
+.byte 0x00
+.byte 0x80  # row #372, atan ( 0.363 ) = 0.348
+.byte 0x34
+.byte 0x59
+.byte 0x00
+.byte 0x05  # row #373, atan ( 0.364 ) = 0.349
+.byte 0x6d
+.byte 0x59
+.byte 0x00
+.byte 0x81  # row #374, atan ( 0.365 ) = 0.350
+.byte 0xa5
+.byte 0x59
+.byte 0x00
+.byte 0xf4  # row #375, atan ( 0.366 ) = 0.351
+.byte 0xdd
+.byte 0x59
+.byte 0x00
+.byte 0x5e  # row #376, atan ( 0.367 ) = 0.352
+.byte 0x16
+.byte 0x5a
+.byte 0x00
+.byte 0xbf  # row #377, atan ( 0.368 ) = 0.353
+.byte 0x4e
+.byte 0x5a
+.byte 0x00
+.byte 0x17  # row #378, atan ( 0.369 ) = 0.354
+.byte 0x87
+.byte 0x5a
+.byte 0x00
+.byte 0x66  # row #379, atan ( 0.370 ) = 0.354
+.byte 0xbf
+.byte 0x5a
+.byte 0x00
+.byte 0xab  # row #380, atan ( 0.371 ) = 0.355
+.byte 0xf7
+.byte 0x5a
+.byte 0x00
+.byte 0xe7  # row #381, atan ( 0.372 ) = 0.356
+.byte 0x2f
+.byte 0x5b
+.byte 0x00
+.byte 0x1a  # row #382, atan ( 0.373 ) = 0.357
+.byte 0x68
+.byte 0x5b
+.byte 0x00
+.byte 0x44  # row #383, atan ( 0.374 ) = 0.358
+.byte 0xa0
+.byte 0x5b
+.byte 0x00
+.byte 0x65  # row #384, atan ( 0.375 ) = 0.359
+.byte 0xd8
+.byte 0x5b
+.byte 0x00
+.byte 0x7c  # row #385, atan ( 0.376 ) = 0.360
+.byte 0x10
+.byte 0x5c
+.byte 0x00
+.byte 0x8b  # row #386, atan ( 0.377 ) = 0.360
+.byte 0x48
+.byte 0x5c
+.byte 0x00
+.byte 0x90  # row #387, atan ( 0.378 ) = 0.361
+.byte 0x80
+.byte 0x5c
+.byte 0x00
+.byte 0x8b  # row #388, atan ( 0.379 ) = 0.362
+.byte 0xb8
+.byte 0x5c
+.byte 0x00
+.byte 0x7e  # row #389, atan ( 0.380 ) = 0.363
+.byte 0xf0
+.byte 0x5c
+.byte 0x00
+.byte 0x67  # row #390, atan ( 0.381 ) = 0.364
+.byte 0x28
+.byte 0x5d
+.byte 0x00
+.byte 0x47  # row #391, atan ( 0.382 ) = 0.365
+.byte 0x60
+.byte 0x5d
+.byte 0x00
+.byte 0x1d  # row #392, atan ( 0.383 ) = 0.366
+.byte 0x98
+.byte 0x5d
+.byte 0x00
+.byte 0xeb  # row #393, atan ( 0.384 ) = 0.366
+.byte 0xcf
+.byte 0x5d
+.byte 0x00
+.byte 0xae  # row #394, atan ( 0.385 ) = 0.367
+.byte 0x07
+.byte 0x5e
+.byte 0x00
+.byte 0x69  # row #395, atan ( 0.386 ) = 0.368
+.byte 0x3f
+.byte 0x5e
+.byte 0x00
+.byte 0x1a  # row #396, atan ( 0.387 ) = 0.369
+.byte 0x77
+.byte 0x5e
+.byte 0x00
+.byte 0xc2  # row #397, atan ( 0.388 ) = 0.370
+.byte 0xae
+.byte 0x5e
+.byte 0x00
+.byte 0x60  # row #398, atan ( 0.389 ) = 0.371
+.byte 0xe6
+.byte 0x5e
+.byte 0x00
+.byte 0xf6  # row #399, atan ( 0.390 ) = 0.372
+.byte 0x1d
+.byte 0x5f
+.byte 0x00
+.byte 0x81  # row #400, atan ( 0.391 ) = 0.372
+.byte 0x55
+.byte 0x5f
+.byte 0x00
+.byte 0x03  # row #401, atan ( 0.392 ) = 0.373
+.byte 0x8d
+.byte 0x5f
+.byte 0x00
+.byte 0x7c  # row #402, atan ( 0.393 ) = 0.374
+.byte 0xc4
+.byte 0x5f
+.byte 0x00
+.byte 0xec  # row #403, atan ( 0.394 ) = 0.375
+.byte 0xfb
+.byte 0x5f
+.byte 0x00
+.byte 0x52  # row #404, atan ( 0.395 ) = 0.376
+.byte 0x33
+.byte 0x60
+.byte 0x00
+.byte 0xae  # row #405, atan ( 0.396 ) = 0.377
+.byte 0x6a
+.byte 0x60
+.byte 0x00
+.byte 0x01  # row #406, atan ( 0.396 ) = 0.377
+.byte 0xa2
+.byte 0x60
+.byte 0x00
+.byte 0x4b  # row #407, atan ( 0.397 ) = 0.378
+.byte 0xd9
+.byte 0x60
+.byte 0x00
+.byte 0x8b  # row #408, atan ( 0.398 ) = 0.379
+.byte 0x10
+.byte 0x61
+.byte 0x00
+.byte 0xc1  # row #409, atan ( 0.399 ) = 0.380
+.byte 0x47
+.byte 0x61
+.byte 0x00
+.byte 0xef  # row #410, atan ( 0.400 ) = 0.381
+.byte 0x7e
+.byte 0x61
+.byte 0x00
+.byte 0x12  # row #411, atan ( 0.401 ) = 0.382
+.byte 0xb6
+.byte 0x61
+.byte 0x00
+.byte 0x2c  # row #412, atan ( 0.402 ) = 0.383
+.byte 0xed
+.byte 0x61
+.byte 0x00
+.byte 0x3d  # row #413, atan ( 0.403 ) = 0.383
+.byte 0x24
+.byte 0x62
+.byte 0x00
+.byte 0x44  # row #414, atan ( 0.404 ) = 0.384
+.byte 0x5b
+.byte 0x62
+.byte 0x00
+.byte 0x41  # row #415, atan ( 0.405 ) = 0.385
+.byte 0x92
+.byte 0x62
+.byte 0x00
+.byte 0x35  # row #416, atan ( 0.406 ) = 0.386
+.byte 0xc9
+.byte 0x62
+.byte 0x00
+.byte 0x1f  # row #417, atan ( 0.407 ) = 0.387
+.byte 0x00
+.byte 0x63
+.byte 0x00
+.byte 0x00  # row #418, atan ( 0.408 ) = 0.388
+.byte 0x37
+.byte 0x63
+.byte 0x00
+.byte 0xd7  # row #419, atan ( 0.409 ) = 0.388
+.byte 0x6d
+.byte 0x63
+.byte 0x00
+.byte 0xa4  # row #420, atan ( 0.410 ) = 0.389
+.byte 0xa4
+.byte 0x63
+.byte 0x00
+.byte 0x68  # row #421, atan ( 0.411 ) = 0.390
+.byte 0xdb
+.byte 0x63
+.byte 0x00
+.byte 0x22  # row #422, atan ( 0.412 ) = 0.391
+.byte 0x12
+.byte 0x64
+.byte 0x00
+.byte 0xd3  # row #423, atan ( 0.413 ) = 0.392
+.byte 0x48
+.byte 0x64
+.byte 0x00
+.byte 0x7a  # row #424, atan ( 0.414 ) = 0.393
+.byte 0x7f
+.byte 0x64
+.byte 0x00
+.byte 0x17  # row #425, atan ( 0.415 ) = 0.393
+.byte 0xb6
+.byte 0x64
+.byte 0x00
+.byte 0xab  # row #426, atan ( 0.416 ) = 0.394
+.byte 0xec
+.byte 0x64
+.byte 0x00
+.byte 0x35  # row #427, atan ( 0.417 ) = 0.395
+.byte 0x23
+.byte 0x65
+.byte 0x00
+.byte 0xb5  # row #428, atan ( 0.418 ) = 0.396
+.byte 0x59
+.byte 0x65
+.byte 0x00
+.byte 0x2c  # row #429, atan ( 0.419 ) = 0.397
+.byte 0x90
+.byte 0x65
+.byte 0x00
+.byte 0x98  # row #430, atan ( 0.420 ) = 0.398
+.byte 0xc6
+.byte 0x65
+.byte 0x00
+.byte 0xfc  # row #431, atan ( 0.421 ) = 0.398
+.byte 0xfc
+.byte 0x65
+.byte 0x00
+.byte 0x55  # row #432, atan ( 0.422 ) = 0.399
+.byte 0x33
+.byte 0x66
+.byte 0x00
+.byte 0xa5  # row #433, atan ( 0.423 ) = 0.400
+.byte 0x69
+.byte 0x66
+.byte 0x00
+.byte 0xeb  # row #434, atan ( 0.424 ) = 0.401
+.byte 0x9f
+.byte 0x66
+.byte 0x00
+.byte 0x27  # row #435, atan ( 0.425 ) = 0.402
+.byte 0xd6
+.byte 0x66
+.byte 0x00
+.byte 0x59  # row #436, atan ( 0.426 ) = 0.403
+.byte 0x0c
+.byte 0x67
+.byte 0x00
+.byte 0x82  # row #437, atan ( 0.427 ) = 0.403
+.byte 0x42
+.byte 0x67
+.byte 0x00
+.byte 0xa1  # row #438, atan ( 0.428 ) = 0.404
+.byte 0x78
+.byte 0x67
+.byte 0x00
+.byte 0xb6  # row #439, atan ( 0.429 ) = 0.405
+.byte 0xae
+.byte 0x67
+.byte 0x00
+.byte 0xc2  # row #440, atan ( 0.430 ) = 0.406
+.byte 0xe4
+.byte 0x67
+.byte 0x00
+.byte 0xc3  # row #441, atan ( 0.431 ) = 0.407
+.byte 0x1a
+.byte 0x68
+.byte 0x00
+.byte 0xbb  # row #442, atan ( 0.432 ) = 0.407
+.byte 0x50
+.byte 0x68
+.byte 0x00
+.byte 0xa9  # row #443, atan ( 0.433 ) = 0.408
+.byte 0x86
+.byte 0x68
+.byte 0x00
+.byte 0x8d  # row #444, atan ( 0.434 ) = 0.409
+.byte 0xbc
+.byte 0x68
+.byte 0x00
+.byte 0x67  # row #445, atan ( 0.435 ) = 0.410
+.byte 0xf2
+.byte 0x68
+.byte 0x00
+.byte 0x38  # row #446, atan ( 0.436 ) = 0.411
+.byte 0x28
+.byte 0x69
+.byte 0x00
+.byte 0xfe  # row #447, atan ( 0.437 ) = 0.412
+.byte 0x5d
+.byte 0x69
+.byte 0x00
+.byte 0xbb  # row #448, atan ( 0.438 ) = 0.412
+.byte 0x93
+.byte 0x69
+.byte 0x00
+.byte 0x6e  # row #449, atan ( 0.438 ) = 0.413
+.byte 0xc9
+.byte 0x69
+.byte 0x00
+.byte 0x17  # row #450, atan ( 0.439 ) = 0.414
+.byte 0xff
+.byte 0x69
+.byte 0x00
+.byte 0xb6  # row #451, atan ( 0.440 ) = 0.415
+.byte 0x34
+.byte 0x6a
+.byte 0x00
+.byte 0x4b  # row #452, atan ( 0.441 ) = 0.416
+.byte 0x6a
+.byte 0x6a
+.byte 0x00
+.byte 0xd7  # row #453, atan ( 0.442 ) = 0.417
+.byte 0x9f
+.byte 0x6a
+.byte 0x00
+.byte 0x58  # row #454, atan ( 0.443 ) = 0.417
+.byte 0xd5
+.byte 0x6a
+.byte 0x00
+.byte 0xd0  # row #455, atan ( 0.444 ) = 0.418
+.byte 0x0a
+.byte 0x6b
+.byte 0x00
+.byte 0x3d  # row #456, atan ( 0.445 ) = 0.419
+.byte 0x40
+.byte 0x6b
+.byte 0x00
+.byte 0xa1  # row #457, atan ( 0.446 ) = 0.420
+.byte 0x75
+.byte 0x6b
+.byte 0x00
+.byte 0xfb  # row #458, atan ( 0.447 ) = 0.421
+.byte 0xaa
+.byte 0x6b
+.byte 0x00
+.byte 0x4b  # row #459, atan ( 0.448 ) = 0.421
+.byte 0xe0
+.byte 0x6b
+.byte 0x00
+.byte 0x91  # row #460, atan ( 0.449 ) = 0.422
+.byte 0x15
+.byte 0x6c
+.byte 0x00
+.byte 0xcc  # row #461, atan ( 0.450 ) = 0.423
+.byte 0x4a
+.byte 0x6c
+.byte 0x00
+.byte 0xfe  # row #462, atan ( 0.451 ) = 0.424
+.byte 0x7f
+.byte 0x6c
+.byte 0x00
+.byte 0x26  # row #463, atan ( 0.452 ) = 0.425
+.byte 0xb5
+.byte 0x6c
+.byte 0x00
+.byte 0x44  # row #464, atan ( 0.453 ) = 0.425
+.byte 0xea
+.byte 0x6c
+.byte 0x00
+.byte 0x59  # row #465, atan ( 0.454 ) = 0.426
+.byte 0x1f
+.byte 0x6d
+.byte 0x00
+.byte 0x63  # row #466, atan ( 0.455 ) = 0.427
+.byte 0x54
+.byte 0x6d
+.byte 0x00
+.byte 0x63  # row #467, atan ( 0.456 ) = 0.428
+.byte 0x89
+.byte 0x6d
+.byte 0x00
+.byte 0x59  # row #468, atan ( 0.457 ) = 0.429
+.byte 0xbe
+.byte 0x6d
+.byte 0x00
+.byte 0x45  # row #469, atan ( 0.458 ) = 0.429
+.byte 0xf3
+.byte 0x6d
+.byte 0x00
+.byte 0x27  # row #470, atan ( 0.459 ) = 0.430
+.byte 0x28
+.byte 0x6e
+.byte 0x00
+.byte 0xff  # row #471, atan ( 0.460 ) = 0.431
+.byte 0x5c
+.byte 0x6e
+.byte 0x00
+.byte 0xcd  # row #472, atan ( 0.461 ) = 0.432
+.byte 0x91
+.byte 0x6e
+.byte 0x00
+.byte 0x91  # row #473, atan ( 0.462 ) = 0.433
+.byte 0xc6
+.byte 0x6e
+.byte 0x00
+.byte 0x4b  # row #474, atan ( 0.463 ) = 0.434
+.byte 0xfb
+.byte 0x6e
+.byte 0x00
+.byte 0xfb  # row #475, atan ( 0.464 ) = 0.434
+.byte 0x2f
+.byte 0x6f
+.byte 0x00
+.byte 0xa0  # row #476, atan ( 0.465 ) = 0.435
+.byte 0x64
+.byte 0x6f
+.byte 0x00
+.byte 0x3c  # row #477, atan ( 0.466 ) = 0.436
+.byte 0x99
+.byte 0x6f
+.byte 0x00
+.byte 0xce  # row #478, atan ( 0.467 ) = 0.437
+.byte 0xcd
+.byte 0x6f
+.byte 0x00
+.byte 0x56  # row #479, atan ( 0.468 ) = 0.438
+.byte 0x02
+.byte 0x70
+.byte 0x00
+.byte 0xd3  # row #480, atan ( 0.469 ) = 0.438
+.byte 0x36
+.byte 0x70
+.byte 0x00
+.byte 0x47  # row #481, atan ( 0.470 ) = 0.439
+.byte 0x6b
+.byte 0x70
+.byte 0x00
+.byte 0xb0  # row #482, atan ( 0.471 ) = 0.440
+.byte 0x9f
+.byte 0x70
+.byte 0x00
+.byte 0x0f  # row #483, atan ( 0.472 ) = 0.441
+.byte 0xd4
+.byte 0x70
+.byte 0x00
+.byte 0x64  # row #484, atan ( 0.473 ) = 0.442
+.byte 0x08
+.byte 0x71
+.byte 0x00
+.byte 0xb0  # row #485, atan ( 0.474 ) = 0.442
+.byte 0x3c
+.byte 0x71
+.byte 0x00
+.byte 0xf1  # row #486, atan ( 0.475 ) = 0.443
+.byte 0x70
+.byte 0x71
+.byte 0x00
+.byte 0x27  # row #487, atan ( 0.476 ) = 0.444
+.byte 0xa5
+.byte 0x71
+.byte 0x00
+.byte 0x54  # row #488, atan ( 0.477 ) = 0.445
+.byte 0xd9
+.byte 0x71
+.byte 0x00
+.byte 0x77  # row #489, atan ( 0.478 ) = 0.446
+.byte 0x0d
+.byte 0x72
+.byte 0x00
+.byte 0x8f  # row #490, atan ( 0.479 ) = 0.446
+.byte 0x41
+.byte 0x72
+.byte 0x00
+.byte 0x9e  # row #491, atan ( 0.479 ) = 0.447
+.byte 0x75
+.byte 0x72
+.byte 0x00
+.byte 0xa2  # row #492, atan ( 0.480 ) = 0.448
+.byte 0xa9
+.byte 0x72
+.byte 0x00
+.byte 0x9c  # row #493, atan ( 0.481 ) = 0.449
+.byte 0xdd
+.byte 0x72
+.byte 0x00
+.byte 0x8c  # row #494, atan ( 0.482 ) = 0.449
+.byte 0x11
+.byte 0x73
+.byte 0x00
+.byte 0x71  # row #495, atan ( 0.483 ) = 0.450
+.byte 0x45
+.byte 0x73
+.byte 0x00
+.byte 0x4d  # row #496, atan ( 0.484 ) = 0.451
+.byte 0x79
+.byte 0x73
+.byte 0x00
+.byte 0x1e  # row #497, atan ( 0.485 ) = 0.452
+.byte 0xad
+.byte 0x73
+.byte 0x00
+.byte 0xe6  # row #498, atan ( 0.486 ) = 0.453
+.byte 0xe0
+.byte 0x73
+.byte 0x00
+.byte 0xa3  # row #499, atan ( 0.487 ) = 0.453
+.byte 0x14
+.byte 0x74
+.byte 0x00
+.byte 0x56  # row #500, atan ( 0.488 ) = 0.454
+.byte 0x48
+.byte 0x74
+.byte 0x00
+.byte 0xfe  # row #501, atan ( 0.489 ) = 0.455
+.byte 0x7b
+.byte 0x74
+.byte 0x00
+.byte 0x9d  # row #502, atan ( 0.490 ) = 0.456
+.byte 0xaf
+.byte 0x74
+.byte 0x00
+.byte 0x31  # row #503, atan ( 0.491 ) = 0.457
+.byte 0xe3
+.byte 0x74
+.byte 0x00
+.byte 0xbb  # row #504, atan ( 0.492 ) = 0.457
+.byte 0x16
+.byte 0x75
+.byte 0x00
+.byte 0x3b  # row #505, atan ( 0.493 ) = 0.458
+.byte 0x4a
+.byte 0x75
+.byte 0x00
+.byte 0xb1  # row #506, atan ( 0.494 ) = 0.459
+.byte 0x7d
+.byte 0x75
+.byte 0x00
+.byte 0x1c  # row #507, atan ( 0.495 ) = 0.460
+.byte 0xb1
+.byte 0x75
+.byte 0x00
+.byte 0x7d  # row #508, atan ( 0.496 ) = 0.461
+.byte 0xe4
+.byte 0x75
+.byte 0x00
+.byte 0xd4  # row #509, atan ( 0.497 ) = 0.461
+.byte 0x17
+.byte 0x76
+.byte 0x00
+.byte 0x21  # row #510, atan ( 0.498 ) = 0.462
+.byte 0x4b
+.byte 0x76
+.byte 0x00
+.byte 0x64  # row #511, atan ( 0.499 ) = 0.463
+.byte 0x7e
+.byte 0x76
+.byte 0x00
+.byte 0x9c  # row #512, atan ( 0.500 ) = 0.464
+.byte 0xb1
+.byte 0x76
+.byte 0x00
+.byte 0xca  # row #513, atan ( 0.501 ) = 0.464
+.byte 0xe4
+.byte 0x76
+.byte 0x00
+.byte 0xee  # row #514, atan ( 0.502 ) = 0.465
+.byte 0x17
+.byte 0x77
+.byte 0x00
+.byte 0x08  # row #515, atan ( 0.503 ) = 0.466
+.byte 0x4b
+.byte 0x77
+.byte 0x00
+.byte 0x17  # row #516, atan ( 0.504 ) = 0.467
+.byte 0x7e
+.byte 0x77
+.byte 0x00
+.byte 0x1c  # row #517, atan ( 0.505 ) = 0.468
+.byte 0xb1
+.byte 0x77
+.byte 0x00
+.byte 0x17  # row #518, atan ( 0.506 ) = 0.468
+.byte 0xe4
+.byte 0x77
+.byte 0x00
+.byte 0x07  # row #519, atan ( 0.507 ) = 0.469
+.byte 0x17
+.byte 0x78
+.byte 0x00
+.byte 0xee  # row #520, atan ( 0.508 ) = 0.470
+.byte 0x49
+.byte 0x78
+.byte 0x00
+.byte 0xca  # row #521, atan ( 0.509 ) = 0.471
+.byte 0x7c
+.byte 0x78
+.byte 0x00
+.byte 0x9b  # row #522, atan ( 0.510 ) = 0.471
+.byte 0xaf
+.byte 0x78
+.byte 0x00
+.byte 0x63  # row #523, atan ( 0.511 ) = 0.472
+.byte 0xe2
+.byte 0x78
+.byte 0x00
+.byte 0x20  # row #524, atan ( 0.512 ) = 0.473
+.byte 0x15
+.byte 0x79
+.byte 0x00
+.byte 0xd3  # row #525, atan ( 0.513 ) = 0.474
+.byte 0x47
+.byte 0x79
+.byte 0x00
+.byte 0x7c  # row #526, atan ( 0.514 ) = 0.475
+.byte 0x7a
+.byte 0x79
+.byte 0x00
+.byte 0x1a  # row #527, atan ( 0.515 ) = 0.475
+.byte 0xad
+.byte 0x79
+.byte 0x00
+.byte 0xae  # row #528, atan ( 0.516 ) = 0.476
+.byte 0xdf
+.byte 0x79
+.byte 0x00
+.byte 0x38  # row #529, atan ( 0.517 ) = 0.477
+.byte 0x12
+.byte 0x7a
+.byte 0x00
+.byte 0xb7  # row #530, atan ( 0.518 ) = 0.478
+.byte 0x44
+.byte 0x7a
+.byte 0x00
+.byte 0x2c  # row #531, atan ( 0.519 ) = 0.478
+.byte 0x77
+.byte 0x7a
+.byte 0x00
+.byte 0x97  # row #532, atan ( 0.520 ) = 0.479
+.byte 0xa9
+.byte 0x7a
+.byte 0x00
+.byte 0xf8  # row #533, atan ( 0.521 ) = 0.480
+.byte 0xdb
+.byte 0x7a
+.byte 0x00
+.byte 0x4e  # row #534, atan ( 0.521 ) = 0.481
+.byte 0x0e
+.byte 0x7b
+.byte 0x00
+.byte 0x9a  # row #535, atan ( 0.522 ) = 0.481
+.byte 0x40
+.byte 0x7b
+.byte 0x00
+.byte 0xdb  # row #536, atan ( 0.523 ) = 0.482
+.byte 0x72
+.byte 0x7b
+.byte 0x00
+.byte 0x13  # row #537, atan ( 0.524 ) = 0.483
+.byte 0xa5
+.byte 0x7b
+.byte 0x00
+.byte 0x40  # row #538, atan ( 0.525 ) = 0.484
+.byte 0xd7
+.byte 0x7b
+.byte 0x00
+.byte 0x62  # row #539, atan ( 0.526 ) = 0.485
+.byte 0x09
+.byte 0x7c
+.byte 0x00
+.byte 0x7a  # row #540, atan ( 0.527 ) = 0.485
+.byte 0x3b
+.byte 0x7c
+.byte 0x00
+.byte 0x88  # row #541, atan ( 0.528 ) = 0.486
+.byte 0x6d
+.byte 0x7c
+.byte 0x00
+.byte 0x8c  # row #542, atan ( 0.529 ) = 0.487
+.byte 0x9f
+.byte 0x7c
+.byte 0x00
+.byte 0x85  # row #543, atan ( 0.530 ) = 0.488
+.byte 0xd1
+.byte 0x7c
+.byte 0x00
+.byte 0x74  # row #544, atan ( 0.531 ) = 0.488
+.byte 0x03
+.byte 0x7d
+.byte 0x00
+.byte 0x59  # row #545, atan ( 0.532 ) = 0.489
+.byte 0x35
+.byte 0x7d
+.byte 0x00
+.byte 0x33  # row #546, atan ( 0.533 ) = 0.490
+.byte 0x67
+.byte 0x7d
+.byte 0x00
+.byte 0x03  # row #547, atan ( 0.534 ) = 0.491
+.byte 0x99
+.byte 0x7d
+.byte 0x00
+.byte 0xc9  # row #548, atan ( 0.535 ) = 0.491
+.byte 0xca
+.byte 0x7d
+.byte 0x00
+.byte 0x84  # row #549, atan ( 0.536 ) = 0.492
+.byte 0xfc
+.byte 0x7d
+.byte 0x00
+.byte 0x35  # row #550, atan ( 0.537 ) = 0.493
+.byte 0x2e
+.byte 0x7e
+.byte 0x00
+.byte 0xdb  # row #551, atan ( 0.538 ) = 0.494
+.byte 0x5f
+.byte 0x7e
+.byte 0x00
+.byte 0x77  # row #552, atan ( 0.539 ) = 0.494
+.byte 0x91
+.byte 0x7e
+.byte 0x00
+.byte 0x09  # row #553, atan ( 0.540 ) = 0.495
+.byte 0xc3
+.byte 0x7e
+.byte 0x00
+.byte 0x91  # row #554, atan ( 0.541 ) = 0.496
+.byte 0xf4
+.byte 0x7e
+.byte 0x00
+.byte 0x0e  # row #555, atan ( 0.542 ) = 0.497
+.byte 0x26
+.byte 0x7f
+.byte 0x00
+.byte 0x80  # row #556, atan ( 0.543 ) = 0.497
+.byte 0x57
+.byte 0x7f
+.byte 0x00
+.byte 0xe9  # row #557, atan ( 0.544 ) = 0.498
+.byte 0x88
+.byte 0x7f
+.byte 0x00
+.byte 0x47  # row #558, atan ( 0.545 ) = 0.499
+.byte 0xba
+.byte 0x7f
+.byte 0x00
+.byte 0x9a  # row #559, atan ( 0.546 ) = 0.500
+.byte 0xeb
+.byte 0x7f
+.byte 0x00
+.byte 0xe4  # row #560, atan ( 0.547 ) = 0.500
+.byte 0x1c
+.byte 0x80
+.byte 0x00
+.byte 0x23  # row #561, atan ( 0.548 ) = 0.501
+.byte 0x4e
+.byte 0x80
+.byte 0x00
+.byte 0x57  # row #562, atan ( 0.549 ) = 0.502
+.byte 0x7f
+.byte 0x80
+.byte 0x00
+.byte 0x81  # row #563, atan ( 0.550 ) = 0.503
+.byte 0xb0
+.byte 0x80
+.byte 0x00
+.byte 0xa1  # row #564, atan ( 0.551 ) = 0.503
+.byte 0xe1
+.byte 0x80
+.byte 0x00
+.byte 0xb6  # row #565, atan ( 0.552 ) = 0.504
+.byte 0x12
+.byte 0x81
+.byte 0x00
+.byte 0xc1  # row #566, atan ( 0.553 ) = 0.505
+.byte 0x43
+.byte 0x81
+.byte 0x00
+.byte 0xc2  # row #567, atan ( 0.554 ) = 0.506
+.byte 0x74
+.byte 0x81
+.byte 0x00
+.byte 0xb8  # row #568, atan ( 0.555 ) = 0.506
+.byte 0xa5
+.byte 0x81
+.byte 0x00
+.byte 0xa4  # row #569, atan ( 0.556 ) = 0.507
+.byte 0xd6
+.byte 0x81
+.byte 0x00
+.byte 0x86  # row #570, atan ( 0.557 ) = 0.508
+.byte 0x07
+.byte 0x82
+.byte 0x00
+.byte 0x5d  # row #571, atan ( 0.558 ) = 0.509
+.byte 0x38
+.byte 0x82
+.byte 0x00
+.byte 0x2a  # row #572, atan ( 0.559 ) = 0.509
+.byte 0x69
+.byte 0x82
+.byte 0x00
+.byte 0xec  # row #573, atan ( 0.560 ) = 0.510
+.byte 0x99
+.byte 0x82
+.byte 0x00
+.byte 0xa4  # row #574, atan ( 0.561 ) = 0.511
+.byte 0xca
+.byte 0x82
+.byte 0x00
+.byte 0x51  # row #575, atan ( 0.562 ) = 0.512
+.byte 0xfb
+.byte 0x82
+.byte 0x00
+.byte 0xf5  # row #576, atan ( 0.562 ) = 0.512
+.byte 0x2b
+.byte 0x83
+.byte 0x00
+.byte 0x8d  # row #577, atan ( 0.563 ) = 0.513
+.byte 0x5c
+.byte 0x83
+.byte 0x00
+.byte 0x1c  # row #578, atan ( 0.564 ) = 0.514
+.byte 0x8d
+.byte 0x83
+.byte 0x00
+.byte 0xa0  # row #579, atan ( 0.565 ) = 0.515
+.byte 0xbd
+.byte 0x83
+.byte 0x00
+.byte 0x1a  # row #580, atan ( 0.566 ) = 0.515
+.byte 0xee
+.byte 0x83
+.byte 0x00
+.byte 0x89  # row #581, atan ( 0.567 ) = 0.516
+.byte 0x1e
+.byte 0x84
+.byte 0x00
+.byte 0xee  # row #582, atan ( 0.568 ) = 0.517
+.byte 0x4e
+.byte 0x84
+.byte 0x00
+.byte 0x48  # row #583, atan ( 0.569 ) = 0.518
+.byte 0x7f
+.byte 0x84
+.byte 0x00
+.byte 0x98  # row #584, atan ( 0.570 ) = 0.518
+.byte 0xaf
+.byte 0x84
+.byte 0x00
+.byte 0xde  # row #585, atan ( 0.571 ) = 0.519
+.byte 0xdf
+.byte 0x84
+.byte 0x00
+.byte 0x19  # row #586, atan ( 0.572 ) = 0.520
+.byte 0x10
+.byte 0x85
+.byte 0x00
+.byte 0x4a  # row #587, atan ( 0.573 ) = 0.521
+.byte 0x40
+.byte 0x85
+.byte 0x00
+.byte 0x71  # row #588, atan ( 0.574 ) = 0.521
+.byte 0x70
+.byte 0x85
+.byte 0x00
+.byte 0x8d  # row #589, atan ( 0.575 ) = 0.522
+.byte 0xa0
+.byte 0x85
+.byte 0x00
+.byte 0x9f  # row #590, atan ( 0.576 ) = 0.523
+.byte 0xd0
+.byte 0x85
+.byte 0x00
+.byte 0xa6  # row #591, atan ( 0.577 ) = 0.523
+.byte 0x00
+.byte 0x86
+.byte 0x00
+.byte 0xa3  # row #592, atan ( 0.578 ) = 0.524
+.byte 0x30
+.byte 0x86
+.byte 0x00
+.byte 0x95  # row #593, atan ( 0.579 ) = 0.525
+.byte 0x60
+.byte 0x86
+.byte 0x00
+.byte 0x7e  # row #594, atan ( 0.580 ) = 0.526
+.byte 0x90
+.byte 0x86
+.byte 0x00
+.byte 0x5b  # row #595, atan ( 0.581 ) = 0.526
+.byte 0xc0
+.byte 0x86
+.byte 0x00
+.byte 0x2f  # row #596, atan ( 0.582 ) = 0.527
+.byte 0xf0
+.byte 0x86
+.byte 0x00
+.byte 0xf8  # row #597, atan ( 0.583 ) = 0.528
+.byte 0x1f
+.byte 0x87
+.byte 0x00
+.byte 0xb6  # row #598, atan ( 0.584 ) = 0.529
+.byte 0x4f
+.byte 0x87
+.byte 0x00
+.byte 0x6b  # row #599, atan ( 0.585 ) = 0.529
+.byte 0x7f
+.byte 0x87
+.byte 0x00
+.byte 0x14  # row #600, atan ( 0.586 ) = 0.530
+.byte 0xaf
+.byte 0x87
+.byte 0x00
+.byte 0xb4  # row #601, atan ( 0.587 ) = 0.531
+.byte 0xde
+.byte 0x87
+.byte 0x00
+.byte 0x49  # row #602, atan ( 0.588 ) = 0.531
+.byte 0x0e
+.byte 0x88
+.byte 0x00
+.byte 0xd3  # row #603, atan ( 0.589 ) = 0.532
+.byte 0x3d
+.byte 0x88
+.byte 0x00
+.byte 0x54  # row #604, atan ( 0.590 ) = 0.533
+.byte 0x6d
+.byte 0x88
+.byte 0x00
+.byte 0xca  # row #605, atan ( 0.591 ) = 0.534
+.byte 0x9c
+.byte 0x88
+.byte 0x00
+.byte 0x35  # row #606, atan ( 0.592 ) = 0.534
+.byte 0xcc
+.byte 0x88
+.byte 0x00
+.byte 0x96  # row #607, atan ( 0.593 ) = 0.535
+.byte 0xfb
+.byte 0x88
+.byte 0x00
+.byte 0xed  # row #608, atan ( 0.594 ) = 0.536
+.byte 0x2a
+.byte 0x89
+.byte 0x00
+.byte 0x39  # row #609, atan ( 0.595 ) = 0.537
+.byte 0x5a
+.byte 0x89
+.byte 0x00
+.byte 0x7b  # row #610, atan ( 0.596 ) = 0.537
+.byte 0x89
+.byte 0x89
+.byte 0x00
+.byte 0xb3  # row #611, atan ( 0.597 ) = 0.538
+.byte 0xb8
+.byte 0x89
+.byte 0x00
+.byte 0xe0  # row #612, atan ( 0.598 ) = 0.539
+.byte 0xe7
+.byte 0x89
+.byte 0x00
+.byte 0x03  # row #613, atan ( 0.599 ) = 0.539
+.byte 0x17
+.byte 0x8a
+.byte 0x00
+.byte 0x1b  # row #614, atan ( 0.600 ) = 0.540
+.byte 0x46
+.byte 0x8a
+.byte 0x00
+.byte 0x29  # row #615, atan ( 0.601 ) = 0.541
+.byte 0x75
+.byte 0x8a
+.byte 0x00
+.byte 0x2d  # row #616, atan ( 0.602 ) = 0.542
+.byte 0xa4
+.byte 0x8a
+.byte 0x00
+.byte 0x26  # row #617, atan ( 0.603 ) = 0.542
+.byte 0xd3
+.byte 0x8a
+.byte 0x00
+.byte 0x15  # row #618, atan ( 0.604 ) = 0.543
+.byte 0x02
+.byte 0x8b
+.byte 0x00
+.byte 0xf9  # row #619, atan ( 0.604 ) = 0.544
+.byte 0x30
+.byte 0x8b
+.byte 0x00
+.byte 0xd3  # row #620, atan ( 0.605 ) = 0.544
+.byte 0x5f
+.byte 0x8b
+.byte 0x00
+.byte 0xa3  # row #621, atan ( 0.606 ) = 0.545
+.byte 0x8e
+.byte 0x8b
+.byte 0x00
+.byte 0x69  # row #622, atan ( 0.607 ) = 0.546
+.byte 0xbd
+.byte 0x8b
+.byte 0x00
+.byte 0x24  # row #623, atan ( 0.608 ) = 0.547
+.byte 0xec
+.byte 0x8b
+.byte 0x00
+.byte 0xd4  # row #624, atan ( 0.609 ) = 0.547
+.byte 0x1a
+.byte 0x8c
+.byte 0x00
+.byte 0x7b  # row #625, atan ( 0.610 ) = 0.548
+.byte 0x49
+.byte 0x8c
+.byte 0x00
+.byte 0x16  # row #626, atan ( 0.611 ) = 0.549
+.byte 0x78
+.byte 0x8c
+.byte 0x00
+.byte 0xa8  # row #627, atan ( 0.612 ) = 0.549
+.byte 0xa6
+.byte 0x8c
+.byte 0x00
+.byte 0x2f  # row #628, atan ( 0.613 ) = 0.550
+.byte 0xd5
+.byte 0x8c
+.byte 0x00
+.byte 0xac  # row #629, atan ( 0.614 ) = 0.551
+.byte 0x03
+.byte 0x8d
+.byte 0x00
+.byte 0x1e  # row #630, atan ( 0.615 ) = 0.552
+.byte 0x32
+.byte 0x8d
+.byte 0x00
+.byte 0x87  # row #631, atan ( 0.616 ) = 0.552
+.byte 0x60
+.byte 0x8d
+.byte 0x00
+.byte 0xe4  # row #632, atan ( 0.617 ) = 0.553
+.byte 0x8e
+.byte 0x8d
+.byte 0x00
+.byte 0x38  # row #633, atan ( 0.618 ) = 0.554
+.byte 0xbd
+.byte 0x8d
+.byte 0x00
+.byte 0x81  # row #634, atan ( 0.619 ) = 0.554
+.byte 0xeb
+.byte 0x8d
+.byte 0x00
+.byte 0xbf  # row #635, atan ( 0.620 ) = 0.555
+.byte 0x19
+.byte 0x8e
+.byte 0x00
+.byte 0xf4  # row #636, atan ( 0.621 ) = 0.556
+.byte 0x47
+.byte 0x8e
+.byte 0x00
+.byte 0x1e  # row #637, atan ( 0.622 ) = 0.556
+.byte 0x76
+.byte 0x8e
+.byte 0x00
+.byte 0x3d  # row #638, atan ( 0.623 ) = 0.557
+.byte 0xa4
+.byte 0x8e
+.byte 0x00
+.byte 0x52  # row #639, atan ( 0.624 ) = 0.558
+.byte 0xd2
+.byte 0x8e
+.byte 0x00
+.byte 0x5d  # row #640, atan ( 0.625 ) = 0.559
+.byte 0x00
+.byte 0x8f
+.byte 0x00
+.byte 0x5e  # row #641, atan ( 0.626 ) = 0.559
+.byte 0x2e
+.byte 0x8f
+.byte 0x00
+.byte 0x54  # row #642, atan ( 0.627 ) = 0.560
+.byte 0x5c
+.byte 0x8f
+.byte 0x00
+.byte 0x40  # row #643, atan ( 0.628 ) = 0.561
+.byte 0x8a
+.byte 0x8f
+.byte 0x00
+.byte 0x22  # row #644, atan ( 0.629 ) = 0.561
+.byte 0xb8
+.byte 0x8f
+.byte 0x00
+.byte 0xf9  # row #645, atan ( 0.630 ) = 0.562
+.byte 0xe5
+.byte 0x8f
+.byte 0x00
+.byte 0xc6  # row #646, atan ( 0.631 ) = 0.563
+.byte 0x13
+.byte 0x90
+.byte 0x00
+.byte 0x88  # row #647, atan ( 0.632 ) = 0.563
+.byte 0x41
+.byte 0x90
+.byte 0x00
+.byte 0x41  # row #648, atan ( 0.633 ) = 0.564
+.byte 0x6f
+.byte 0x90
+.byte 0x00
+.byte 0xef  # row #649, atan ( 0.634 ) = 0.565
+.byte 0x9c
+.byte 0x90
+.byte 0x00
+.byte 0x92  # row #650, atan ( 0.635 ) = 0.566
+.byte 0xca
+.byte 0x90
+.byte 0x00
+.byte 0x2b  # row #651, atan ( 0.636 ) = 0.566
+.byte 0xf8
+.byte 0x90
+.byte 0x00
+.byte 0xba  # row #652, atan ( 0.637 ) = 0.567
+.byte 0x25
+.byte 0x91
+.byte 0x00
+.byte 0x3f  # row #653, atan ( 0.638 ) = 0.568
+.byte 0x53
+.byte 0x91
+.byte 0x00
+.byte 0xb9  # row #654, atan ( 0.639 ) = 0.568
+.byte 0x80
+.byte 0x91
+.byte 0x00
+.byte 0x29  # row #655, atan ( 0.640 ) = 0.569
+.byte 0xae
+.byte 0x91
+.byte 0x00
+.byte 0x8f  # row #656, atan ( 0.641 ) = 0.570
+.byte 0xdb
+.byte 0x91
+.byte 0x00
+.byte 0xea  # row #657, atan ( 0.642 ) = 0.570
+.byte 0x08
+.byte 0x92
+.byte 0x00
+.byte 0x3c  # row #658, atan ( 0.643 ) = 0.571
+.byte 0x36
+.byte 0x92
+.byte 0x00
+.byte 0x82  # row #659, atan ( 0.644 ) = 0.572
+.byte 0x63
+.byte 0x92
+.byte 0x00
+.byte 0xbf  # row #660, atan ( 0.645 ) = 0.573
+.byte 0x90
+.byte 0x92
+.byte 0x00
+.byte 0xf1  # row #661, atan ( 0.646 ) = 0.573
+.byte 0xbd
+.byte 0x92
+.byte 0x00
+.byte 0x19  # row #662, atan ( 0.646 ) = 0.574
+.byte 0xeb
+.byte 0x92
+.byte 0x00
+.byte 0x37  # row #663, atan ( 0.647 ) = 0.575
+.byte 0x18
+.byte 0x93
+.byte 0x00
+.byte 0x4a  # row #664, atan ( 0.648 ) = 0.575
+.byte 0x45
+.byte 0x93
+.byte 0x00
+.byte 0x53  # row #665, atan ( 0.649 ) = 0.576
+.byte 0x72
+.byte 0x93
+.byte 0x00
+.byte 0x52  # row #666, atan ( 0.650 ) = 0.577
+.byte 0x9f
+.byte 0x93
+.byte 0x00
+.byte 0x46  # row #667, atan ( 0.651 ) = 0.577
+.byte 0xcc
+.byte 0x93
+.byte 0x00
+.byte 0x31  # row #668, atan ( 0.652 ) = 0.578
+.byte 0xf9
+.byte 0x93
+.byte 0x00
+.byte 0x11  # row #669, atan ( 0.653 ) = 0.579
+.byte 0x26
+.byte 0x94
+.byte 0x00
+.byte 0xe6  # row #670, atan ( 0.654 ) = 0.579
+.byte 0x52
+.byte 0x94
+.byte 0x00
+.byte 0xb2  # row #671, atan ( 0.655 ) = 0.580
+.byte 0x7f
+.byte 0x94
+.byte 0x00
+.byte 0x73  # row #672, atan ( 0.656 ) = 0.581
+.byte 0xac
+.byte 0x94
+.byte 0x00
+.byte 0x2a  # row #673, atan ( 0.657 ) = 0.581
+.byte 0xd9
+.byte 0x94
+.byte 0x00
+.byte 0xd6  # row #674, atan ( 0.658 ) = 0.582
+.byte 0x05
+.byte 0x95
+.byte 0x00
+.byte 0x79  # row #675, atan ( 0.659 ) = 0.583
+.byte 0x32
+.byte 0x95
+.byte 0x00
+.byte 0x11  # row #676, atan ( 0.660 ) = 0.583
+.byte 0x5f
+.byte 0x95
+.byte 0x00
+.byte 0x9f  # row #677, atan ( 0.661 ) = 0.584
+.byte 0x8b
+.byte 0x95
+.byte 0x00
+.byte 0x22  # row #678, atan ( 0.662 ) = 0.585
+.byte 0xb8
+.byte 0x95
+.byte 0x00
+.byte 0x9c  # row #679, atan ( 0.663 ) = 0.586
+.byte 0xe4
+.byte 0x95
+.byte 0x00
+.byte 0x0b  # row #680, atan ( 0.664 ) = 0.586
+.byte 0x11
+.byte 0x96
+.byte 0x00
+.byte 0x70  # row #681, atan ( 0.665 ) = 0.587
+.byte 0x3d
+.byte 0x96
+.byte 0x00
+.byte 0xcb  # row #682, atan ( 0.666 ) = 0.588
+.byte 0x69
+.byte 0x96
+.byte 0x00
+.byte 0x1b  # row #683, atan ( 0.667 ) = 0.588
+.byte 0x96
+.byte 0x96
+.byte 0x00
+.byte 0x61  # row #684, atan ( 0.668 ) = 0.589
+.byte 0xc2
+.byte 0x96
+.byte 0x00
+.byte 0x9d  # row #685, atan ( 0.669 ) = 0.590
+.byte 0xee
+.byte 0x96
+.byte 0x00
+.byte 0xcf  # row #686, atan ( 0.670 ) = 0.590
+.byte 0x1a
+.byte 0x97
+.byte 0x00
+.byte 0xf7  # row #687, atan ( 0.671 ) = 0.591
+.byte 0x46
+.byte 0x97
+.byte 0x00
+.byte 0x14  # row #688, atan ( 0.672 ) = 0.592
+.byte 0x73
+.byte 0x97
+.byte 0x00
+.byte 0x27  # row #689, atan ( 0.673 ) = 0.592
+.byte 0x9f
+.byte 0x97
+.byte 0x00
+.byte 0x30  # row #690, atan ( 0.674 ) = 0.593
+.byte 0xcb
+.byte 0x97
+.byte 0x00
+.byte 0x2f  # row #691, atan ( 0.675 ) = 0.594
+.byte 0xf7
+.byte 0x97
+.byte 0x00
+.byte 0x24  # row #692, atan ( 0.676 ) = 0.594
+.byte 0x23
+.byte 0x98
+.byte 0x00
+.byte 0x0e  # row #693, atan ( 0.677 ) = 0.595
+.byte 0x4f
+.byte 0x98
+.byte 0x00
+.byte 0xee  # row #694, atan ( 0.678 ) = 0.596
+.byte 0x7a
+.byte 0x98
+.byte 0x00
+.byte 0xc4  # row #695, atan ( 0.679 ) = 0.596
+.byte 0xa6
+.byte 0x98
+.byte 0x00
+.byte 0x90  # row #696, atan ( 0.680 ) = 0.597
+.byte 0xd2
+.byte 0x98
+.byte 0x00
+.byte 0x52  # row #697, atan ( 0.681 ) = 0.598
+.byte 0xfe
+.byte 0x98
+.byte 0x00
+.byte 0x09  # row #698, atan ( 0.682 ) = 0.598
+.byte 0x2a
+.byte 0x99
+.byte 0x00
+.byte 0xb7  # row #699, atan ( 0.683 ) = 0.599
+.byte 0x55
+.byte 0x99
+.byte 0x00
+.byte 0x5a  # row #700, atan ( 0.684 ) = 0.600
+.byte 0x81
+.byte 0x99
+.byte 0x00
+.byte 0xf3  # row #701, atan ( 0.685 ) = 0.600
+.byte 0xac
+.byte 0x99
+.byte 0x00
+.byte 0x82  # row #702, atan ( 0.686 ) = 0.601
+.byte 0xd8
+.byte 0x99
+.byte 0x00
+.byte 0x06  # row #703, atan ( 0.687 ) = 0.602
+.byte 0x04
+.byte 0x9a
+.byte 0x00
+.byte 0x81  # row #704, atan ( 0.688 ) = 0.602
+.byte 0x2f
+.byte 0x9a
+.byte 0x00
+.byte 0xf1  # row #705, atan ( 0.688 ) = 0.603
+.byte 0x5a
+.byte 0x9a
+.byte 0x00
+.byte 0x58  # row #706, atan ( 0.689 ) = 0.604
+.byte 0x86
+.byte 0x9a
+.byte 0x00
+.byte 0xb4  # row #707, atan ( 0.690 ) = 0.604
+.byte 0xb1
+.byte 0x9a
+.byte 0x00
+.byte 0x06  # row #708, atan ( 0.691 ) = 0.605
+.byte 0xdd
+.byte 0x9a
+.byte 0x00
+.byte 0x4e  # row #709, atan ( 0.692 ) = 0.606
+.byte 0x08
+.byte 0x9b
+.byte 0x00
+.byte 0x8b  # row #710, atan ( 0.693 ) = 0.606
+.byte 0x33
+.byte 0x9b
+.byte 0x00
+.byte 0xbf  # row #711, atan ( 0.694 ) = 0.607
+.byte 0x5e
+.byte 0x9b
+.byte 0x00
+.byte 0xe8  # row #712, atan ( 0.695 ) = 0.608
+.byte 0x89
+.byte 0x9b
+.byte 0x00
+.byte 0x08  # row #713, atan ( 0.696 ) = 0.608
+.byte 0xb5
+.byte 0x9b
+.byte 0x00
+.byte 0x1d  # row #714, atan ( 0.697 ) = 0.609
+.byte 0xe0
+.byte 0x9b
+.byte 0x00
+.byte 0x28  # row #715, atan ( 0.698 ) = 0.610
+.byte 0x0b
+.byte 0x9c
+.byte 0x00
+.byte 0x29  # row #716, atan ( 0.699 ) = 0.610
+.byte 0x36
+.byte 0x9c
+.byte 0x00
+.byte 0x20  # row #717, atan ( 0.700 ) = 0.611
+.byte 0x61
+.byte 0x9c
+.byte 0x00
+.byte 0x0d  # row #718, atan ( 0.701 ) = 0.612
+.byte 0x8c
+.byte 0x9c
+.byte 0x00
+.byte 0xf0  # row #719, atan ( 0.702 ) = 0.612
+.byte 0xb6
+.byte 0x9c
+.byte 0x00
+.byte 0xc9  # row #720, atan ( 0.703 ) = 0.613
+.byte 0xe1
+.byte 0x9c
+.byte 0x00
+.byte 0x98  # row #721, atan ( 0.704 ) = 0.613
+.byte 0x0c
+.byte 0x9d
+.byte 0x00
+.byte 0x5c  # row #722, atan ( 0.705 ) = 0.614
+.byte 0x37
+.byte 0x9d
+.byte 0x00
+.byte 0x17  # row #723, atan ( 0.706 ) = 0.615
+.byte 0x62
+.byte 0x9d
+.byte 0x00
+.byte 0xc7  # row #724, atan ( 0.707 ) = 0.615
+.byte 0x8c
+.byte 0x9d
+.byte 0x00
+.byte 0x6e  # row #725, atan ( 0.708 ) = 0.616
+.byte 0xb7
+.byte 0x9d
+.byte 0x00
+.byte 0x0a  # row #726, atan ( 0.709 ) = 0.617
+.byte 0xe2
+.byte 0x9d
+.byte 0x00
+.byte 0x9c  # row #727, atan ( 0.710 ) = 0.617
+.byte 0x0c
+.byte 0x9e
+.byte 0x00
+.byte 0x25  # row #728, atan ( 0.711 ) = 0.618
+.byte 0x37
+.byte 0x9e
+.byte 0x00
+.byte 0xa3  # row #729, atan ( 0.712 ) = 0.619
+.byte 0x61
+.byte 0x9e
+.byte 0x00
+.byte 0x17  # row #730, atan ( 0.713 ) = 0.619
+.byte 0x8c
+.byte 0x9e
+.byte 0x00
+.byte 0x81  # row #731, atan ( 0.714 ) = 0.620
+.byte 0xb6
+.byte 0x9e
+.byte 0x00
+.byte 0xe1  # row #732, atan ( 0.715 ) = 0.621
+.byte 0xe0
+.byte 0x9e
+.byte 0x00
+.byte 0x37  # row #733, atan ( 0.716 ) = 0.621
+.byte 0x0b
+.byte 0x9f
+.byte 0x00
+.byte 0x84  # row #734, atan ( 0.717 ) = 0.622
+.byte 0x35
+.byte 0x9f
+.byte 0x00
+.byte 0xc6  # row #735, atan ( 0.718 ) = 0.623
+.byte 0x5f
+.byte 0x9f
+.byte 0x00
+.byte 0xfe  # row #736, atan ( 0.719 ) = 0.623
+.byte 0x89
+.byte 0x9f
+.byte 0x00
+.byte 0x2c  # row #737, atan ( 0.720 ) = 0.624
+.byte 0xb4
+.byte 0x9f
+.byte 0x00
+.byte 0x50  # row #738, atan ( 0.721 ) = 0.624
+.byte 0xde
+.byte 0x9f
+.byte 0x00
+.byte 0x6a  # row #739, atan ( 0.722 ) = 0.625
+.byte 0x08
+.byte 0xa0
+.byte 0x00
+.byte 0x7a  # row #740, atan ( 0.723 ) = 0.626
+.byte 0x32
+.byte 0xa0
+.byte 0x00
+.byte 0x80  # row #741, atan ( 0.724 ) = 0.626
+.byte 0x5c
+.byte 0xa0
+.byte 0x00
+.byte 0x7d  # row #742, atan ( 0.725 ) = 0.627
+.byte 0x86
+.byte 0xa0
+.byte 0x00
+.byte 0x6f  # row #743, atan ( 0.726 ) = 0.628
+.byte 0xb0
+.byte 0xa0
+.byte 0x00
+.byte 0x57  # row #744, atan ( 0.727 ) = 0.628
+.byte 0xda
+.byte 0xa0
+.byte 0x00
+.byte 0x35  # row #745, atan ( 0.728 ) = 0.629
+.byte 0x04
+.byte 0xa1
+.byte 0x00
+.byte 0x0a  # row #746, atan ( 0.729 ) = 0.630
+.byte 0x2e
+.byte 0xa1
+.byte 0x00
+.byte 0xd4  # row #747, atan ( 0.729 ) = 0.630
+.byte 0x57
+.byte 0xa1
+.byte 0x00
+.byte 0x94  # row #748, atan ( 0.730 ) = 0.631
+.byte 0x81
+.byte 0xa1
+.byte 0x00
+.byte 0x4b  # row #749, atan ( 0.731 ) = 0.632
+.byte 0xab
+.byte 0xa1
+.byte 0x00
+.byte 0xf8  # row #750, atan ( 0.732 ) = 0.632
+.byte 0xd4
+.byte 0xa1
+.byte 0x00
+.byte 0x9a  # row #751, atan ( 0.733 ) = 0.633
+.byte 0xfe
+.byte 0xa1
+.byte 0x00
+.byte 0x33  # row #752, atan ( 0.734 ) = 0.633
+.byte 0x28
+.byte 0xa2
+.byte 0x00
+.byte 0xc2  # row #753, atan ( 0.735 ) = 0.634
+.byte 0x51
+.byte 0xa2
+.byte 0x00
+.byte 0x47  # row #754, atan ( 0.736 ) = 0.635
+.byte 0x7b
+.byte 0xa2
+.byte 0x00
+.byte 0xc2  # row #755, atan ( 0.737 ) = 0.635
+.byte 0xa4
+.byte 0xa2
+.byte 0x00
+.byte 0x33  # row #756, atan ( 0.738 ) = 0.636
+.byte 0xce
+.byte 0xa2
+.byte 0x00
+.byte 0x9a  # row #757, atan ( 0.739 ) = 0.637
+.byte 0xf7
+.byte 0xa2
+.byte 0x00
+.byte 0xf7  # row #758, atan ( 0.740 ) = 0.637
+.byte 0x20
+.byte 0xa3
+.byte 0x00
+.byte 0x4a  # row #759, atan ( 0.741 ) = 0.638
+.byte 0x4a
+.byte 0xa3
+.byte 0x00
+.byte 0x94  # row #760, atan ( 0.742 ) = 0.638
+.byte 0x73
+.byte 0xa3
+.byte 0x00
+.byte 0xd4  # row #761, atan ( 0.743 ) = 0.639
+.byte 0x9c
+.byte 0xa3
+.byte 0x00
+.byte 0x09  # row #762, atan ( 0.744 ) = 0.640
+.byte 0xc6
+.byte 0xa3
+.byte 0x00
+.byte 0x35  # row #763, atan ( 0.745 ) = 0.640
+.byte 0xef
+.byte 0xa3
+.byte 0x00
+.byte 0x57  # row #764, atan ( 0.746 ) = 0.641
+.byte 0x18
+.byte 0xa4
+.byte 0x00
+.byte 0x70  # row #765, atan ( 0.747 ) = 0.642
+.byte 0x41
+.byte 0xa4
+.byte 0x00
+.byte 0x7e  # row #766, atan ( 0.748 ) = 0.642
+.byte 0x6a
+.byte 0xa4
+.byte 0x00
+.byte 0x82  # row #767, atan ( 0.749 ) = 0.643
+.byte 0x93
+.byte 0xa4
+.byte 0x00
+.byte 0x7d  # row #768, atan ( 0.750 ) = 0.644
+.byte 0xbc
+.byte 0xa4
+.byte 0x00
+.byte 0x6e  # row #769, atan ( 0.751 ) = 0.644
+.byte 0xe5
+.byte 0xa4
+.byte 0x00
+.byte 0x55  # row #770, atan ( 0.752 ) = 0.645
+.byte 0x0e
+.byte 0xa5
+.byte 0x00
+.byte 0x32  # row #771, atan ( 0.753 ) = 0.645
+.byte 0x37
+.byte 0xa5
+.byte 0x00
+.byte 0x06  # row #772, atan ( 0.754 ) = 0.646
+.byte 0x60
+.byte 0xa5
+.byte 0x00
+.byte 0xcf  # row #773, atan ( 0.755 ) = 0.647
+.byte 0x88
+.byte 0xa5
+.byte 0x00
+.byte 0x8f  # row #774, atan ( 0.756 ) = 0.647
+.byte 0xb1
+.byte 0xa5
+.byte 0x00
+.byte 0x45  # row #775, atan ( 0.757 ) = 0.648
+.byte 0xda
+.byte 0xa5
+.byte 0x00
+.byte 0xf1  # row #776, atan ( 0.758 ) = 0.648
+.byte 0x02
+.byte 0xa6
+.byte 0x00
+.byte 0x93  # row #777, atan ( 0.759 ) = 0.649
+.byte 0x2b
+.byte 0xa6
+.byte 0x00
+.byte 0x2c  # row #778, atan ( 0.760 ) = 0.650
+.byte 0x54
+.byte 0xa6
+.byte 0x00
+.byte 0xbb  # row #779, atan ( 0.761 ) = 0.650
+.byte 0x7c
+.byte 0xa6
+.byte 0x00
+.byte 0x40  # row #780, atan ( 0.762 ) = 0.651
+.byte 0xa5
+.byte 0xa6
+.byte 0x00
+.byte 0xbb  # row #781, atan ( 0.763 ) = 0.652
+.byte 0xcd
+.byte 0xa6
+.byte 0x00
+.byte 0x2d  # row #782, atan ( 0.764 ) = 0.652
+.byte 0xf6
+.byte 0xa6
+.byte 0x00
+.byte 0x95  # row #783, atan ( 0.765 ) = 0.653
+.byte 0x1e
+.byte 0xa7
+.byte 0x00
+.byte 0xf3  # row #784, atan ( 0.766 ) = 0.653
+.byte 0x46
+.byte 0xa7
+.byte 0x00
+.byte 0x47  # row #785, atan ( 0.767 ) = 0.654
+.byte 0x6f
+.byte 0xa7
+.byte 0x00
+.byte 0x92  # row #786, atan ( 0.768 ) = 0.655
+.byte 0x97
+.byte 0xa7
+.byte 0x00
+.byte 0xd3  # row #787, atan ( 0.769 ) = 0.655
+.byte 0xbf
+.byte 0xa7
+.byte 0x00
+.byte 0x0a  # row #788, atan ( 0.770 ) = 0.656
+.byte 0xe8
+.byte 0xa7
+.byte 0x00
+.byte 0x37  # row #789, atan ( 0.771 ) = 0.656
+.byte 0x10
+.byte 0xa8
+.byte 0x00
+.byte 0x5b  # row #790, atan ( 0.771 ) = 0.657
+.byte 0x38
+.byte 0xa8
+.byte 0x00
+.byte 0x75  # row #791, atan ( 0.772 ) = 0.658
+.byte 0x60
+.byte 0xa8
+.byte 0x00
+.byte 0x85  # row #792, atan ( 0.773 ) = 0.658
+.byte 0x88
+.byte 0xa8
+.byte 0x00
+.byte 0x8c  # row #793, atan ( 0.774 ) = 0.659
+.byte 0xb0
+.byte 0xa8
+.byte 0x00
+.byte 0x89  # row #794, atan ( 0.775 ) = 0.660
+.byte 0xd8
+.byte 0xa8
+.byte 0x00
+.byte 0x7c  # row #795, atan ( 0.776 ) = 0.660
+.byte 0x00
+.byte 0xa9
+.byte 0x00
+.byte 0x66  # row #796, atan ( 0.777 ) = 0.661
+.byte 0x28
+.byte 0xa9
+.byte 0x00
+.byte 0x46  # row #797, atan ( 0.778 ) = 0.661
+.byte 0x50
+.byte 0xa9
+.byte 0x00
+.byte 0x1c  # row #798, atan ( 0.779 ) = 0.662
+.byte 0x78
+.byte 0xa9
+.byte 0x00
+.byte 0xe9  # row #799, atan ( 0.780 ) = 0.663
+.byte 0x9f
+.byte 0xa9
+.byte 0x00
+.byte 0xac  # row #800, atan ( 0.781 ) = 0.663
+.byte 0xc7
+.byte 0xa9
+.byte 0x00
+.byte 0x65  # row #801, atan ( 0.782 ) = 0.664
+.byte 0xef
+.byte 0xa9
+.byte 0x00
+.byte 0x15  # row #802, atan ( 0.783 ) = 0.664
+.byte 0x17
+.byte 0xaa
+.byte 0x00
+.byte 0xbb  # row #803, atan ( 0.784 ) = 0.665
+.byte 0x3e
+.byte 0xaa
+.byte 0x00
+.byte 0x58  # row #804, atan ( 0.785 ) = 0.666
+.byte 0x66
+.byte 0xaa
+.byte 0x00
+.byte 0xea  # row #805, atan ( 0.786 ) = 0.666
+.byte 0x8d
+.byte 0xaa
+.byte 0x00
+.byte 0x74  # row #806, atan ( 0.787 ) = 0.667
+.byte 0xb5
+.byte 0xaa
+.byte 0x00
+.byte 0xf3  # row #807, atan ( 0.788 ) = 0.667
+.byte 0xdc
+.byte 0xaa
+.byte 0x00
+.byte 0x69  # row #808, atan ( 0.789 ) = 0.668
+.byte 0x04
+.byte 0xab
+.byte 0x00
+.byte 0xd6  # row #809, atan ( 0.790 ) = 0.669
+.byte 0x2b
+.byte 0xab
+.byte 0x00
+.byte 0x39  # row #810, atan ( 0.791 ) = 0.669
+.byte 0x53
+.byte 0xab
+.byte 0x00
+.byte 0x92  # row #811, atan ( 0.792 ) = 0.670
+.byte 0x7a
+.byte 0xab
+.byte 0x00
+.byte 0xe2  # row #812, atan ( 0.793 ) = 0.670
+.byte 0xa1
+.byte 0xab
+.byte 0x00
+.byte 0x28  # row #813, atan ( 0.794 ) = 0.671
+.byte 0xc9
+.byte 0xab
+.byte 0x00
+.byte 0x64  # row #814, atan ( 0.795 ) = 0.672
+.byte 0xf0
+.byte 0xab
+.byte 0x00
+.byte 0x97  # row #815, atan ( 0.796 ) = 0.672
+.byte 0x17
+.byte 0xac
+.byte 0x00
+.byte 0xc1  # row #816, atan ( 0.797 ) = 0.673
+.byte 0x3e
+.byte 0xac
+.byte 0x00
+.byte 0xe1  # row #817, atan ( 0.798 ) = 0.673
+.byte 0x65
+.byte 0xac
+.byte 0x00
+.byte 0xf7  # row #818, atan ( 0.799 ) = 0.674
+.byte 0x8c
+.byte 0xac
+.byte 0x00
+.byte 0x04  # row #819, atan ( 0.800 ) = 0.675
+.byte 0xb4
+.byte 0xac
+.byte 0x00
+.byte 0x08  # row #820, atan ( 0.801 ) = 0.675
+.byte 0xdb
+.byte 0xac
+.byte 0x00
+.byte 0x02  # row #821, atan ( 0.802 ) = 0.676
+.byte 0x02
+.byte 0xad
+.byte 0x00
+.byte 0xf2  # row #822, atan ( 0.803 ) = 0.676
+.byte 0x28
+.byte 0xad
+.byte 0x00
+.byte 0xd9  # row #823, atan ( 0.804 ) = 0.677
+.byte 0x4f
+.byte 0xad
+.byte 0x00
+.byte 0xb6  # row #824, atan ( 0.805 ) = 0.678
+.byte 0x76
+.byte 0xad
+.byte 0x00
+.byte 0x8a  # row #825, atan ( 0.806 ) = 0.678
+.byte 0x9d
+.byte 0xad
+.byte 0x00
+.byte 0x54  # row #826, atan ( 0.807 ) = 0.679
+.byte 0xc4
+.byte 0xad
+.byte 0x00
+.byte 0x15  # row #827, atan ( 0.808 ) = 0.679
+.byte 0xeb
+.byte 0xad
+.byte 0x00
+.byte 0xcd  # row #828, atan ( 0.809 ) = 0.680
+.byte 0x11
+.byte 0xae
+.byte 0x00
+.byte 0x7b  # row #829, atan ( 0.810 ) = 0.681
+.byte 0x38
+.byte 0xae
+.byte 0x00
+.byte 0x1f  # row #830, atan ( 0.811 ) = 0.681
+.byte 0x5f
+.byte 0xae
+.byte 0x00
+.byte 0xbb  # row #831, atan ( 0.812 ) = 0.682
+.byte 0x85
+.byte 0xae
+.byte 0x00
+.byte 0x4c  # row #832, atan ( 0.812 ) = 0.682
+.byte 0xac
+.byte 0xae
+.byte 0x00
+.byte 0xd4  # row #833, atan ( 0.813 ) = 0.683
+.byte 0xd2
+.byte 0xae
+.byte 0x00
+.byte 0x53  # row #834, atan ( 0.814 ) = 0.683
+.byte 0xf9
+.byte 0xae
+.byte 0x00
+.byte 0xc9  # row #835, atan ( 0.815 ) = 0.684
+.byte 0x1f
+.byte 0xaf
+.byte 0x00
+.byte 0x35  # row #836, atan ( 0.816 ) = 0.685
+.byte 0x46
+.byte 0xaf
+.byte 0x00
+.byte 0x97  # row #837, atan ( 0.817 ) = 0.685
+.byte 0x6c
+.byte 0xaf
+.byte 0x00
+.byte 0xf0  # row #838, atan ( 0.818 ) = 0.686
+.byte 0x92
+.byte 0xaf
+.byte 0x00
+.byte 0x40  # row #839, atan ( 0.819 ) = 0.686
+.byte 0xb9
+.byte 0xaf
+.byte 0x00
+.byte 0x87  # row #840, atan ( 0.820 ) = 0.687
+.byte 0xdf
+.byte 0xaf
+.byte 0x00
+.byte 0xc4  # row #841, atan ( 0.821 ) = 0.688
+.byte 0x05
+.byte 0xb0
+.byte 0x00
+.byte 0xf7  # row #842, atan ( 0.822 ) = 0.688
+.byte 0x2b
+.byte 0xb0
+.byte 0x00
+.byte 0x21  # row #843, atan ( 0.823 ) = 0.689
+.byte 0x52
+.byte 0xb0
+.byte 0x00
+.byte 0x42  # row #844, atan ( 0.824 ) = 0.689
+.byte 0x78
+.byte 0xb0
+.byte 0x00
+.byte 0x5a  # row #845, atan ( 0.825 ) = 0.690
+.byte 0x9e
+.byte 0xb0
+.byte 0x00
+.byte 0x68  # row #846, atan ( 0.826 ) = 0.690
+.byte 0xc4
+.byte 0xb0
+.byte 0x00
+.byte 0x6d  # row #847, atan ( 0.827 ) = 0.691
+.byte 0xea
+.byte 0xb0
+.byte 0x00
+.byte 0x69  # row #848, atan ( 0.828 ) = 0.692
+.byte 0x10
+.byte 0xb1
+.byte 0x00
+.byte 0x5b  # row #849, atan ( 0.829 ) = 0.692
+.byte 0x36
+.byte 0xb1
+.byte 0x00
+.byte 0x44  # row #850, atan ( 0.830 ) = 0.693
+.byte 0x5c
+.byte 0xb1
+.byte 0x00
+.byte 0x23  # row #851, atan ( 0.831 ) = 0.693
+.byte 0x82
+.byte 0xb1
+.byte 0x00
+.byte 0xfa  # row #852, atan ( 0.832 ) = 0.694
+.byte 0xa7
+.byte 0xb1
+.byte 0x00
+.byte 0xc7  # row #853, atan ( 0.833 ) = 0.695
+.byte 0xcd
+.byte 0xb1
+.byte 0x00
+.byte 0x8a  # row #854, atan ( 0.834 ) = 0.695
+.byte 0xf3
+.byte 0xb1
+.byte 0x00
+.byte 0x45  # row #855, atan ( 0.835 ) = 0.696
+.byte 0x19
+.byte 0xb2
+.byte 0x00
+.byte 0xf6  # row #856, atan ( 0.836 ) = 0.696
+.byte 0x3e
+.byte 0xb2
+.byte 0x00
+.byte 0x9e  # row #857, atan ( 0.837 ) = 0.697
+.byte 0x64
+.byte 0xb2
+.byte 0x00
+.byte 0x3c  # row #858, atan ( 0.838 ) = 0.697
+.byte 0x8a
+.byte 0xb2
+.byte 0x00
+.byte 0xd2  # row #859, atan ( 0.839 ) = 0.698
+.byte 0xaf
+.byte 0xb2
+.byte 0x00
+.byte 0x5e  # row #860, atan ( 0.840 ) = 0.699
+.byte 0xd5
+.byte 0xb2
+.byte 0x00
+.byte 0xe1  # row #861, atan ( 0.841 ) = 0.699
+.byte 0xfa
+.byte 0xb2
+.byte 0x00
+.byte 0x5a  # row #862, atan ( 0.842 ) = 0.700
+.byte 0x20
+.byte 0xb3
+.byte 0x00
+.byte 0xcb  # row #863, atan ( 0.843 ) = 0.700
+.byte 0x45
+.byte 0xb3
+.byte 0x00
+.byte 0x32  # row #864, atan ( 0.844 ) = 0.701
+.byte 0x6b
+.byte 0xb3
+.byte 0x00
+.byte 0x90  # row #865, atan ( 0.845 ) = 0.701
+.byte 0x90
+.byte 0xb3
+.byte 0x00
+.byte 0xe5  # row #866, atan ( 0.846 ) = 0.702
+.byte 0xb5
+.byte 0xb3
+.byte 0x00
+.byte 0x30  # row #867, atan ( 0.847 ) = 0.703
+.byte 0xdb
+.byte 0xb3
+.byte 0x00
+.byte 0x72  # row #868, atan ( 0.848 ) = 0.703
+.byte 0x00
+.byte 0xb4
+.byte 0x00
+.byte 0xac  # row #869, atan ( 0.849 ) = 0.704
+.byte 0x25
+.byte 0xb4
+.byte 0x00
+.byte 0xdc  # row #870, atan ( 0.850 ) = 0.704
+.byte 0x4a
+.byte 0xb4
+.byte 0x00
+.byte 0x02  # row #871, atan ( 0.851 ) = 0.705
+.byte 0x70
+.byte 0xb4
+.byte 0x00
+.byte 0x20  # row #872, atan ( 0.852 ) = 0.705
+.byte 0x95
+.byte 0xb4
+.byte 0x00
+.byte 0x35  # row #873, atan ( 0.853 ) = 0.706
+.byte 0xba
+.byte 0xb4
+.byte 0x00
+.byte 0x40  # row #874, atan ( 0.854 ) = 0.707
+.byte 0xdf
+.byte 0xb4
+.byte 0x00
+.byte 0x42  # row #875, atan ( 0.854 ) = 0.707
+.byte 0x04
+.byte 0xb5
+.byte 0x00
+.byte 0x3b  # row #876, atan ( 0.855 ) = 0.708
+.byte 0x29
+.byte 0xb5
+.byte 0x00
+.byte 0x2b  # row #877, atan ( 0.856 ) = 0.708
+.byte 0x4e
+.byte 0xb5
+.byte 0x00
+.byte 0x12  # row #878, atan ( 0.857 ) = 0.709
+.byte 0x73
+.byte 0xb5
+.byte 0x00
+.byte 0xf0  # row #879, atan ( 0.858 ) = 0.709
+.byte 0x97
+.byte 0xb5
+.byte 0x00
+.byte 0xc5  # row #880, atan ( 0.859 ) = 0.710
+.byte 0xbc
+.byte 0xb5
+.byte 0x00
+.byte 0x90  # row #881, atan ( 0.860 ) = 0.710
+.byte 0xe1
+.byte 0xb5
+.byte 0x00
+.byte 0x53  # row #882, atan ( 0.861 ) = 0.711
+.byte 0x06
+.byte 0xb6
+.byte 0x00
+.byte 0x0c  # row #883, atan ( 0.862 ) = 0.712
+.byte 0x2b
+.byte 0xb6
+.byte 0x00
+.byte 0xbc  # row #884, atan ( 0.863 ) = 0.712
+.byte 0x4f
+.byte 0xb6
+.byte 0x00
+.byte 0x63  # row #885, atan ( 0.864 ) = 0.713
+.byte 0x74
+.byte 0xb6
+.byte 0x00
+.byte 0x02  # row #886, atan ( 0.865 ) = 0.713
+.byte 0x99
+.byte 0xb6
+.byte 0x00
+.byte 0x97  # row #887, atan ( 0.866 ) = 0.714
+.byte 0xbd
+.byte 0xb6
+.byte 0x00
+.byte 0x23  # row #888, atan ( 0.867 ) = 0.714
+.byte 0xe2
+.byte 0xb6
+.byte 0x00
+.byte 0xa6  # row #889, atan ( 0.868 ) = 0.715
+.byte 0x06
+.byte 0xb7
+.byte 0x00
+.byte 0x20  # row #890, atan ( 0.869 ) = 0.716
+.byte 0x2b
+.byte 0xb7
+.byte 0x00
+.byte 0x91  # row #891, atan ( 0.870 ) = 0.716
+.byte 0x4f
+.byte 0xb7
+.byte 0x00
+.byte 0xf9  # row #892, atan ( 0.871 ) = 0.717
+.byte 0x73
+.byte 0xb7
+.byte 0x00
+.byte 0x57  # row #893, atan ( 0.872 ) = 0.717
+.byte 0x98
+.byte 0xb7
+.byte 0x00
+.byte 0xad  # row #894, atan ( 0.873 ) = 0.718
+.byte 0xbc
+.byte 0xb7
+.byte 0x00
+.byte 0xfa  # row #895, atan ( 0.874 ) = 0.718
+.byte 0xe0
+.byte 0xb7
+.byte 0x00
+.byte 0x3e  # row #896, atan ( 0.875 ) = 0.719
+.byte 0x05
+.byte 0xb8
+.byte 0x00
+.byte 0x79  # row #897, atan ( 0.876 ) = 0.719
+.byte 0x29
+.byte 0xb8
+.byte 0x00
+.byte 0xab  # row #898, atan ( 0.877 ) = 0.720
+.byte 0x4d
+.byte 0xb8
+.byte 0x00
+.byte 0xd4  # row #899, atan ( 0.878 ) = 0.720
+.byte 0x71
+.byte 0xb8
+.byte 0x00
+.byte 0xf4  # row #900, atan ( 0.879 ) = 0.721
+.byte 0x95
+.byte 0xb8
+.byte 0x00
+.byte 0x0b  # row #901, atan ( 0.880 ) = 0.722
+.byte 0xba
+.byte 0xb8
+.byte 0x00
+.byte 0x19  # row #902, atan ( 0.881 ) = 0.722
+.byte 0xde
+.byte 0xb8
+.byte 0x00
+.byte 0x1f  # row #903, atan ( 0.882 ) = 0.723
+.byte 0x02
+.byte 0xb9
+.byte 0x00
+.byte 0x1b  # row #904, atan ( 0.883 ) = 0.723
+.byte 0x26
+.byte 0xb9
+.byte 0x00
+.byte 0x0e  # row #905, atan ( 0.884 ) = 0.724
+.byte 0x4a
+.byte 0xb9
+.byte 0x00
+.byte 0xf9  # row #906, atan ( 0.885 ) = 0.724
+.byte 0x6d
+.byte 0xb9
+.byte 0x00
+.byte 0xda  # row #907, atan ( 0.886 ) = 0.725
+.byte 0x91
+.byte 0xb9
+.byte 0x00
+.byte 0xb3  # row #908, atan ( 0.887 ) = 0.725
+.byte 0xb5
+.byte 0xb9
+.byte 0x00
+.byte 0x83  # row #909, atan ( 0.888 ) = 0.726
+.byte 0xd9
+.byte 0xb9
+.byte 0x00
+.byte 0x49  # row #910, atan ( 0.889 ) = 0.727
+.byte 0xfd
+.byte 0xb9
+.byte 0x00
+.byte 0x07  # row #911, atan ( 0.890 ) = 0.727
+.byte 0x21
+.byte 0xba
+.byte 0x00
+.byte 0xbc  # row #912, atan ( 0.891 ) = 0.728
+.byte 0x44
+.byte 0xba
+.byte 0x00
+.byte 0x69  # row #913, atan ( 0.892 ) = 0.728
+.byte 0x68
+.byte 0xba
+.byte 0x00
+.byte 0x0c  # row #914, atan ( 0.893 ) = 0.729
+.byte 0x8c
+.byte 0xba
+.byte 0x00
+.byte 0xa7  # row #915, atan ( 0.894 ) = 0.729
+.byte 0xaf
+.byte 0xba
+.byte 0x00
+.byte 0x38  # row #916, atan ( 0.895 ) = 0.730
+.byte 0xd3
+.byte 0xba
+.byte 0x00
+.byte 0xc1  # row #917, atan ( 0.896 ) = 0.730
+.byte 0xf6
+.byte 0xba
+.byte 0x00
+.byte 0x41  # row #918, atan ( 0.896 ) = 0.731
+.byte 0x1a
+.byte 0xbb
+.byte 0x00
+.byte 0xb8  # row #919, atan ( 0.897 ) = 0.731
+.byte 0x3d
+.byte 0xbb
+.byte 0x00
+.byte 0x27  # row #920, atan ( 0.898 ) = 0.732
+.byte 0x61
+.byte 0xbb
+.byte 0x00
+.byte 0x8d  # row #921, atan ( 0.899 ) = 0.732
+.byte 0x84
+.byte 0xbb
+.byte 0x00
+.byte 0xe9  # row #922, atan ( 0.900 ) = 0.733
+.byte 0xa7
+.byte 0xbb
+.byte 0x00
+.byte 0x3d  # row #923, atan ( 0.901 ) = 0.734
+.byte 0xcb
+.byte 0xbb
+.byte 0x00
+.byte 0x89  # row #924, atan ( 0.902 ) = 0.734
+.byte 0xee
+.byte 0xbb
+.byte 0x00
+.byte 0xcb  # row #925, atan ( 0.903 ) = 0.735
+.byte 0x11
+.byte 0xbc
+.byte 0x00
+.byte 0x05  # row #926, atan ( 0.904 ) = 0.735
+.byte 0x35
+.byte 0xbc
+.byte 0x00
+.byte 0x36  # row #927, atan ( 0.905 ) = 0.736
+.byte 0x58
+.byte 0xbc
+.byte 0x00
+.byte 0x5e  # row #928, atan ( 0.906 ) = 0.736
+.byte 0x7b
+.byte 0xbc
+.byte 0x00
+.byte 0x7d  # row #929, atan ( 0.907 ) = 0.737
+.byte 0x9e
+.byte 0xbc
+.byte 0x00
+.byte 0x94  # row #930, atan ( 0.908 ) = 0.737
+.byte 0xc1
+.byte 0xbc
+.byte 0x00
+.byte 0xa2  # row #931, atan ( 0.909 ) = 0.738
+.byte 0xe4
+.byte 0xbc
+.byte 0x00
+.byte 0xa7  # row #932, atan ( 0.910 ) = 0.738
+.byte 0x07
+.byte 0xbd
+.byte 0x00
+.byte 0xa4  # row #933, atan ( 0.911 ) = 0.739
+.byte 0x2a
+.byte 0xbd
+.byte 0x00
+.byte 0x98  # row #934, atan ( 0.912 ) = 0.739
+.byte 0x4d
+.byte 0xbd
+.byte 0x00
+.byte 0x83  # row #935, atan ( 0.913 ) = 0.740
+.byte 0x70
+.byte 0xbd
+.byte 0x00
+.byte 0x65  # row #936, atan ( 0.914 ) = 0.741
+.byte 0x93
+.byte 0xbd
+.byte 0x00
+.byte 0x3f  # row #937, atan ( 0.915 ) = 0.741
+.byte 0xb6
+.byte 0xbd
+.byte 0x00
+.byte 0x10  # row #938, atan ( 0.916 ) = 0.742
+.byte 0xd9
+.byte 0xbd
+.byte 0x00
+.byte 0xd9  # row #939, atan ( 0.917 ) = 0.742
+.byte 0xfb
+.byte 0xbd
+.byte 0x00
+.byte 0x99  # row #940, atan ( 0.918 ) = 0.743
+.byte 0x1e
+.byte 0xbe
+.byte 0x00
+.byte 0x50  # row #941, atan ( 0.919 ) = 0.743
+.byte 0x41
+.byte 0xbe
+.byte 0x00
+.byte 0xfe  # row #942, atan ( 0.920 ) = 0.744
+.byte 0x63
+.byte 0xbe
+.byte 0x00
+.byte 0xa4  # row #943, atan ( 0.921 ) = 0.744
+.byte 0x86
+.byte 0xbe
+.byte 0x00
+.byte 0x41  # row #944, atan ( 0.922 ) = 0.745
+.byte 0xa9
+.byte 0xbe
+.byte 0x00
+.byte 0xd6  # row #945, atan ( 0.923 ) = 0.745
+.byte 0xcb
+.byte 0xbe
+.byte 0x00
+.byte 0x62  # row #946, atan ( 0.924 ) = 0.746
+.byte 0xee
+.byte 0xbe
+.byte 0x00
+.byte 0xe5  # row #947, atan ( 0.925 ) = 0.746
+.byte 0x10
+.byte 0xbf
+.byte 0x00
+.byte 0x60  # row #948, atan ( 0.926 ) = 0.747
+.byte 0x33
+.byte 0xbf
+.byte 0x00
+.byte 0xd2  # row #949, atan ( 0.927 ) = 0.747
+.byte 0x55
+.byte 0xbf
+.byte 0x00
+.byte 0x3c  # row #950, atan ( 0.928 ) = 0.748
+.byte 0x78
+.byte 0xbf
+.byte 0x00
+.byte 0x9d  # row #951, atan ( 0.929 ) = 0.748
+.byte 0x9a
+.byte 0xbf
+.byte 0x00
+.byte 0xf5  # row #952, atan ( 0.930 ) = 0.749
+.byte 0xbc
+.byte 0xbf
+.byte 0x00
+.byte 0x45  # row #953, atan ( 0.931 ) = 0.750
+.byte 0xdf
+.byte 0xbf
+.byte 0x00
+.byte 0x8d  # row #954, atan ( 0.932 ) = 0.750
+.byte 0x01
+.byte 0xc0
+.byte 0x00
+.byte 0xcc  # row #955, atan ( 0.933 ) = 0.751
+.byte 0x23
+.byte 0xc0
+.byte 0x00
+.byte 0x02  # row #956, atan ( 0.934 ) = 0.751
+.byte 0x46
+.byte 0xc0
+.byte 0x00
+.byte 0x30  # row #957, atan ( 0.935 ) = 0.752
+.byte 0x68
+.byte 0xc0
+.byte 0x00
+.byte 0x55  # row #958, atan ( 0.936 ) = 0.752
+.byte 0x8a
+.byte 0xc0
+.byte 0x00
+.byte 0x72  # row #959, atan ( 0.937 ) = 0.753
+.byte 0xac
+.byte 0xc0
+.byte 0x00
+.byte 0x86  # row #960, atan ( 0.938 ) = 0.753
+.byte 0xce
+.byte 0xc0
+.byte 0x00
+.byte 0x91  # row #961, atan ( 0.938 ) = 0.754
+.byte 0xf0
+.byte 0xc0
+.byte 0x00
+.byte 0x95  # row #962, atan ( 0.939 ) = 0.754
+.byte 0x12
+.byte 0xc1
+.byte 0x00
+.byte 0x8f  # row #963, atan ( 0.940 ) = 0.755
+.byte 0x34
+.byte 0xc1
+.byte 0x00
+.byte 0x82  # row #964, atan ( 0.941 ) = 0.755
+.byte 0x56
+.byte 0xc1
+.byte 0x00
+.byte 0x6b  # row #965, atan ( 0.942 ) = 0.756
+.byte 0x78
+.byte 0xc1
+.byte 0x00
+.byte 0x4d  # row #966, atan ( 0.943 ) = 0.756
+.byte 0x9a
+.byte 0xc1
+.byte 0x00
+.byte 0x26  # row #967, atan ( 0.944 ) = 0.757
+.byte 0xbc
+.byte 0xc1
+.byte 0x00
+.byte 0xf6  # row #968, atan ( 0.945 ) = 0.757
+.byte 0xdd
+.byte 0xc1
+.byte 0x00
+.byte 0xbe  # row #969, atan ( 0.946 ) = 0.758
+.byte 0xff
+.byte 0xc1
+.byte 0x00
+.byte 0x7e  # row #970, atan ( 0.947 ) = 0.758
+.byte 0x21
+.byte 0xc2
+.byte 0x00
+.byte 0x35  # row #971, atan ( 0.948 ) = 0.759
+.byte 0x43
+.byte 0xc2
+.byte 0x00
+.byte 0xe4  # row #972, atan ( 0.949 ) = 0.759
+.byte 0x64
+.byte 0xc2
+.byte 0x00
+.byte 0x8a  # row #973, atan ( 0.950 ) = 0.760
+.byte 0x86
+.byte 0xc2
+.byte 0x00
+.byte 0x28  # row #974, atan ( 0.951 ) = 0.760
+.byte 0xa8
+.byte 0xc2
+.byte 0x00
+.byte 0xbe  # row #975, atan ( 0.952 ) = 0.761
+.byte 0xc9
+.byte 0xc2
+.byte 0x00
+.byte 0x4b  # row #976, atan ( 0.953 ) = 0.761
+.byte 0xeb
+.byte 0xc2
+.byte 0x00
+.byte 0xd0  # row #977, atan ( 0.954 ) = 0.762
+.byte 0x0c
+.byte 0xc3
+.byte 0x00
+.byte 0x4c  # row #978, atan ( 0.955 ) = 0.762
+.byte 0x2e
+.byte 0xc3
+.byte 0x00
+.byte 0xc0  # row #979, atan ( 0.956 ) = 0.763
+.byte 0x4f
+.byte 0xc3
+.byte 0x00
+.byte 0x2c  # row #980, atan ( 0.957 ) = 0.763
+.byte 0x71
+.byte 0xc3
+.byte 0x00
+.byte 0x8f  # row #981, atan ( 0.958 ) = 0.764
+.byte 0x92
+.byte 0xc3
+.byte 0x00
+.byte 0xea  # row #982, atan ( 0.959 ) = 0.764
+.byte 0xb3
+.byte 0xc3
+.byte 0x00
+.byte 0x3d  # row #983, atan ( 0.960 ) = 0.765
+.byte 0xd5
+.byte 0xc3
+.byte 0x00
+.byte 0x87  # row #984, atan ( 0.961 ) = 0.765
+.byte 0xf6
+.byte 0xc3
+.byte 0x00
+.byte 0xc9  # row #985, atan ( 0.962 ) = 0.766
+.byte 0x17
+.byte 0xc4
+.byte 0x00
+.byte 0x03  # row #986, atan ( 0.963 ) = 0.766
+.byte 0x39
+.byte 0xc4
+.byte 0x00
+.byte 0x35  # row #987, atan ( 0.964 ) = 0.767
+.byte 0x5a
+.byte 0xc4
+.byte 0x00
+.byte 0x5e  # row #988, atan ( 0.965 ) = 0.768
+.byte 0x7b
+.byte 0xc4
+.byte 0x00
+.byte 0x7f  # row #989, atan ( 0.966 ) = 0.768
+.byte 0x9c
+.byte 0xc4
+.byte 0x00
+.byte 0x97  # row #990, atan ( 0.967 ) = 0.769
+.byte 0xbd
+.byte 0xc4
+.byte 0x00
+.byte 0xa8  # row #991, atan ( 0.968 ) = 0.769
+.byte 0xde
+.byte 0xc4
+.byte 0x00
+.byte 0xb0  # row #992, atan ( 0.969 ) = 0.770
+.byte 0xff
+.byte 0xc4
+.byte 0x00
+.byte 0xb0  # row #993, atan ( 0.970 ) = 0.770
+.byte 0x20
+.byte 0xc5
+.byte 0x00
+.byte 0xa7  # row #994, atan ( 0.971 ) = 0.771
+.byte 0x41
+.byte 0xc5
+.byte 0x00
+.byte 0x97  # row #995, atan ( 0.972 ) = 0.771
+.byte 0x62
+.byte 0xc5
+.byte 0x00
+.byte 0x7e  # row #996, atan ( 0.973 ) = 0.772
+.byte 0x83
+.byte 0xc5
+.byte 0x00
+.byte 0x5d  # row #997, atan ( 0.974 ) = 0.772
+.byte 0xa4
+.byte 0xc5
+.byte 0x00
+.byte 0x34  # row #998, atan ( 0.975 ) = 0.773
+.byte 0xc5
+.byte 0xc5
+.byte 0x00
+.byte 0x02  # row #999, atan ( 0.976 ) = 0.773
+.byte 0xe6
+.byte 0xc5
+.byte 0x00
+.byte 0xc9  # row #1000, atan ( 0.977 ) = 0.774
+.byte 0x06
+.byte 0xc6
+.byte 0x00
+.byte 0x87  # row #1001, atan ( 0.978 ) = 0.774
+.byte 0x27
+.byte 0xc6
+.byte 0x00
+.byte 0x3d  # row #1002, atan ( 0.979 ) = 0.775
+.byte 0x48
+.byte 0xc6
+.byte 0x00
+.byte 0xeb  # row #1003, atan ( 0.979 ) = 0.775
+.byte 0x68
+.byte 0xc6
+.byte 0x00
+.byte 0x90  # row #1004, atan ( 0.980 ) = 0.776
+.byte 0x89
+.byte 0xc6
+.byte 0x00
+.byte 0x2e  # row #1005, atan ( 0.981 ) = 0.776
+.byte 0xaa
+.byte 0xc6
+.byte 0x00
+.byte 0xc3  # row #1006, atan ( 0.982 ) = 0.777
+.byte 0xca
+.byte 0xc6
+.byte 0x00
+.byte 0x50  # row #1007, atan ( 0.983 ) = 0.777
+.byte 0xeb
+.byte 0xc6
+.byte 0x00
+.byte 0xd5  # row #1008, atan ( 0.984 ) = 0.778
+.byte 0x0b
+.byte 0xc7
+.byte 0x00
+.byte 0x52  # row #1009, atan ( 0.985 ) = 0.778
+.byte 0x2c
+.byte 0xc7
+.byte 0x00
+.byte 0xc7  # row #1010, atan ( 0.986 ) = 0.779
+.byte 0x4c
+.byte 0xc7
+.byte 0x00
+.byte 0x34  # row #1011, atan ( 0.987 ) = 0.779
+.byte 0x6d
+.byte 0xc7
+.byte 0x00
+.byte 0x98  # row #1012, atan ( 0.988 ) = 0.780
+.byte 0x8d
+.byte 0xc7
+.byte 0x00
+.byte 0xf5  # row #1013, atan ( 0.989 ) = 0.780
+.byte 0xad
+.byte 0xc7
+.byte 0x00
+.byte 0x49  # row #1014, atan ( 0.990 ) = 0.780
+.byte 0xce
+.byte 0xc7
+.byte 0x00
+.byte 0x96  # row #1015, atan ( 0.991 ) = 0.781
+.byte 0xee
+.byte 0xc7
+.byte 0x00
+.byte 0xda  # row #1016, atan ( 0.992 ) = 0.781
+.byte 0x0e
+.byte 0xc8
+.byte 0x00
+.byte 0x16  # row #1017, atan ( 0.993 ) = 0.782
+.byte 0x2f
+.byte 0xc8
+.byte 0x00
+.byte 0x4a  # row #1018, atan ( 0.994 ) = 0.782
+.byte 0x4f
+.byte 0xc8
+.byte 0x00
+.byte 0x76  # row #1019, atan ( 0.995 ) = 0.783
+.byte 0x6f
+.byte 0xc8
+.byte 0x00
+.byte 0x9b  # row #1020, atan ( 0.996 ) = 0.783
+.byte 0x8f
+.byte 0xc8
+.byte 0x00
+.byte 0xb7  # row #1021, atan ( 0.997 ) = 0.784
+.byte 0xaf
+.byte 0xc8
+.byte 0x00
+.byte 0xcb  # row #1022, atan ( 0.998 ) = 0.784
+.byte 0xcf
+.byte 0xc8
+.byte 0x00
+.byte 0xd7  # row #1023, atan ( 0.999 ) = 0.785
+.byte 0xef
+.byte 0xc8
+.byte 0x00
+.byte 0xdb  # row #1024, atan ( 1.000 ) = 0.785
+.byte 0x0f
+.byte 0xc9
+.byte 0x00
+

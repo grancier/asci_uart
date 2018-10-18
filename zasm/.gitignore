@@ -1,0 +1,52 @@
+.DS_Store
+zasm.pro.user*
+build-*
+*.webloc
+*.lst
+Distributions/old versions/
+Distributions/*.bz2
+Distributions/*.zip
+Examples/s/
+Examples/*.lst
+Examples/*.rom
+Examples/*.tap
+Examples/*.ace
+Info/
+sdcc/lib/OTHER
+sdcc/bin
+Documentation/*.htm
+Documentation/*.html
+Documentation/00000.txt
+Documentation/Buch.txt
+
+Test/s/
+Test/*.bin
+Test/*.rom
+Test/*.lst
+Test/*.s
+Test/*.tap
+Test/rem.c
+Test/crc.c
+Test/sdcpp
+
+Test/Z80/*.lst
+Test/Z80/*.rom
+Test/Z80/*.hex
+Test/Z80/*.s19
+Test/Z180/*.lst
+Test/Z180/*.rom
+Test/8080/*.lst
+Test/8080/*.rom
+Test/8086 oder so/
+Test/ZXSP/original/s/
+Test/Z80/original/*.lst
+
+Test/Z80/pacalpaca/
+
+syntax seen.txt
+pitfalls.txt
+zasm.cgi
+distributions
+sdcc/sdcc manual.pdf
+sdcc/bin-Linux32/
+INFO_and_TODO.txt
