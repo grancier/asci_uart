@@ -10,7 +10,7 @@
     LD SP, HL
 
 ; code starts here
-    CALL init_com2
+    CALL init_com1
 
     LD D, 'J'
     CALL output_byte
@@ -107,24 +107,24 @@ do_exec:
 ; INPUT: none
 ; CLOBBERS: none
 ; RETURNS: none
-init_com2:
+init_com1:
     ; 8-n-1 -  transmit enabled, recieve enabled
     ;   the emulator doesn't seem to support the in0 and out0 instructions
     ;   which means I have to use the in/out z80 instructions, which put
     ;   the value in B on A8-A15.
-    ;   in0 a, (cntla1)
+    ;   in0 a, (cntla0)
     PUSH AF
     PUSH BC
 
-	in0 a, (cntla1)			; kio 2015-01-06: wieder eingebaut für Testing
+	in0 a, (cntla0)			; kio 2015-01-06: wieder eingebaut für Testing
 ;	LD B, 0
-;	IN A, (cntla1)
+;	IN A, (cntla0)
     
     OR 01100100B     ; RE=1, TE=1, CKA1D=0, M2 = 1, M1 = 0, M0 = 0
 	
-    out0 (cntla1), a			; kio 2015-01-06: wieder eingebaut für Testing
+    out0 (cntla0), a			; kio 2015-01-06: wieder eingebaut für Testing
 ;    LD B, 0
-;    OUT (cntla1), a
+;    OUT (cntla0), a
 
     POP BC
     POP AF
@@ -141,16 +141,16 @@ output_byte:
     PUSH BC
     
 outpb_rdy:
-    in0 a, (stat1)      ; status of COM2	; kio 2015-01-06: wieder eingebaut für Testing
+    in0 a, (stat0)      ; status of COM2	; kio 2015-01-06: wieder eingebaut für Testing
     ;LD B, 0
-    ;IN A, (stat1)
+    ;IN A, (stat0)
 
     BIT 1, A            ; Transmit data register empty?
     JR z, outpb_rdy   ; if(no) wait for room to transmit
     LD A, D             ; a = byte to output
 
-    out0 (tdr1), a     ; send a J to COM2	; kio 2015-01-06: wieder eingebaut für Testing
-    ;OUT (tdr1), A
+    out0 (tdr0), a     ; send a J to COM2	; kio 2015-01-06: wieder eingebaut für Testing
+    ;OUT (tdr0), A
 
     POP BC
     POP AF
@@ -167,15 +167,15 @@ input_ascii:
     PUSH BC
     
 inpa_lp:
-    in0 a, (stat1)     ; status of COM2		; kio 2015-01-06: wieder eingebaut für Testing
+    in0 a, (stat0)     ; status of COM2		; kio 2015-01-06: wieder eingebaut für Testing
     ;LD B, 0
-    ;IN A, (stat1)
+    ;IN A, (stat0)
 
     BIT 7, A            ; Recieve data register full?
     JR z, inpa_lp       ; if(no) wait for a character
 
-    in0 a, (rdr1)      ; get a byte from Com2	; kio 2015-01-06: wieder eingebaut für Testing
-    ;IN A, (rdr1)
+    in0 a, (rdr0)      ; get a byte from Com2	; kio 2015-01-06: wieder eingebaut für Testing
+    ;IN A, (rdr0)
     
     POP BC
     RET
