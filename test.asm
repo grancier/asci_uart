@@ -1,161 +1,183 @@
-RCR:            equ       36h             ; Refresh Cont Reg
-ITC:            equ       34h             ; INT/TRAP Cont Reg
-OMCR_M1E:       equ       80h  
-OMCR:           equ       3eh
-CMR:            equ       1eh
-DCNTL_IWI0:     equ       10h
-DCNTL:          equ       32h
-CBR:            equ       38h    ; MMU Common Base Reg
-BBR:            equ       39h    ; MMU Bank Base Reg
-CBAR:           equ       3Ah    ; MMU Common/Bank Area Reg
-            
-ASCI_RE:        equ       40h     ; Receive Enable
-ASCI_TE:        equ       20h     ; Transmit Enable
+RCR:            EQU       36H             ; REFRESH CONT REG
+ITC:            EQU       34H             ; INT/TRAP CONT REG
+OMCR_M1E:       EQU       80H 
+OMCR:           EQU       3EH
+CMR:            EQU       1EH
+DCNTL_IWI0:     EQU       10H
+DCNTL:          EQU       32H
+CBR:            EQU       38H    ; MMU COMMON BASE REG
+BBR:            EQU       39H    ; MMU BANK BASE REG
+CBAR:           EQU       3AH    ; MMU COMMON/BANK AREA REG
+          
+ASCI_RE:        EQU       40H     ; RECEIVE ENABLE
+ASCI_TE:        EQU       20H     ; TRANSMIT ENABLE
 
-ASCI_8N1:       equ       04h     ; 8 Bits No Parity 1 Stop Bit
-
-
-WRKSPC:         equ       2700h           ; set BASIC Work space WRKSPC
-TEMPSTACK:      equ       WRKSPC + 0ABh  
+ASCI_8N1:       EQU       04H     ; 8 BITS NO PARITY 1 STOP BIT
 
 
-ROMSTART:        equ   $0000   ; Bottom of Common 0 FLASH
-ROMSTOP:         equ   $BFFF   ; Top of Common 0 FLASH
-
-RAMSTART_CA0:    equ   $C000   ; Bottom of Common 0 RAM
-RAMSTOP_CA0:     equ   $DFFF   ; Top of Common 0 RAM
-
-RAMSTART_BANK:   equ   $E000   ; Bottom of Banked RAM
-RAMSTOP_BANK:    equ   $EFFF   ; Top of Banked RAM
-
-RAMSTART_CA1:    equ   $F000   ; Bottom of Common 1 RAM
-RAMSTOP_CA1:     equ   $FFFF   ; Top of Common 1 RAM
+WRKSPC:         EQU       2700H           ; SET BASIC WORK SPACE WRKSPC
+TEMPSTACK:      EQU       WRKSPC + 0ABH 
 
 
-ASCI0RxBuf:         equ     RAMSTART_CA0 + 40h
-ASCI0TxBuf:         equ     ASCI0RxBuf + 256 
+ROMSTART:        EQU   $0000   ; BOTTOM OF COMMON 0 FLASH
+ROMSTOP:         EQU   $BFFF   ; TOP OF COMMON 0 FLASH
 
-CNTLA0:             equ         00h
-CNTLB0:             equ         02h   
-STAT0:              equ         04h
-CPU_CLOCK:          equ         6144000
-CPU_TIMER_SCALE     equ     20                  ; PRT Scale Factor (Fixed)
-RLDR0L:             equ     0Eh
-RLDR0H:             equ     0Fh
-ASCI_TIE:           equ     01h 
-ASCI_RIE:           equ     08h
-TDR0:               equ     06h   
-TCR:                equ     10h
-TCR_TIE0:           equ     10h
-TCR_TDE0:           equ     01h
+RAMSTART_CA0:    EQU   $C000   ; BOTTOM OF COMMON 0 RAM
+RAMSTOP_CA0:     EQU   $DFFF   ; TOP OF COMMON 0 RAM
+
+RAMSTART_BANK:   EQU   $E000   ; BOTTOM OF BANKED RAM
+RAMSTOP_BANK:    EQU   $EFFF   ; TOP OF BANKED RAM
+
+RAMSTART_CA1:    EQU   $F000   ; BOTTOM OF COMMON 1 RAM
+RAMSTOP_CA1:     EQU   $FFFF   ; TOP OF COMMON 1 RAM
+
+
+ASCI0RXBUF:         EQU     RAMSTART_CA0 + 40H
+ASCI0TXBUF:         EQU     ASCI0RXBUF + 256
+
+CNTLA0:             EQU         00H
+CNTLB0:             EQU         02H  
+STAT0:              EQU         04H
+STAT0_RIE:          EQU         08H
+CPU_CLOCK:          EQU         6144000
+CPU_TIMER_SCALE:    EQU     20                  ; PRT SCALE FACTOR (FIXED)
+RLDR0L:             EQU     0EH
+RLDR0H:             EQU     0FH
+ASCI_TIE:           EQU     01H
+ASCI_RIE:           EQU     08H
+TDR0:               EQU     06H  
+TCR:                EQU     10H
+TCR_TIE0:           EQU     10H
+TCR_TDE0:           EQU     01H
+DCNTL_MWI0:         EQU     40H     ; Memory Wait Insertion 0 (1 Default)
+CNTLA0_RE:          EQU     40H
+DCNTL_IWI1:         EQU     20H  
+CNTLA0_TE:          EQU     20H  
+CNTLA0_MODE_8N1:    EQU     04H
+CNTLB0_SS_DIV_2:    EQU     01H
+
+CMR_X2:             EQU     80H
+CCR_XTAL_X2:        EQU     80H
+CCR:                EQU     1FH         
+
 
 .ORG 00000H
 
-INIT:
-            
-            XOR     A               ; Zero Accumulator
+INIT_UART:
+          
+        XOR     A               ; ZERO ACCUMULATOR
 
-                                    ; Clear Refresh Control Reg (RCR)
-            OUT0    (RCR),A         ; DRAM Refresh Enable (0 Disabled)
+                                   ; CLEAR REFRESH CONTROL REG (RCR)
+        OUT0    (RCR),A         ; DRAM REFRESH ENABLE (0 DISABLED)
 
-                                    ; Clear INT/TRAP Control Register (ITC)             
-            OUT0    (ITC),A         ; Disable all external interrupts.             
+                                   ; CLEAR INT/TRAP CONTROL REGISTER (ITC)            
+        OUT0    (ITC),A         ; DISABLE ALL EXTERNAL INTERRUPTS.            
 
-                                    ; Set Operation Mode Control Reg (OMCR)
-            LD      A,OMCR_M1E      ; Enable M1 for single step, disable 64180 I/O _RD Mode
-            OUT0    (OMCR),A        ; X80 Mode (M1 Disabled, IOC Disabled)
-
-                                    ; Set internal clock = crystal x 2 = 36.864MHz
-                                    ; if using ZS8180 or Z80182 at High-Speed
-            LD      A,CMR        ; Set Hi-Speed flag
-            OUT0    (CMR),A         ; CPU Clock Multiplier Reg (CMR)
-
-                                    ; DMA/Wait Control Reg Set I/O Wait States
-            LD      A,DCNTL_IWI0
-            OUT0    (DCNTL),A       ; 0 Memory Wait & 2 I/O Wait
-
-                                    ; Set Logical RAM Addresses
-                                    ; $2000-$FFFF RAM   CA1 -> $2n
-                                    ; $0000-$1FFF Flash BANK -> $n0
-
-            LD      A,0C0h           ; Set New Common 1 / Bank Areas for RAM
-            OUT0    (CBAR),A
-
-            LD      A,$B0           ; Set Common 1 Base Physical $12000 -> $10
-            OUT0    (CBR),A
-
-            LD      A,$00           ; Set Bank Base Physical $00000 -> $00
-            OUT0    (BBR),A
-
-                                    ; load the default ASCI configuration
-                                    ; BAUD = 115200 8n1
-                                    ; receive enabled
-                                    ; transmit enabled
-                                    ; receive interrupt enabled
-                                    ; transmit interrupt disable
-                                    ;   Programmable Reload Timer (TCR)
+                                   ; SET OPERATION MODE CONTROL REG (OMCR)
+        LD      A,OMCR_M1E      ; ENABLE M1 FOR SINGLE STEP, DISABLE 64180 I/O _RD MODE
+        OUT0    (OMCR),A        ; X80 MODE (M1 DISABLED, IOC DISABLED)
 
 
-            LD      A,ASCI_RE|ASCI_TE|ASCI_8N1
-            OUT0    (CNTLA0),A      ; output to the ASCI0 control A reg
+                               ; Set PHI = CCR x 2 = 36.864MHz
+                            ; if using ZS8180 or Z80182 at High-Speed
+    ld      a,CMR_X2        ; Set Hi-Speed flag
+    out0    (CMR),a         ; CPU Clock Multiplier Reg (CMR)
 
-                                    ; PHI / PS / SS / DR = BAUD Rate
-                                    ; PHI = 18.432MHz
-                                    ; BAUD = 115200 = 18432000 / 10 / 1 / 16 
-                                    ; PS 0, SS_DIV_1 0, DR 0           
-            XOR     A               ; BAUD = 115200
-            OUT0    (CNTLB0),A      ; output to the ASCI0 control B reg
+                            ; Set CCR = crystal = 18.432MHz
+                            ; if using ZS8180 or Z80182 at High-Speed
+    ld      a,CCR_XTAL_X2   ; Set Hi-Speed flag
+    out0    (CCR),a         ; CPU Control Reg (CCR)
 
-            LD      A,ASCI_RIE      ; receive interrupt enabled
-            OUT0    (STAT0),A       ; output to the ASCI0 status reg
+                                   ; SET INTERNAL CLOCK = CRYSTAL X 2 = 36.864MHZ
+                                   ; IF USING ZS8180 OR Z80182 AT HIGH-SPEED
+          
+                                   ; DMA/WAIT CONTROL REG SET I/O WAIT STATES
+        LD      A,DCNTL_MWI0|DCNTL_IWI1
+        OUT0    (DCNTL),A       ; 1 MEMORY WAIT & 3 I/O WAIT
+                                   ; SET LOGICAL RAM ADDRESSES
+                                   ; $2000-$FFFF RAM   CA1 -> $2N
+                                   ; $0000-$1FFF FLASH BANK -> $N0
 
-                                    ; we do 256 ticks per second
-            ld      hl, CPU_CLOCK/CPU_TIMER_SCALE/256-1
-            out0    (RLDR0L), l
-            out0    (RLDR0H), h
-                                    ; enable down counting and interrupts for PRT0
-            ld      a, TCR_TIE0|TCR_TDE0
-            out0    (TCR), a
+        LD      A,$F0           ; SET NEW COMMON 1 / BANK AREAS FOR RAM
+        OUT0    (CBAR),A
 
-            LD      SP,TEMPSTACK    ; Set up a temporary stack
-            EI                      ; enable interrupts
+        LD      A,$00           ; SET COMMON 1 BASE PHYSICAL $0F000 -> $00
+        OUT0    (CBR),A
 
-TX0_BUFFER_OUT:
+        LD      A,$00           ; SET BANK BASE PHYSICAL $00000 -> $00
+        OUT0    (BBR),A
 
-        ld a, l                     ; retrieve Tx character
-        ld (hl), a                  ; write the Tx byte to the ASCI0TxInPtr   
+                                   ; LOAD THE DEFAULT ASCI CONFIGURATION
+                                   ; BAUD = 115200 8N1
+                                   ; RECEIVE ENABLED
+                                   ; TRANSMIT ENABLED
+                                   ; RECEIVE INTERRUPT ENABLED
+                                   ; TRANSMIT INTERRUPT DISABLE
+                                   ;   PROGRAMMABLE RELOAD TIMER (TCR)
 
-        inc l                       ; move the Tx pointer low byte along, 0xFF rollover
-        pop hl                      ; recover HL
+                                   ; WE DO 256 TICKS PER SECOND
+        LD      HL, CPU_CLOCK/CPU_TIMER_SCALE/256-1
+        OUT0    (RLDR0L), L
+        OUT0    (RLDR0H), H
+                                   ; ENABLE DOWN COUNTING AND INTERRUPTS FOR PRT0
+        LD      A, TCR_TIE0|TCR_TDE0
+        OUT0    (TCR), A
 
-        in0 a, (STAT0)              ; load the ASCI0 status register
-        and ASCI_TIE                ; test whether ASCI0 interrupt is set
-        ret nz                      ; if so then just return
+          
 
-        di                          ; critical section begin
-        in0 a, (STAT0)              ; get the ASCI status register again
-        or ASCI_TIE                 ; mask in (enable) the Tx Interrupt
-        out0 (STAT0), a             ; set the ASCI status register
-        ei                          ; critical section end
-        ret
+        EX (SP),HL
+        PUSH HL
+
+        LD A,I
+ 
+        DI
+ 
+        PUSH AF
+        POP HL                      ; HL = EI_DI STATUS
+ 
+        POP AF                      ; AF = RET
+        EX (SP),HL                  ; RESTORE HL, PUSH EI_DI_STATUS
+ 
+        PUSH AF
+
+        LD      A,CNTLA0_RE|CNTLA0_TE|CNTLA0_MODE_8N1
+        OUT0    (CNTLA0),A          ; OUTPUT TO THE ASCI0 CONTROL A REG
+
+                                   ; PHI / PS / SS / DR = BAUD RATE
+                                   ; PHI = 36.864MHZ
+                                   ; BAUD = 115200 = 36864000 / 10 / 2 / 16
+                                   ; PS 0, SS_DIV_2, DR 0
+        LD A,CNTLB0_SS_DIV_2
+        OUT0    (CNTLB0),A          ; OUTPUT TO THE ASCI0 CONTROL B REG
+
+        LD      A,STAT0_RIE         ; RECEIVE INTERRUPT ENABLED
+        OUT0    (STAT0),A           ; OUTPUT TO THE ASCI0 STATUS REG
+
+        POP AF                      ; AF = EI_DI_STATUS
+        DI
 
 
-;------------------------------------------------------------------------------
-TX0:
-        push hl                     ; store HL so we don't clobber it        
-        ld l, a                     ; store Tx character 
+START:                                    
+        LD A, 'A'               ; "#" PER LINE LOADED
+        PUSH HL                     ; STORE HL SO WE DON'T CLOBBER IT       
+        LD L, A                     ; STORE TX CHARACTER
+       LD A, L                     ; RETRIEVE TX CHARACTER
+       LD (HL), A                  ; WRITE THE TX BYTE TO THE ASCI0TXINPTR  
 
-        jr nz, TX0_BUFFER_OUT       ; buffer not empty, so abandon immediate Tx
+       INC L                       ; MOVE THE TX POINTER LOW BYTE ALONG, 0XFF ROLLOVER
+       POP HL                      ; RECOVER HL
 
-        in0 a, (STAT0)              ; get the ASCI0 status register
+       IN0 A, (STAT0)              ; LOAD THE ASCI0 STATUS REGISTER
+       
+       DI                          ; CRITICAL SECTION BEGIN
+       IN0 A, (STAT0)              ; GET THE ASCI STATUS REGISTER AGAIN
+       OR ASCI_TIE                 ; MASK IN (ENABLE) THE TX INTERRUPT
+       OUT0 (STAT0), A             ; SET THE ASCI STATUS REGISTER
+       EI                          ; CRITICAL SECTION END
+       IN0 A, (STAT0)              ; GET THE ASCI0 STATUS REGISTER
 
-        ld a, l                     ; Retrieve Tx character for immediate Tx
-        out0 (TDR0), a              ; output the Tx byte to the ASCI0
+       LD A, L                     ; RETRIEVE TX CHARACTER FOR IMMEDIATE TX
+       OUT0 (TDR0), A              ; OUTPUT THE TX BYTE TO THE ASCI0
 
-        pop hl                      ; recover HL
-        ret                         ; and just complete
+       POP HL                      ; RECOVER HL
 
-START:                                     
-            LD A, 'A'               ; "#" per line loaded
-            CALL    TX0       ; Output string
-            

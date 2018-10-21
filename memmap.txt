@@ -1,0 +1,112 @@
+DEFC    ROMSTART        =   $0000   ; Bottom of Common 0 FLASH
+DEFC    ROMSTOP         =   $1FFF   ; Top of Common 0 FLASH
+
+DEFC    RAMSTART_CA0    =   $2000   ; Bottom of Common 0 RAM
+DEFC    RAMSTOP_CA0     =   $3FFF   ; Top of Common 0 RAM
+
+DEFC    RAMSTART_BANK   =   $4000   ; Bottom of Banked RAM
+DEFC    RAMSTOP_BANK    =   $7FFF   ; Top of Banked RAM
+
+DEFC    RAMSTART_CA1    =   $8000   ; Bottom of Common 1 RAM
+DEFC    RAMSTOP_CA1     =   $FFFF   ; Top of Common 1 RAM
+
+
+ 48K
+MEM_ADDRESS:[00000..0BFFF] )      OUT FLASH_CS ; /* BANK_0 YABIOS and system libraries */
+
+512K
+MEM_ADDRESS:[0C000..8BFFF] )      OUT RAM_CS ;  /* BANK_1 through BANK_7 SRAM */
+
+464K
+MEM_ADDRESS:[8C000..FFFFF] )      OUT FLASH_CS ; /* BANK_9, BANK10,... BANK15 (Snapshot storage) - SST39SF040A 512kB */
+
+ROM_CS	
+00000H = 00000000000000000000
+0BFFFH = 00001011111111111111
+
+RAM_CS
+0C000H = 00001100000000000000
+8BFFFH = 10001011111111111111
+
+ROM_CS
+8C000H = 10001100000000000000
+FFFFFH = 11111111111111111111
+
+
+A19     A18     A17     A16     A15     A14 
+  1       0       0       0       0       1 00000000000000
+  1       0       0       0       0       1 11111111111111
+
+
+
+ROM_CS	 A19    A15     A14     A13     A12
+00000H =   0      0       0     XXXXXXXXXXXXXX
+0BFFFH =   0      1       0     XXXXXXXXXXXXXX
+
+
+
+RAM_CS
+0C000H =   0      1       1     XXXXXXXXXXXXXX
+
+80000H =   1      0       0
+82000H =   1      0       1
+
+8BFFFH =   1      1       0     XXXXXXXXXXXXXX
+  
+ROM_CS
+8C000H =   1      1       1     XXXXXXXXXXXXXX
+FFFFFH =   1      1       1     XXXXXXXXXXXXXX
+
+
+
+
+
+
+
+
+
+
+	            A19    A15     A14
+00000H-03FFFH     0      0       0     ROM_CS
+04000H-07FFFH     0      0       1     ROM_CS
+08000H-0BFFFH     0      1       0     ROM_CS 
+0C000H-0FFFFH     0      1       1     RAM_CS
+
+80000H-83FFFH     1      0       0     RAM_CS
+84000H-87FFFH     1      0       1     RAM_CS
+88000H-8BFFFH     1      1       0     RAM_CS
+8C000H-8FFFFH     1      1       1     ROM_CS
+
+                A19    A16
+10000H-7FFFFH =   0      1     RAM_CS
+
+90000H-FFFFFH =   1      1     ROM_CS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Logical Address Range 	Run Mode 	Programming Mode
+$0000 - $BFFF 	Flash (48kB, BANK_0) 	USB (48kB, CA0)
+$C000 - $EFFF 	SRAM (12kB, BANK_0) 	Flash (8kB, BANK)
+$F000 - $FFFF 	SRAM (4kB, CA1) 	SRAM (8kB, CA1)
+
