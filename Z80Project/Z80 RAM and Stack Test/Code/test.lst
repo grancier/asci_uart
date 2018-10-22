@@ -1,0 +1,63 @@
+                        ; --------------------------------------
+                        ; zasm: assemble "test.asm"
+                        ; date: 2018-10-22 12:46:29
+                        ; --------------------------------------
+
+
+                        ;***************************************************************************
+                        ;  PROGRAM:			RAM STACK TEST PROGRAM       
+                        ;  PURPOSE:			Key typed on PC will display. Demo CALL & RET. Init SP   
+                        ;  ASSEMBLER:		TASM 3.2        
+                        ;  LICENCE:			The MIT Licence
+                        ;  AUTHOR :			MCook
+                        ;  CREATE DATE :	04 Apr 15
+                        ;***************************************************************************
+                        
+                        ;ROM : 0000H - > 07FFH
+                        ;RAM : 8000H - > FFFFH 
+                        
+FFFF:                   RAMTOP:      .EQU    0FFFFH			; TOP ADDRESS OF RAM
+                        
+0000:                   .ORG 00H
+                        			
+0000:                   MAIN:
+0000: 31FFFF   [10]     			LD		SP,RAMTOP
+0003: 3E00     [17]     			LD 		A,00H	
+0005: CD0B00   [34]     			CALL	INIT_UART
+0008: C30000   [44]     			JP		MAIN
+                        			
+000B:                   INIT_UART:
+000B: 3E00     [ 7]                 ld	a,0
+000D: 0601     [14]     			ld	b,1
+000F: 0E02     [21]     			ld	c,2
+0011: 1603     [28]     			ld	d,#3
+0013: 1E04     [35]     			ld	e,4
+0015: 2605     [42]     			ld	h,5
+0017: 2E06     [49]     			ld	l,6
+0019: 213412   [59]     			ld	hl,1234h
+001C: 3607     [69]     			ld	(hl),7
+001E: DB21     [80]     			in	a,(33)
+0020: D321     [91]     			out	(33),a
+0022: C9       [101]    			RET
+                        			
+                        ;***************************************************************************
+                        ;GET_CHAR_UART
+                        ;Function: Get current character from UART place in Accumulator
+                        ;***************************************************************************
+
+
+; +++ segments +++
+
+#CODE          = $0000 =     0,  size = $0023 =    35
+
+; +++ global symbols +++
+
+INIT_UART = $000B =    11          test.asm:23
+MAIN      = $0000 =     0          test.asm:17
+RAMTOP    = $FFFF = 65535          test.asm:13
+_end      = $0023 =    35          test.asm:14 (unused)
+_size     = $0023 =    35          test.asm:14 (unused)
+
+
+total time: 0.0015 sec.
+no errors
