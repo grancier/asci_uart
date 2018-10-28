@@ -21,17 +21,19 @@ MAIN:
 			JP		MAIN
 			
 INIT_UART:
-            ld	a,0
-			ld	b,1
-			ld	c,2
-			ld	d,#3
-			ld	e,4
-			ld	h,5
-			ld	l,6
-			ld	hl,1234h
-			ld	(hl),7
-			in	a,(33)
-			out	(33),a
+			LD A,0AAH
+			PUSH HL
+			PUSH BC
+			LD E,A
+			LD (HL),A
+			DEC BC
+			LD A,B
+			OR C
+			LD A,E
+			LD D,H
+			LD D,L
+			INC DE
+			LDIR
 			RET
 			
 ;***************************************************************************

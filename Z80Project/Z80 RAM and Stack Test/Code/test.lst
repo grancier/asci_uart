@@ -1,6 +1,6 @@
                         ; --------------------------------------
                         ; zasm: assemble "test.asm"
-                        ; date: 2018-10-22 12:46:29
+                        ; date: 2018-10-22 20:07:56
                         ; --------------------------------------
 
 
@@ -27,18 +27,20 @@ FFFF:                   RAMTOP:      .EQU    0FFFFH			; TOP ADDRESS OF RAM
 0008: C30000   [44]     			JP		MAIN
                         			
 000B:                   INIT_UART:
-000B: 3E00     [ 7]                 ld	a,0
-000D: 0601     [14]     			ld	b,1
-000F: 0E02     [21]     			ld	c,2
-0011: 1603     [28]     			ld	d,#3
-0013: 1E04     [35]     			ld	e,4
-0015: 2605     [42]     			ld	h,5
-0017: 2E06     [49]     			ld	l,6
-0019: 213412   [59]     			ld	hl,1234h
-001C: 3607     [69]     			ld	(hl),7
-001E: DB21     [80]     			in	a,(33)
-0020: D321     [91]     			out	(33),a
-0022: C9       [101]    			RET
+000B: 3EAA     [ 7]     			LD A,0AAH
+000D: E5       [18]     			PUSH HL
+000E: C5       [29]     			PUSH BC
+000F: 5F       [33]     			LD E,A
+0010: 77       [40]     			LD (HL),A
+0011: 0B       [46]     			DEC BC
+0012: 78       [50]     			LD A,B
+0013: B1       [54]     			OR C
+0014: 7B       [58]     			LD A,E
+0015: 54       [62]     			LD D,H
+0016: 55       [66]     			LD D,L
+0017: 13       [72]     			INC DE
+0018: EDB0     [88|21]  			LDIR
+001A: C9       [98]     			RET
                         			
                         ;***************************************************************************
                         ;GET_CHAR_UART
@@ -48,16 +50,16 @@ FFFF:                   RAMTOP:      .EQU    0FFFFH			; TOP ADDRESS OF RAM
 
 ; +++ segments +++
 
-#CODE          = $0000 =     0,  size = $0023 =    35
+#CODE          = $0000 =     0,  size = $001B =    27
 
 ; +++ global symbols +++
 
 INIT_UART = $000B =    11          test.asm:23
 MAIN      = $0000 =     0          test.asm:17
 RAMTOP    = $FFFF = 65535          test.asm:13
-_end      = $0023 =    35          test.asm:14 (unused)
-_size     = $0023 =    35          test.asm:14 (unused)
+_end      = $001B =    27          test.asm:14 (unused)
+_size     = $001B =    27          test.asm:14 (unused)
 
 
-total time: 0.0015 sec.
+total time: 0.0010 sec.
 no errors

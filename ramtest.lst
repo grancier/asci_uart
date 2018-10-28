@@ -1,0 +1,131 @@
+                        ; --------------------------------------
+                        ; zasm: assemble "ramtest.asm"
+                        ; opts: --z180
+                        ; date: 2018-10-28 10:03:59
+                        ; --------------------------------------
+
+
+0000:                   .ORG 00000H
+                        
+0000:                   RAMTST:
+0000: 7A       [ 4]                 LD      A,D
+0001: B3       [ 8]                 OR      E
+0002: C8       [13|19]              RET     Z
+0003: 42       [17]                 LD      B,D
+0004: 4B       [21]                 LD      C,E
+                        
+0005: 97       [25]                 SUB     A
+0006: CD3000   [42]                 CALL    FILLCMP
+0009: D8       [47|53]              RET     C
+                        
+000A: 3EFF     [54]                 LD      A,0FFH
+000C: CD3000   [71]                 CALL    FILLCMP
+000F: D8       [76|82]              RET     C
+                        
+0010: 3EAA     [83]                 LD      A,0AAH
+0012: CD3000   [100]                CALL    FILLCMP
+0015: D8       [105|111]            RET     C
+                        
+0016: 3E55     [112]                LD      A,55H
+0018: CD3000   [129]                CALL    FILLCMP
+001B: D8       [134|140]            RET     C
+                        
+                        
+001C:                   WLKLP:
+                        
+001C: 3E80     [ 7]                 LD      A,10000000B
+001E:                   WLKLP1:     
+                        
+001E: 77       [ 7]                 LD      (HL),A
+001F: BE       [14]                 CP      (HL)
+0020: 37       [18]                 SCF
+0021: C0       [23|29]              RET     NZ
+0022: 0F       [27]                 RRCA
+0023: FE80     [34]                 CP      10000000B
+0025: 20F7     [41|46]              JR      NZ,WLKLP1
+0027: 3600     [51]                 LD      (HL),0
+0029: 23       [57]                 INC     HL
+002A: 0B       [63]                 DEC     BC
+002B: 78       [67]                 LD      A,B
+002C: B1       [71]                 OR      C
+002D: 20ED     [78|83]              JR      NZ,WLKLP
+002F: C9       [88]                 RET
+                        
+0030:                   FILLCMP:
+                        
+0030: E5       [11]                 PUSH    HL
+0031: C5       [22]                 PUSH    BC
+0032: 5F       [26]                 LD      E,A
+0033: 77       [33]                 LD      (HL),A
+0034: 0B       [39]                 DEC     BC
+0035: 78       [43]                 LD      A,B
+0036: B1       [47]                 OR      C
+0037: 7B       [51]                 LD      A,E
+0038: 1805     [63]                 JR      COMPARE
+                        
+                        
+003A: 54       [67]                 LD      D,H
+003B: 5D       [71]                 LD      E,L
+003C: 13       [77]                 INC     DE
+003D: EDB0     [93|21]              LDIR
+                        
+                        
+003F:                   COMPARE:
+                        
+003F: C1       [10]                 POP     BC
+0040: E1       [20]                 POP     HL
+0041: E5       [31]                 PUSH    HL
+0042: C5       [42]                 PUSH    BC
+                        
+0043:                   CMPLP:
+                        
+0043: EDA1     [16]                 CPI
+0045: 2007     [23|28]              JR      NZ,CMPER
+0047: EA4300   [33|33]              JP      PE,CMPLP
+                        
+                        
+004A: C1       [43]                 POP     BC
+004B: E1       [53]                 POP     HL
+004C: B7       [57]                 OR      A
+004D: C9       [67]                 RET
+                        
+004E:                   CMPER:
+                        
+004E: C1       [10]                 POP     BC
+004F: D1       [20]                 POP     DE
+0050: 37       [24]                 SCF
+0051: C9       [34]                 RET
+                        
+0052:                   MAIN:
+                        
+0052: 210080   [10]                 LD      HL,8000H
+0055: 11FF7F   [20]                 LD      DE,7FFFH
+0058: CD0000   [37]                 CALL    RAMTST
+                        
+005B: 18F5     [49]                 JR      MAIN
+                        
+005D:                   END
+
+
+; +++ segments +++
+
+#CODE          = $0000 =     0,  size = $005D =    93
+
+; +++ global symbols +++
+
+CMPER   = $004E =    78          ramtest.asm:85
+CMPLP   = $0043 =    67          ramtest.asm:73
+COMPARE = $003F =    63          ramtest.asm:66
+END     = $005D =    93          ramtest.asm:100 (unused)
+FILLCMP = $0030 =    48          ramtest.asm:47
+MAIN    = $0052 =    82          ramtest.asm:92
+RAMTST  = $0000 =     0          ramtest.asm:3
+WLKLP   = $001C =    28          ramtest.asm:27
+WLKLP1  = $001E =    30          ramtest.asm:30
+_end    = $005D =    93          :1 (unused)
+_size   = $005D =    93          :1 (unused)
+_z180_  = $0001 =     1          :1 (unused)
+
+
+total time: 0.0020 sec.
+no errors
