@@ -1,6 +1,6 @@
 
 
-    ORG 00000H
+    ORG FFFFH
 
    ; Z8S180 / Z8L180 CLASS
    
@@ -307,14 +307,6 @@ INITTAB:
     ld      a,$00           ; Set Bank Base Physical $00000 -> $00
     out0    (BBR),a
 
-    ld      hl, CPU_CLOCK/CPU_TIMER_SCALE/256-1 
-    out0    (RLDR0L), l
-    out0    (RLDR0H), h
-                                    ; enable down counting and interrupts for PRT0
-    ld      a, TCR_TIE0|TCR_TDE0
-    out0    (TCR), a
-
-
     ;Init Asci0
 
     LD      A,ASCI_RE|ASCI_TE|ASCI_8N1
@@ -329,20 +321,31 @@ INITTAB:
 
     LD      A,ASCI_RIE      ; receive interrupt enabled
     OUT0    (STAT0),A       ; output to the ASCI0 status reg
-    ret
 
+    ld      hl, CPU_CLOCK/CPU_TIMER_SCALE/256-1 
+    out0    (RLDR0L), l
+    out0    (RLDR0H), h
+                                    ; enable down counting and interrupts for PRT0
+    ld      a, TCR_TIE0|TCR_TDE0
+    out0    (TCR), a
+    EI
+
+PRINT_A:
+    LD      HL,'A'      ; Sign-on message
+    LD      A,(HL)              ; Get a byte
+    OUT0    (TDR0), A              ; output the Tx byte to the ASCI0
+    INC     HL
+    JR      PRINT_A
     
 MAIN:
     LD      HL,0C000H   ; Initialise 0Rx Buffer
     LD      SP,HL    ; Set up a temporary stack
-    
     call INITTAB
-    push hl                     ; store HL so we don't clobber it        
-    ld l, 'A'                     ; store Tx character
-    ld a, l                     ; Retrieve Tx character for immediate Tx
-    out0 (TDR0), a              ; output the Tx byte to the ASCI0
+    call PRINT_A
+         
+    
 
-    pop hl                      ; recover HL
+    
     
 
     
