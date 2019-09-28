@@ -1,7 +1,4 @@
-
-
-    ORG FFFFH
-
+ORG 00H
    ; Z8S180 / Z8L180 CLASS
    
    DEFC    CPU_CLOCK       =   6144000
@@ -266,8 +263,17 @@
    defc CCR_LNCPUCTL = 0x02
    defc CCR_LNAD = 0x01
 
+    DEFC RAMTOP = 0xFFFF
 
-INITTAB:    
+MAIN:
+			LD		SP,RAMTOP
+			LD 		A,00H	
+			CALL	INIT_UART
+			CALL	GET_CHAR_UART
+			CALL	SEND_CHAR_UART
+			JP		MAIN
+
+INIT_UART:    
     XOR     A               ; Zero Accumulato
                             ; Clear Refresh Control Reg (RCR)
     out0    (RCR),a         ; DRAM Refresh Enable (0 Disabled)
@@ -294,8 +300,8 @@ INITTAB:
     out0    (DCNTL),a       ; 1 Memory Wait & 3 I/O Wait
 
                             ; Set Logical RAM Addresses
-                            ; $F000-$FFFF RAM   CA1  -> $F.
-                            ; $C000-$EFFF RAM   BANK
+                            ; $C000-$FFFF RAM   CA1  -> $F.
+                            ; $C000-$DFFF RAM   BANK
                             ; $0000-$BFFF Flash BANK -> $.0
 
     ld      a,$C0           ; Set New Common 1 / Bank Areas for RAM
@@ -329,22 +335,39 @@ INITTAB:
     ld      a, TCR_TIE0|TCR_TDE0
     out0    (TCR), a
     EI
+    RET
 
-PRINT_A:
-    LD      HL,'A'      ; Sign-on message
-    LD      A,(HL)              ; Get a byte
-    OUT0    (TDR0), A              ; output the Tx byte to the ASCI0
-    INC     HL
-    JR      PRINT_A
-    
-MAIN:
-    LD      HL,0FFFFH   ; Initialise 0Rx Buffer
-    LD      SP,HL    ; Set up a temporary stack
-    call INITTAB
-    call PRINT_A
-         
-    
+;***************************************************************************
+;GET_CHAR_UART
+;Function: Get current character from UART place in Accumulator
+;***************************************************************************
 
+GET_CHAR_UART:   
+			IN0     A,(STAT0)               ; get the ASCI0 status register
+
+			TST STAT0_RDRF              ; test whether we have received on ASCI0
+	
+    		JP      Z,GET_CHAR_UART
+			
+			IN0     A,(RDR0)                ; move Rx byte from the ASCI0 RDR to a
+			LD      B,A				; Store character into B Register
+			RET      
+    
+;***************************************************************************
+;SEND_CHAR_UART
+;Function: Send current character in Accumulator to UART
+;***************************************************************************
+
+SEND_CHAR_UART:   
+			IN0     A,(STAT0)               ; get the ASCI0 status register
+
+			AND STAT0_TDRE              ; test whether we can transmit on ASCI0
+
+			JP      Z,SEND_CHAR_UART
+			
+			LD		A,B				; Get character from B Register obtained earlier
+			OUT0    (TDR0), A              ; output the Tx byte to the ASCI0
+			RET
     
     
 
