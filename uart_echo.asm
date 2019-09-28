@@ -123,6 +123,62 @@ asm_asci0_flush_Tx:
     ld (asci0TxOut),hl
     ret
 
+TX0_BUFFER_OUT:
+        ld a, (ASCI0TxBufUsed)      ; Get the number of bytes in the Tx buffer
+        cp ASCI0_TX_BUFSIZE-1       ; check whether there is space in the buffer
+        jr nc, TX0_BUFFER_OUT       ; buffer full, so wait for free buffer for Tx
+
+        ld a, l                     ; retrieve Tx character
+
+        ld hl, ASCI0TxBufUsed
+        di
+        inc (hl)                    ; atomic increment of Tx count
+        ld hl, (ASCI0TxInPtr)       ; get the pointer to where we poke
+        ei
+        ld (hl), a                  ; write the Tx byte to the ASCI0TxInPtr   
+
+        inc l                       ; move the Tx pointer low byte along, 0xFF rollover
+        ld (ASCI0TxInPtr), hl       ; write where the next byte should be poked
+
+        pop hl                      ; recover HL
+
+        in0 a, (STAT0)              ; load the ASCI0 status register
+        and ASCI_TIE                ; test whether ASCI0 interrupt is set
+        ret nz                      ; if so then just return
+
+        di                          ; critical section begin
+        in0 a, (STAT0)              ; get the ASCI status register again
+        or ASCI_TIE                 ; mask in (enable) the Tx Interrupt
+        out0 (STAT0), a             ; set the ASCI status register
+        ei                          ; critical section end
+        ret
+
+TX0:
+        push hl                     ; store HL so we don't clobber it        
+        ld l, a                     ; store Tx character 
+
+        ld a, (ASCI0TxBufUsed)      ; get the number of bytes in the Tx buffer
+        or a                        ; check whether the buffer is empty
+        jr nz, TX0_BUFFER_OUT       ; buffer not empty, so abandon immediate Tx
+
+        in0 a, (STAT0)              ; get the ASCI0 status register
+        and ASCI_TDRE                ; test whether we can transmit on ASCI0
+        jr z, TX0_BUFFER_OUT        ; if not, so abandon immediate Tx
+
+        ld a, l                     ; Retrieve Tx character for immediate Tx
+        out0 (TDR0), a              ; output the Tx byte to the ASCI0
+
+        pop hl                      ; recover HL
+        ret                         ; and just complete
+
+TX0_PRINT:
+        LD      A,(HL)              ; Get a byte
+        OR      A                   ; Is it $00 ?
+        RET     Z                   ; Then RETurn on terminator
+        CALL    TX0                 ; Print it
+        INC     HL                  ; Next byte
+        JR      TX0_PRINT           ; Continue until $00 
+
 INIT:   LD      HL,WRKSPC       ; Start of workspace RAM
         LD      SP,HL           ; Set up a temporary stack
         LD      A,0             ; Clear break flag
@@ -131,6 +187,8 @@ INIT:   LD      HL,WRKSPC       ; Start of workspace RAM
 
 MAIN:
         JP      INIT          ; Go to initialise
+        LD      HL,'A'      ; Sign-on message
+        CALL    TX0_PRINT       ; Output string
 
         JR      MAIN
 

@@ -3,65 +3,70 @@
     ORG 00000H
 
    ; Z8S180 / Z8L180 CLASS
-   
-   DEFC    CPU_CLOCK       =   6144000
-   DEFC    CPU_TIMER_SCALE =       20                  ; PRT Scale Factor (Fixed)
+
    defc CNTLA0 = 0x0
+       ^ ***ERROR*** unknown instruction
    defc CNTLA1 = 0x1
+       ^ ***ERROR*** unknown instruction
    defc CNTLB0 = 0x2
+       ^ ***ERROR*** unknown instruction
    defc CNTLB1 = 0x3
+       ^ ***ERROR*** unknown instruction
    defc STAT0 = 0x4
+       ^ ***ERROR*** unknown instruction
    defc STAT1 = 0x5
+       ^ ***ERROR*** unknown instruction
    defc TDR0 = 0x6
+       ^ ***ERROR*** unknown instruction
    defc TDR1 = 0x7
+       ^ ***ERROR*** unknown instruction
    defc RDR0 = 0x8
+       ^ ***ERROR*** unknown instruction
    defc RDR1 = 0x9
+       ^ ***ERROR*** unknown instruction
    defc ASEXT0 = 0x12
+       ^ ***ERROR*** unknown instruction
    defc ASEXT1 = 0x13
+       ^ ***ERROR*** unknown instruction
    defc ASTC0L = 0x1a
+       ^ ***ERROR*** unknown instruction
    defc ASTC0H = 0x1b
+       ^ ***ERROR*** unknown instruction
    defc ASTC1L = 0x1c
+       ^ ***ERROR*** unknown instruction
    defc ASTC1H = 0x1d
-
-   DEFC    ASCI_RE         =       $40     ; Receive Enable
-   DEFC    ASCI_TE         =       $20     ; Transmit Enable
-   DEFC    ASCI_8P2        =       $07     ; 8 Bits    Parity 2 Stop Bits
-   DEFC    ASCI_8P1        =       $06     ; 8 Bits    Parity 1 Stop Bit
-   DEFC    ASCI_8N2        =       $05     ; 8 Bits No Parity 2 Stop Bits
-   DEFC    ASCI_8N1        =       $04     ; 8 Bits No Parity 1 Stop Bit
-   DEFC    ASCI_7P2        =       $03     ; 7 Bits    Parity 2 Stop Bits
-   DEFC    ASCI_7P1        =       $02     ; 7 Bits    Parity 1 Stop Bit
-   DEFC    ASCI_7N2        =       $01     ; 7 Bits No Parity 2 Stop Bits
-   DEFC    ASCI_7N1        =       $00     ; 7 Bits No Parity 1 Stop Bit
-   
-   ;   ASCI Status Reg (STATn)
-   DEFC    ASCI_RDRF       =       $80     ; Receive Data Register Full
-   DEFC    ASCI_OVRN       =       $40     ; Overrun (Received Byte)
-   DEFC    ASCI_PE         =       $20     ; Parity Error (Received Byte)
-   DEFC    ASCI_FE         =       $10     ; Framing Error (Received Byte)
-   DEFC    ASCI_RIE        =       $08     ; Receive Interrupt Enabled
-   DEFC    ASCI_DCD0       =       $04     ; _DCD0 Data Carrier Detect USART0
-   DEFC    ASCI_CTS1       =       $04     ; _CTS1 Clear To Send USART1
-   DEFC    ASCI_TDRE       =       $02     ; Transmit Data Register Empty
-   DEFC    ASCI_TIE        =       $01     ; Transmit Interrupt Enabled
-
+       ^ ***ERROR*** unknown instruction
 
    defc CNTR = 0xa
+       ^ ***ERROR*** unknown instruction
    defc TRDR = 0xb
+       ^ ***ERROR*** unknown instruction
 
    defc TMDR0L = 0xc
+       ^ ***ERROR*** unknown instruction
    defc TMDR0H = 0xd
+       ^ ***ERROR*** unknown instruction
    defc RLDR0L = 0xe
+       ^ ***ERROR*** unknown instruction
    defc RLDR0H = 0xf
+       ^ ***ERROR*** unknown instruction
    defc TCR = 0x10
+       ^ ***ERROR*** unknown instruction
    defc TMDR1L = 0x14
+       ^ ***ERROR*** unknown instruction
    defc TMDR1H = 0x15
+       ^ ***ERROR*** unknown instruction
    defc RLDR1L = 0x16
+       ^ ***ERROR*** unknown instruction
    defc RLDR1H = 0x17
+       ^ ***ERROR*** unknown instruction
 
    defc FRC = 0x18
+       ^ ***ERROR*** unknown instruction
    defc CMR = 0x1e
+       ^ ***ERROR*** unknown instruction
    defc CCR = 0x1f
+       ^ ***ERROR*** unknown instruction
 
    defc SAR0L = 0x20
    defc SAR0H = 0x21
@@ -267,82 +272,5 @@
    defc CCR_LNAD = 0x01
 
 
-INITTAB:    
-    XOR     A               ; Zero Accumulato
-                            ; Clear Refresh Control Reg (RCR)
-    out0    (RCR),a         ; DRAM Refresh Enable (0 Disabled)
-
-                            ; Clear INT/TRAP Control Register (ITC)             
-    out0    (ITC),a         ; Disable all external interrupts.             
-
-                            ; Set Operation Mode Control Reg (OMCR)
-    ld      a,OMCR_M1E      ; Enable M1 for single step, disable 64180 I/O _RD Mode
-    out0    (OMCR),a        ; X80 Mode (M1 Disabled, IOC Disabled)
-
-                            ; Set PHI = CCR x 2 = 36.864MHz
-                            ; if using ZS8180 or Z80182 at High-Speed
-    ld      a,CMR_X2        ; Set Hi-Speed flag
-    out0    (CMR),a         ; CPU Clock Multiplier Reg (CMR)
-
-                            ; Set CCR = crystal = 18.432MHz
-                            ; if using ZS8180 or Z80182 at High-Speed
-    ld      a,CCR_XTAL_X2   ; Set Hi-Speed flag
-    out0    (CCR),a         ; CPU Control Reg (CCR)
-
-                            ; DMA/Wait Control Reg Set I/O Wait States
-    ld      a,DCNTL_MWI0|DCNTL_IWI1
-    out0    (DCNTL),a       ; 1 Memory Wait & 3 I/O Wait
-
-                            ; Set Logical RAM Addresses
-                            ; $F000-$FFFF RAM   CA1  -> $F.
-                            ; $C000-$EFFF RAM   BANK
-                            ; $0000-$BFFF Flash BANK -> $.0
-
-    ld      a,$C0           ; Set New Common 1 / Bank Areas for RAM
-    out0    (CBAR),a
-
-    ld      a,$00           ; Set Common 1 Base Physical $0F000 -> $00
-    out0    (CBR),a
-
-    ld      a,$00           ; Set Bank Base Physical $00000 -> $00
-    out0    (BBR),a
-
-    ld      hl, CPU_CLOCK/CPU_TIMER_SCALE/256-1 
-    out0    (RLDR0L), l
-    out0    (RLDR0H), h
-                                    ; enable down counting and interrupts for PRT0
-    ld      a, TCR_TIE0|TCR_TDE0
-    out0    (TCR), a
-
-
-    ;Init Asci0
-
-    LD      A,ASCI_RE|ASCI_TE|ASCI_8N1
-    OUT0    (CNTLA0),A      ; output to the ASCI0 control A reg
-
-                                    ; PHI / PS / SS / DR = BAUD Rate
-                                    ; PHI = 18.432MHz
-                                    ; BAUD = 115200 = 18432000 / 10 / 1 / 16 
-                                    ; PS 0, SS_DIV_1 0, DR 0           
-    ld      a,CNTLB0_SS_DIV_2
-    OUT0    (CNTLB0),A      ; output to the ASCI0 control B reg
-
-    LD      A,ASCI_RIE      ; receive interrupt enabled
-    OUT0    (STAT0),A       ; output to the ASCI0 status reg
-    ret
-
-    
-MAIN:
-    LD      HL,0FFFFH   ; Initialise 0Rx Buffer
-    LD      SP,HL    ; Set up a temporary stack
-    
-    call INITTAB
-    push hl                     ; store HL so we don't clobber it        
-    ld l, 'A'                     ; store Tx character
-    ld a, l                     ; Retrieve Tx character for immediate Tx
-    out0 (TDR0), a              ; output the Tx byte to the ASCI0
-
-    pop hl                      ; recover HL
-    
-
-    
+total time: 0.0031 sec.
+30 errors
